@@ -1,6 +1,8 @@
 module.exports = {
 	clientDir: `client`,
 	serverDir: `server`,
-	cssFileName: `index.css`,
-	jsFileName: `index.js`,
+	serverEntry: `server.js`,
+	severBasePath: `api`,
+	clientBasePath: `#`,
+	assetsBasePath: `assets`,
 };

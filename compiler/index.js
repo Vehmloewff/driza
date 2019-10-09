@@ -13,7 +13,6 @@ const transformSvelteMarkup = require('./services/transform-markup');
 
 const buildApp = async (dir, file, options) => {
 	options = Object.assign(defaultCompilerOptions, options);
-	const onServer = options.platform === `server`;
 	const production = process.env.NODE_ENV === `production`;
 
 	// Get the config
@@ -33,30 +32,35 @@ const buildApp = async (dir, file, options) => {
 	const serverRoutes = await getServerRoutes(nodePath.join(dir, config.serverDir));
 	const clientRoutes = await getClientRoutes(nodePath.join(dir, config.clientDir));
 
+	const { cssPath, jsPath } = await require(`./utils/${options.platform}`)({
+		serverRoutes: serverRoutes,
+		clientRoutes: clientRoutes,
+		config,
+		dir,
+		file,
+		options,
+	});
+
 	// Configure Rollup plugins
 	let plugins = [
-		configureStartup({ platform: options.platform, serverRoutes, clientRoutes }),
-		nodeResolve({ browser: !onServer }),
+		configureStartup({ platform: options.platform, clientRoutes }),
+		nodeResolve({ browser: true }),
 		commonjs(),
+		svelte({
+			dev: !production,
+			css: (css) => {
+				css.write(nodePath.join(dir, options.path, options.platform, cssPath));
+			},
+			preprocess: {
+				markup: (params) => {
+					return transformSvelteMarkup(params);
+				},
+				script: (params) => {
+					return transformSvelteScript(params);
+				},
+			},
+		}),
 	];
-
-	if (!onServer)
-		plugins.push(
-			svelte({
-				dev: !production,
-				css: (css) => {
-					css.write(nodePath.join(dir, options.path, options.platform, config.cssFileName));
-				},
-				preprocess: {
-					markup: (params) => {
-						return transformSvelteMarkup(params);
-					},
-					script: (params) => {
-						return transformSvelteScript(params);
-					},
-				},
-			})
-		);
 
 	// Run Rollup
 	const bundle = await rollup({
@@ -64,9 +68,9 @@ const buildApp = async (dir, file, options) => {
 		plugins,
 	});
 	await bundle.write({
-		format: onServer ? 'commonjs' : 'iife',
+		format: 'iife',
 		name: `App`,
-		file: nodePath.join(dir, options.path, options.platform, config.jsFileName),
+		file: nodePath.join(dir, options.path, options.platform, jsPath),
 	});
 };
 

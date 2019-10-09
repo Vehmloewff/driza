@@ -29,6 +29,7 @@
 		"url": "https://github.com/Vehmloewff/todo"
 	},
 	"dependencies": {
+		"@hapi/hapi": "^18.4.0",
 		"abstract-state-router": "^6.1.0",
 		"debug": "^4.1.1",
 		"deep-for-each": "^3.0.0",

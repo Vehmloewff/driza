@@ -18,11 +18,10 @@ const compiler = require('../compiler');
 	program
 		.option(`-w, --watch`, "Watch file and it's dependencies for changes")
 		.option(`-b, --browser`, 'Run the browser code')
-		.option(`-s, --server`, 'Run the server code')
 		.option(`-d, --desktop`, 'Run the desktop application code')
 		// .option(`-m, --mobile`, 'Run the mobile app code')
 		.option(`-a, --all`, 'Run the code on all platforms')
-		.option(`-O, --no-open`, "Only compiles the code.  Usally used with the `--path='dist' option")
+		.option(`-O, --no-open`, "Only compiles the code.  Usally used with the `--path 'dist' option")
 		.option(`-p, --path <path>`, 'The path to build the apps to - default: `node_modules/bounce/dist`');
 
 	program.on('--help', () => {
