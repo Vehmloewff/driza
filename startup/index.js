@@ -14,6 +14,6 @@ export const createServer = async ({ baseUrl = '/', port = `3000`, host = `locah
 	/*{SERVER_CODE}*/
 };
 
-export const onServer = (function () {
+export const onServer = (function() {
 	return /*{ON_SERVER_BOOL}*/;
-}());
+})();

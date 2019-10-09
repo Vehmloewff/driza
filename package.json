@@ -16,9 +16,9 @@
 	"author": "",
 	"license": "MIT",
 	"devDependencies": {
-		"eslint": "^6.4.0",
+		"eslint": "^6.5.1",
+		"eslint-config-prettier": "^6.4.0",
 		"jest": "^24.9.0",
-		"eslint-config-prettier": "^6.3.0",
 		"prettier": "^1.18.2"
 	},
 	"bin": {
@@ -31,7 +31,7 @@
 	"dependencies": {
 		"debug": "^4.1.1",
 		"deep-for-each": "^3.0.0",
-		"read-file-tree": "^1.1.1",
+		"read-file-tree": "^1.1.2",
 		"rollup": "^1.23.1",
 		"rollup-plugin-commonjs": "^10.1.0",
 		"rollup-plugin-node-resolve": "^5.2.0",

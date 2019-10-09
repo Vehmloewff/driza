@@ -1,12 +1,21 @@
+const addServerCode = require('./lib/add-server-code');
+const addClientCode = require('./lib/add-client-code');
+const read = require('../services/read');
+
 module.exports = ({ platform, routes }) => {
 	return {
-		name: 'versatile-dynamic', // this name will show up in warnings and errors
-		load(id) {
-			console.log(platform, routes);
-			if (id === 'virtual-module') {
-				return 'export default "This is virtual!"'; // the source code for "virtual-module"
+		name: 'versatile-dynamic',
+		async load(id) {
+			if (/versatile\/startup\/index\.js$/.test(id)) {
+				let code = await read(id);
+				code = code
+					.replace(`/*{CLIENT_CODE}*/`, addClientCode({ routes }))
+					.replace(`/*{SERVER_CODE}*/`, addServerCode({ routes }))
+					.replace(`/*{ON_SERVER_BOOL}*/`, platform === `server`);
+
+				return code;
 			}
-			return null; // other ids should be handled as usually
+			return null;
 		},
 	};
 };
