@@ -46,7 +46,7 @@ const buildApp = async (dir, file, options) => {
 			svelte({
 				dev: !production,
 				css: (css) => {
-					css.write(nodePath.join(dir, options.path, config.cssFileName));
+					css.write(nodePath.join(dir, options.path, options.platform, config.cssFileName));
 				},
 				preprocess: {
 					markup: (params) => {
@@ -67,7 +67,7 @@ const buildApp = async (dir, file, options) => {
 	await bundle.write({
 		format: onServer ? 'commonjs' : 'iife',
 		name: `App`,
-		file: nodePath.join(dir, options.path, config.jsFileName),
+		file: nodePath.join(dir, options.path, options.platform, config.jsFileName),
 	});
 };
 
