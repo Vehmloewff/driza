@@ -4,15 +4,15 @@ const read = require('../services/read');
 const { format } = require('prettier');
 const prettierOptions = require('./lib/prettier-options');
 
-module.exports = ({ platform, routes }) => {
+module.exports = ({ platform, serverRoutes, clientRoutes }) => {
 	return {
 		name: 'versatile-dynamic',
 		async load(id) {
 			if (/versatile\/startup\/index\.js$/.test(id)) {
 				let code = await read(id);
 
-				const client = addClientCode({ routes });
-				const server = addServerCode({ routes });
+				const client = addClientCode({ routes: clientRoutes });
+				const server = addServerCode({ routes: serverRoutes });
 
 				code = code
 					.replace(`/*{CLIENT_CODE}*/`, client.code)

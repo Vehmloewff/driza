@@ -30,13 +30,12 @@ const buildApp = async (dir, file, options) => {
 	}
 
 	// Get the routes
-	let routes;
-	if (onServer) routes = await getServerRoutes(nodePath.join(dir, config.serverDir));
-	else routes = await getClientRoutes(nodePath.join(dir, config.clientDir));
+	const serverRoutes = await getServerRoutes(nodePath.join(dir, config.serverDir));
+	const clientRoutes = await getClientRoutes(nodePath.join(dir, config.clientDir));
 
 	// Configure Rollup plugins
 	let plugins = [
-		configureStartup({ platform: options.platform, routes }),
+		configureStartup({ platform: options.platform, serverRoutes, clientRoutes }),
 		nodeResolve({ browser: !onServer }),
 		commonjs(),
 	];
