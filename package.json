@@ -29,13 +29,17 @@
 		"url": "https://github.com/Vehmloewff/todo"
 	},
 	"dependencies": {
+		"abstract-state-router": "^6.1.0",
 		"debug": "^4.1.1",
 		"deep-for-each": "^3.0.0",
+		"hash-brown-router": "^3.4.1",
 		"read-file-tree": "^1.1.2",
 		"rollup": "^1.23.1",
 		"rollup-plugin-commonjs": "^10.1.0",
 		"rollup-plugin-node-resolve": "^5.2.0",
 		"rollup-plugin-svelte": "^5.1.0",
-		"svelte": "^3.12.1"
+		"sausage-router": "^1.1.2",
+		"svelte": "^3.12.1",
+		"svelte-state-renderer": "^3.0.1"
 	}
 }

@@ -41,7 +41,7 @@ function returnFiles(obj, dir) {
 	/*
 	{
 		name: 'parent.child',
-		moaule: '/home/code/app/client/parent/child.svelte'
+		module: '/home/code/app/client/parent/child.svelte'
 	}
 	*/
 

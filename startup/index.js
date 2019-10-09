@@ -1,3 +1,5 @@
+/*{IMPORTS_HERE}*/
+
 /**
  * Generate the client side routes
  * @param {String} baseUrl The base url of the application
