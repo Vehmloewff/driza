@@ -7,8 +7,8 @@ const commonjs = require('rollup-plugin-commonjs');
 module.exports = async ({ serverRoutes: routes, dir, config, options }) => {
 	const bundle = await rollup({
 		input: nodePath.join(dir, config.serverEntry),
-		plugins: [configureServer({ routes }), nodeResolve(), commonjs()],
-		external: ['http'],
+		plugins: [configureServer({ routes, config }), nodeResolve(), commonjs()],
+		external: ['express'],
 	});
 	await bundle.write({
 		format: `commonjs`,

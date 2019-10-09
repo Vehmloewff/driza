@@ -29,10 +29,10 @@
 		"url": "https://github.com/Vehmloewff/todo"
 	},
 	"dependencies": {
-		"@hapi/hapi": "^18.4.0",
 		"abstract-state-router": "^6.1.0",
 		"debug": "^4.1.1",
 		"deep-for-each": "^3.0.0",
+		"express": "^4.17.1",
 		"hash-brown-router": "^3.4.1",
 		"read-file-tree": "^1.1.2",
 		"rollup": "^1.23.1",
