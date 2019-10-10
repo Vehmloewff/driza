@@ -36,9 +36,9 @@ module.exports = async ({ serverRoutes: routes, dir, config, options, outputPath
 	const appElement = `<div id="app-root"></div>`;
 	const script = `<script src="app.js"></script>`;
 	template = template
-		.replace(`%versatile_styles%`, `%versatile_styles%\n${styles}`)
-		.replace(`%versatile_app%`, `%versatile_app%\n${appElement}`)
-		.replace(`%versatile_scripts%`, `%versatile_scripts%\n${script}`);
+		.replace(`%versatile_styles%`, `${styles}`)
+		.replace(`%versatile_app%`, `${appElement}`)
+		.replace(`%versatile_scripts%`, `${script}`);
 
 	await write(nodePath.join(outputPath, `browser/serve/index.html`), format(template, prettierOptions('html')));
 
