@@ -1,12 +1,12 @@
 const baseFromRoute = require('../../services/base-from-route');
 const nodePath = require('path');
 
-module.exports = ({ routes, config }) => {
+module.exports = ({ routes, config, serve }) => {
 	let handlers = ``;
 	let code = ``;
 	let imports = ``;
 
-	imports += `import express from 'express';`;
+	imports += `import express from 'express';\n`;
 
 	// Handle the routes
 	routes.forEach((route) => {
@@ -42,6 +42,22 @@ module.exports = ({ routes, config }) => {
 		}`;
 	});
 
+	// Serve the static content
+	let staticFiles = ``;
+	serve.forEach((file) => {
+		const sendCode = `res.sendFile('${file.location}')`;
+		const dir = nodePath.dirname(file.name);
+
+		if (nodePath.basename(file.name) === `index.html`) {
+			staticFiles += `app.get('${dir === '.' ? '' : `/${dir}`}/', (req, res) => {
+				${sendCode}
+			});\n`;
+		}
+		staticFiles += `app.get('/${file.name}', (req, res) => {
+			${sendCode}
+		});\n`;
+	});
+
 	code += `
 	return new Promise((resolve, reject) => {
 		const app = express();
@@ -52,6 +68,7 @@ module.exports = ({ routes, config }) => {
 		})
 
 		${handlers}
+		${staticFiles}
 
 		app.use((req, res) => {
 			try {
@@ -61,7 +78,7 @@ module.exports = ({ routes, config }) => {
 			}
 		})
 
-		app.listen(port, (args) => {
+		app.listen(port, () => {
 			resolve();
 		})
 	});`;

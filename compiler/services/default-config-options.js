@@ -5,4 +5,5 @@ module.exports = {
 	serverBasePath: `api`,
 	clientBasePath: `#`,
 	assetsBasePath: `assets`,
+	template: `default`,
 };
