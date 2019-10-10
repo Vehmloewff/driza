@@ -39,6 +39,7 @@ const buildApp = async (dir, file, options) => {
 		dir,
 		file,
 		options,
+		outputPath: nodePath.join(dir, options.path),
 	});
 
 	// Configure Rollup plugins
