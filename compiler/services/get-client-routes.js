@@ -1,6 +1,7 @@
 const readFileTree = require('./read-file-tree');
 const deepForEach = require('deep-for-each');
 const nodePath = require('path');
+const routesShouldBeUnique = require('./routes-should-be-unique');
 
 module.exports = async (dir) => {
 	const filesObj = await readFileTree(dir);
@@ -35,7 +36,7 @@ function returnFiles(obj, dir) {
 		}
 	});
 
-	return toReturn;
+	return routesShouldBeUnique(toReturn);
 
 	// Should return an array full of objects like this:
 	/*
