@@ -16,7 +16,7 @@ module.exports = ({ clientRoutes }) => {
 					.replace(`/*{CREATE_APP_CODE}*/`, appData.code)
 					.replace(`/*{IMPORTS_HERE}*/`, `${appData.imports}`);
 
-				code = format(code, prettierOptions);
+				code = format(code, prettierOptions('babel'));
 				return code;
 			}
 			return null;
