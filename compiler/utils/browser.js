@@ -10,11 +10,17 @@ const prettierOptions = require('../plugins/lib/prettier-options');
 
 module.exports = async ({ serverRoutes: routes, dir, config, options, outputPath }) => {
 	let serve = [];
+
+	const jsRoute = nodePath.join(config.clientBasePath, `app.js`);
+	const cssRoute = nodePath.join(config.clientBasePath, `app.css`);
+	const cssMapRoute = nodePath.join(config.clientBasePath, `app.css.map`);
+	const htmlRoute = nodePath.join(config.clientBasePath, `index.html`);
+
 	serve.push(
-		{ name: `app.js`, location: nodePath.join(outputPath, `browser/serve/app.js`) },
-		{ name: `app.css`, location: nodePath.join(outputPath, `browser/serve/app.css`) },
-		{ name: `app.css.map`, location: nodePath.join(outputPath, `browser/serve/app.css.map`) },
-		{ name: `index.html`, location: nodePath.join(outputPath, `browser/serve/index.html`) }
+		{ name: jsRoute, location: nodePath.join(outputPath, `browser/serve/app.js`) },
+		{ name: cssRoute, location: nodePath.join(outputPath, `browser/serve/app.css`) },
+		{ name: cssMapRoute, location: nodePath.join(outputPath, `browser/serve/app.css.map`) },
+		{ name: htmlRoute, location: nodePath.join(outputPath, `browser/serve/index.html`) }
 	);
 
 	const bundle = await rollup({
@@ -32,9 +38,14 @@ module.exports = async ({ serverRoutes: routes, dir, config, options, outputPath
 	if (config.template === 'default') template = require('../templates/template.html');
 	else template = await read(nodePath.join(dir, config.template));
 
-	const styles = `<link rel="stylesheet" href="app.css">`;
+	const requireSlash = (route) => {
+		if (route.charAt(0) === '/') return route;
+		else return '/' + route;
+	};
+
+	const styles = `<link rel="stylesheet" href="${requireSlash(cssRoute)}">`;
 	const appElement = `<div id="app-root"></div>`;
-	const script = `<script src="app.js"></script>`;
+	const script = `<script src="${requireSlash(jsRoute)}"></script>`;
 	template = template
 		.replace(`%versatile_styles%`, `${styles}`)
 		.replace(`%versatile_app%`, `${appElement}`)

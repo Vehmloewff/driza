@@ -1,4 +1,5 @@
 const baseFromRoute = require('../../services/base-from-route');
+const routeFromName = require('../../services/route-from-name');
 
 module.exports = ({ routes }) => {
 	let imports = ``;
@@ -11,6 +12,7 @@ module.exports = ({ routes }) => {
 
 		addStateCalls += `addStateOptions = ASR_${base};\n`;
 		addStateCalls += `addStateOptions.name = '${route.name}';\n`;
+		addStateCalls += `addStateOptions.route = ASR_${base}.route || '${routeFromName(route.name)}';\n`;
 		addStateCalls += `addStateOptions.template = Component_${base};\n`;
 		addStateCalls += `stateRouter.addState(addStateOptions);\n\n`;
 	});
@@ -21,10 +23,7 @@ module.exports = ({ routes }) => {
 	imports += `import makeRouter from 'hash-brown-router';\n`;
 
 	code += `const svelteRenderer = createSvelteRenderer({});\n`;
-	code += `const pathPrefix = baseUrl + useHash ? '/#/' : '';\n`;
-	code += `const routerOptions = { pathPrefix };\n`;
-	code += `if (useHash) routerOptions.router = makeRouter(sausage());\n`;
-	code += `const stateRouter = createStateRouter(svelteRenderer, document.querySelector('#app-root'), routerOptions);\n`;
+	code += `const stateRouter = createStateRouter(svelteRenderer, document.querySelector('#app-root'));\n`;
 
 	code += `\nlet addStateOptions;\n\n`;
 

@@ -3,7 +3,7 @@ module.exports = {
 	serverDir: `server`,
 	serverEntry: `server.js`,
 	serverBasePath: `api`,
-	clientBasePath: `#`,
+	clientBasePath: `/`,
 	assetsBasePath: `assets`,
 	template: `default`,
 };

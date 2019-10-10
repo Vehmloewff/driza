@@ -48,12 +48,17 @@ module.exports = ({ routes, config, serve }) => {
 		const sendCode = `res.sendFile('${file.location}')`;
 		const dir = nodePath.dirname(file.name);
 
+		const requireSlash = (route) => {
+			if (route.charAt(0) === '/') return route;
+			else return '/' + route;
+		};
+
 		if (nodePath.basename(file.name) === `index.html`) {
-			staticFiles += `app.get('${dir === '.' ? '' : `/${dir}`}/', (req, res) => {
+			staticFiles += `app.get('${dir === '.' ? '' : `${requireSlash(dir)}`}/', (req, res) => {
 				${sendCode}
 			});\n`;
 		}
-		staticFiles += `app.get('/${file.name}', (req, res) => {
+		staticFiles += `app.get('${requireSlash(file.name)}', (req, res) => {
 			${sendCode}
 		});\n`;
 	});
