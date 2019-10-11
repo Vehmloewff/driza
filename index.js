@@ -1,12 +1,8 @@
-const debug = require('./debug')('startup');
-
-function sayHello(name) {
-	debug.error('Failed!');
-	debug.warn('Warning!');
-	debug.notice('Notice...');
-	debug.info('Up to date!');
-
-	return `Hello, ${name}!`;
+const platform = {
+	build: '/*{PLATFORM_BUILD}*/',
+	browser: platform.build === `browser`,
 }
 
-module.exports = sayHello;
+module.exports = {
+	platform
+};

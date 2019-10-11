@@ -7,4 +7,6 @@ module.exports = {
 	clientBasePath: `/`,
 	assetsBasePath: `/`,
 	template: `default`,
+	browserDependencies: [],
+	osDependencies: [],
 };

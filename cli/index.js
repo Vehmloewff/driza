@@ -41,7 +41,8 @@ const compiler = require('../compiler');
 
 	try {
 		console.log(`Building your app...`);
-		await compiler.buildApp(process.cwd(), file, { useConfig: true });
+		await compiler.buildApp(process.cwd(), file, { useConfig: true, platform: `browser` });
+		await compiler.buildApp(process.cwd(), file, { useConfig: true, platform: `desktop` });
 		console.log('Done!');
 	} catch (ex) {
 		console.error(ex);
