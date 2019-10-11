@@ -7,9 +7,12 @@ const read = require('../services/read');
 const write = require('write');
 const { format } = require('prettier');
 const prettierOptions = require('../plugins/lib/prettier-options');
+const getAssetsRoutes = require('../services/get-assets-routes');
 
 module.exports = async ({ serverRoutes: routes, dir, config, options, outputPath }) => {
-	let serve = [];
+	const assetsRoutes = await getAssetsRoutes(nodePath.join(dir, config.assetsDir), config.assetsBasePath);
+
+	let serve = assetsRoutes;
 
 	const jsRoute = nodePath.join(config.clientBasePath, `app.js`);
 	const cssRoute = nodePath.join(config.clientBasePath, `app.css`);
