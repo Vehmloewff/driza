@@ -5,6 +5,6 @@ module.exports = {
 	serverEntry: `server.js`,
 	serverBasePath: `api`,
 	clientBasePath: `/`,
-	assetsBasePath: `assets`,
+	assetsBasePath: `/`,
 	template: `default`,
 };
