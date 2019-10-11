@@ -70,16 +70,16 @@ const buildApp = async (dir, file, options) => {
 
 	// Set global values for those dependencies
 	let globals = {};
-	[...config.osDependencies, ...nativeNodeModules].forEach(m => {
+	[...config.osDependencies, ...nativeNodeModules].forEach((m) => {
 		if (options.platform === 'browser') globals[m] = `{}`;
 		else globals[m] = `require('${m}')`;
 	});
 	if (options.platform !== `browser`) {
-		config.browserDependencies.forEach(d => {
+		config.browserDependencies.forEach((d) => {
 			globals[d] = `{}`;
-		})
+		});
 	}
-	
+
 	// Run Rollup
 	const bundle = await rollup({
 		input: nodePath.join(dir, file),

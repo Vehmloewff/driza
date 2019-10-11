@@ -31,4 +31,4 @@ module.exports = [
 	'vm',
 	'worker_threads',
 	'zlib',
-]
+];
