@@ -17,12 +17,14 @@ const buildApp = async (dir, file, options) => {
 	const production = process.env.NODE_ENV === `production`;
 
 	// Get the config
+	const configParams = { platform: options.platform };
+
 	let config = null;
 	try {
 		if (options.useConfig) {
-			config = Object.assign(defaultConfigOptions, require(nodePath.join(dir, options.configPath)));
+			config = Object.assign(defaultConfigOptions(configParams), require(nodePath.join(dir, options.configPath))(configParams));
 		} else {
-			config = defaultConfigOptions;
+			config = defaultConfigOptions(configParams);
 		}
 	} catch (ex) {
 		console.error('Could not load config file!');
