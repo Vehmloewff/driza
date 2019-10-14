@@ -1,5 +1,4 @@
 module.exports = () => {
-
 	return {
 		clientDir: `client`,
 		serverDir: `server`,
@@ -24,4 +23,4 @@ module.exports = () => {
 		appName: `Versatile App`,
 		backgroundColor: `#2e2c29`,
 	};
-}
+};

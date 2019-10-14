@@ -22,7 +22,10 @@ const buildApp = async (dir, file, options) => {
 	let config = null;
 	try {
 		if (options.useConfig) {
-			config = Object.assign(defaultConfigOptions(configParams), require(nodePath.join(dir, options.configPath))(configParams));
+			config = Object.assign(
+				defaultConfigOptions(configParams),
+				require(nodePath.join(dir, options.configPath))(configParams)
+			);
 		} else {
 			config = defaultConfigOptions(configParams);
 		}
