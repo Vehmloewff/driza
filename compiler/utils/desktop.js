@@ -5,7 +5,7 @@ const prettierOptions = require('../plugins/lib/prettier-options');
 const read = require('../services/read');
 
 module.exports = async ({ dir, config, outputPath }) => {
-	const file = require('../templates/electron-main');
+	const file = require('../templates/electron-main')({ config, dir });
 	await write(nodePath.join(outputPath, `desktop/index.js`), format(file, prettierOptions('babel')));
 
 	let template;
@@ -21,6 +21,9 @@ module.exports = async ({ dir, config, outputPath }) => {
 		.replace(`%versatile_scripts%`, `${script}`);
 
 	await write(nodePath.join(outputPath, `desktop/app.html`), format(template, prettierOptions('html')));
+
+	const packageJSON = require('../templates/electron-package.json')({ config });
+	await write(nodePath.join(outputPath, `desktop/package.json`), packageJSON);
 
 	return {
 		cssPath: `app.css`,

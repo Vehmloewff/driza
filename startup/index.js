@@ -2,7 +2,7 @@
 
 /**
  * Start the client side application
- * @param {String?} defaultState The application's default state
+ * @param {{ defaultState?: String}}
  */
 export const startApp = async ({ defaultState = 'index' } = {}) => {
 	/*{CREATE_APP_CODE}*/
