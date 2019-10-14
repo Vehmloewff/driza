@@ -3,7 +3,7 @@ const read = require('../services/read');
 const { format } = require('prettier');
 const prettierOptions = require('./lib/prettier-options');
 
-module.exports = ({ clientRoutes, config }) => {
+module.exports = ({ clientRoutes, config, platform }) => {
 	return {
 		name: 'versatile-dynamic',
 		async load(id) {
@@ -17,6 +17,12 @@ module.exports = ({ clientRoutes, config }) => {
 					.replace(`/*{IMPORTS_HERE}*/`, `${appData.imports}`);
 
 				code = format(code, prettierOptions('babel'));
+				return code;
+			} else if (/versatile\/index.js$/.test(id)) {
+				let code = await read(id);
+
+				code = code.replace(`/*{PLATFORM_BUILD}*/`, `${platform}`);
+
 				return code;
 			}
 			return null;
