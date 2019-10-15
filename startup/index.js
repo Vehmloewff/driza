@@ -17,8 +17,11 @@ export const launchDesktop = async ({
 	maxWidth = null,
 	maxHeight = null,
 	icon = `assets/favicon.ico`,
+	frame = true,
 	waitUntilReady = true,
 	menuTemplate = defaultMenuTemplate,
+	transparent = false,
+	browserWindowOptions = {},
 } = {}) => {
 	/*{LAUNCH_DESKTOP_CODE}*/
 };
