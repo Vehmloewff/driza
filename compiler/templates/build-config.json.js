@@ -1,12 +1,14 @@
-module.exports = ({ config }) => {
+const path = require('path');
+const appCategories = require('../services/app-category');
+
+module.exports = ({ outputPath, config }) => {
 	return `{
 		"appId": "${config.appID}",
 		"directories": {
-			"output": "dist/desktop-packaged"
+			"output": "${path.join(outputPath, `desktop-package`)}"
 		},
 		"files": [
-			"dist/desktop/**",
-			"icons/**"
+			${config.files.map(file => `"${file}"`)}
 		],
 		"dmg": {
 			"contents": [
@@ -23,13 +25,22 @@ module.exports = ({ config }) => {
 			],
 			"icon": "icons/icon.icns"
 		},
+		"mac": {
+			"category": "${appCategories(config.category).mac}",
+			"icon": "icons/icon.icns",
+			"electronLanguages": [
+				"en"
+			]
+		},
 		"linux": {
-			"category": "Development",
+			"category": "${appCategories(config.category).linux}",
 			"target": [
 				"AppImage",
-				"deb"
+				"deb",
+				"zip",
+				"rpm"
 			],
-			"icon": "icons",
+			"icon": "icons"
 		},
 		"win": {
 			"icon": "icons/icon.ico"

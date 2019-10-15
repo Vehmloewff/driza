@@ -57,7 +57,7 @@ async function writeTemplate({ config, outputPath, dir }) {
 }
 
 async function writeBuildConfig({ config, outputPath }) {
-	const packageJSON = require('../templates/build-config.json.js')({ config });
+	const packageJSON = require('../templates/build-config.json.js')({ outputPath, config });
 	await write(nodePath.join(outputPath, `desktop/electron-builder.json`), packageJSON);
 }
 
