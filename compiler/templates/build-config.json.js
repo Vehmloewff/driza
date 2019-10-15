@@ -8,7 +8,7 @@ module.exports = ({ outputPath, config }) => {
 			"output": "${path.join(outputPath, `desktop-package`)}"
 		},
 		"files": [
-			${config.files.map(file => `"${file}"`)}
+			${config.files.map((file) => `"${file}"`)}
 		],
 		"dmg": {
 			"contents": [
