@@ -35,7 +35,7 @@ module.exports = async ({ dir, config, outputPath }) => {
 async function runRollup({ config, dir, outputPath }) {
 	const bundle = await rollup({
 		input: nodePath.join(dir, config.desktopEntry),
-		plugins: [configureDesktop({ config }), nodeResolve(), commonjs()],
+		plugins: [configureDesktop({ outputPath, config }), nodeResolve(), commonjs()],
 		external: ['electron', 'path'],
 	});
 	await bundle.write({
