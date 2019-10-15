@@ -1,4 +1,5 @@
 /*{IMPORTS_HERE}*/
+import defaultMenuTemplate from './default-menu-template';
 
 /**
  * Start the client side application
@@ -6,6 +7,20 @@
  */
 export const startApp = async ({ defaultState = 'index' } = {}) => {
 	/*{CREATE_APP_CODE}*/
+};
+
+export const launchDesktop = async ({
+	height = 500,
+	width = 800,
+	minWidth = 100,
+	minHeight = 100,
+	maxWidth = null,
+	maxHeight = null,
+	icon = `assets/favicon.ico`,
+	waitUntilReady = true,
+	menuTemplate = defaultMenuTemplate,
+} = {}) => {
+	/*{LAUNCH_DESKTOP_CODE}*/
 };
 
 /**
