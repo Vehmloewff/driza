@@ -7,8 +7,13 @@ const { rollup } = require('rollup');
 const nodeResolve = require('rollup-plugin-node-resolve');
 const commonjs = require('rollup-plugin-commonjs');
 const configureDesktop = require('../plugins/configure-desktop');
+const copy = require('recursive-copy');
 
 module.exports = async ({ dir, config, outputPath }) => {
+	// Copy assets.  It must be done first, so that any conflicts
+	// will be overwritten by the more important files to be generated next.
+	await copyAssets({ dir, config, outputPath });
+
 	// Run rollup
 	await runRollup({ config, dir, outputPath });
 
@@ -71,5 +76,13 @@ async function writeShellScripts({ outputPath }) {
 		`./node_modules/.bin/electron-builder \
 		-c="${nodePath.join(outputPath, `desktop/electron-builder.json`)}" \
 		$1`
+	);
+}
+
+async function copyAssets({ dir, config, outputPath }) {
+	await copy(
+		nodePath.join(dir, config.assetsDir),
+		nodePath.join(outputPath, `desktop/${config.assetsBasePath}`),
+		{ overwrite: true }
 	);
 }
