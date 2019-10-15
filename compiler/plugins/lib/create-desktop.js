@@ -8,7 +8,7 @@ module.exports = ({ config }) => {
 		let win
 
 		function createWindow () {
-			win = new BrowserWindow({
+			win = new BrowserWindow(Object.assign({
 				width,
 				height,
 				webPreferences: {
@@ -21,7 +21,9 @@ module.exports = ({ config }) => {
 				minHeight,
 				maxWidth,
 				maxHeight,
-			})
+				transparent, 
+    			frame,
+			}, browserWindowOptions))
 
 			win.loadURL('file:///' + __dirname + '/app.html');
 
