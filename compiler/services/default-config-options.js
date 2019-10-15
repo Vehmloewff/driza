@@ -11,7 +11,9 @@ module.exports = () => {
 		template: `default`,
 		browserDependencies: [],
 		osDependencies: [],
-		appName: `Versatile App`,
+		appName: `versatile-app`,
+		appID: `versatile-app`,
+		productName: `Versatile App`,
 		backgroundColor: `#2e2c29`,
 	};
 };
