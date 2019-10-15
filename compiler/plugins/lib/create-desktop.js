@@ -23,7 +23,7 @@ module.exports = ({ config }) => {
 				maxHeight,
 			})
 
-			win.loadFile('app.html');
+			win.loadURL('file:///' + __dirname + '/app.html');
 
 			win.on('closed', () => {
 				win = null

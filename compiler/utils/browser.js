@@ -56,8 +56,15 @@ module.exports = async ({ serverRoutes: routes, dir, config, options, outputPath
 
 	await write(nodePath.join(outputPath, `browser/serve/index.html`), format(template, prettierOptions('html')));
 
+	await writeShellScripts({ outputPath });
+
 	return {
 		cssPath: `serve/app.css`,
 		jsPath: `serve/app.js`,
 	};
 };
+
+async function writeShellScripts({ outputPath }) {
+	await write(nodePath.join(outputPath, `browser/run.sh`), `node ${nodePath.join(outputPath, `browser/index.js`)}`);
+	await write(nodePath.join(outputPath, `browser/build.sh`), `echo "Done building!"`);
+}

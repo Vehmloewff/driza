@@ -10,15 +10,16 @@ const configureDesktop = require('../plugins/configure-desktop');
 
 module.exports = async ({ dir, config, outputPath }) => {
 	// Run rollup
-	// const file = require('../templates/electron-main')({ config, dir });
-	// await write(nodePath.join(outputPath, `desktop/index.js`), format(file, prettierOptions('babel')));
 	await runRollup({ config, dir, outputPath });
 
 	// Template
 	await writeTemplate({ dir, config, outputPath });
 
-	// Wtite a package.json
-	await writePackage({ config, outputPath });
+	// Wtite a config file
+	await writeBuildConfig({ config, outputPath });
+
+	// Create the shell scripts
+	await writeShellScripts({ outputPath });
 
 	return {
 		cssPath: `app.css`,
@@ -55,7 +56,20 @@ async function writeTemplate({ config, outputPath, dir }) {
 	await write(nodePath.join(outputPath, `desktop/app.html`), format(template, prettierOptions('html')));
 }
 
-async function writePackage({ config, outputPath }) {
-	const packageJSON = require('../templates/electron-package.json')({ config });
-	await write(nodePath.join(outputPath, `desktop/package.json`), packageJSON);
+async function writeBuildConfig({ config, outputPath }) {
+	const packageJSON = require('../templates/build-config.json.js')({ outputPath, config });
+	await write(nodePath.join(outputPath, `desktop/electron-builder.json`), packageJSON);
+}
+
+async function writeShellScripts({ outputPath }) {
+	await write(
+		nodePath.join(outputPath, `desktop/run.sh`),
+		`./node_modules/.bin/electron ${nodePath.join(outputPath, `desktop/index.js`)}`
+	);
+	await write(
+		nodePath.join(outputPath, 'desktop/build.sh'),
+		`./node_modules/.bin/electron-builder \
+		-c="${nodePath.join(outputPath, `desktop/electron-builder.json`)}" \
+		$1`
+	);
 }
