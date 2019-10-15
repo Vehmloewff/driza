@@ -80,9 +80,7 @@ async function writeShellScripts({ outputPath }) {
 }
 
 async function copyAssets({ dir, config, outputPath }) {
-	await copy(
-		nodePath.join(dir, config.assetsDir),
-		nodePath.join(outputPath, `desktop/${config.assetsBasePath}`),
-		{ overwrite: true }
-	);
+	await copy(nodePath.join(dir, config.assetsDir), nodePath.join(outputPath, `desktop/${config.assetsBasePath}`), {
+		overwrite: true,
+	});
 }
