@@ -12,7 +12,8 @@ const transformSvelteScript = require('./services/transform-script');
 const transformSvelteMarkup = require('./services/transform-markup');
 const nativeNodeModules = require('./services/native-node-modules');
 
-const buildApp = async (dir, file, options) => {
+const buildApp = async (dir, options) => {
+	const file = `main.js`;
 	options = Object.assign(defaultCompilerOptions, options);
 	const production = process.env.NODE_ENV === `production`;
 

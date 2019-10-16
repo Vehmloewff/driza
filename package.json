@@ -45,6 +45,8 @@
 		"rollup-plugin-svelte": "^5.1.0",
 		"sausage-router": "^1.1.2",
 		"svelte": "^3.12.1",
-		"svelte-state-renderer": "^3.0.1"
+		"svelte-state-renderer": "^3.0.1",
+		"watch": "^1.0.2",
+		"ws": "^7.1.2"
 	}
 }
