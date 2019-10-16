@@ -4,6 +4,7 @@ const nodePath = require('path');
 
 module.exports = ({ dir, outputPath, config }) => {
 	const iconPath = nodePath.join(dir, config.iconsDir);
+	const predefined = [nodePath.join(outputPath, `desktop/**`), nodePath.join(dir, config.iconsDir)];
 
 	return `{
 		"appId": "${config.appID}",
@@ -11,7 +12,7 @@ module.exports = ({ dir, outputPath, config }) => {
 			"output": "${path.join(outputPath, `desktop-package`)}"
 		},
 		"files": [
-			${config.files.map((file) => `"${file}"`)}
+			${[...predefined, ...config.desktopFiles].map((file) => `"${file}"`)}
 		],
 		"dmg": {
 			"contents": [
