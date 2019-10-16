@@ -1,7 +1,10 @@
 const path = require('path');
 const appCategories = require('../services/app-category');
+const nodePath = require('path');
 
-module.exports = ({ outputPath, config }) => {
+module.exports = ({ dir, outputPath, config }) => {
+	const iconPath = nodePath.join(dir, config.iconsDir);
+
 	return `{
 		"appId": "${config.appID}",
 		"directories": {
@@ -27,7 +30,7 @@ module.exports = ({ outputPath, config }) => {
 		},
 		"mac": {
 			"category": "${appCategories(config.category).mac}",
-			"icon": "icons/icon.icns",
+			"icon": "${nodePath.join(iconPath, 'icon.icns')}",
 			"electronLanguages": [
 				"en"
 			]
@@ -40,10 +43,10 @@ module.exports = ({ outputPath, config }) => {
 				"zip",
 				"rpm"
 			],
-			"icon": "icons"
+			"icon": "${iconPath}"
 		},
 		"win": {
-			"icon": "icons/icon.ico"
+			"icon": "${nodePath.join(iconPath, 'icon.ico')}"
 		}
 	}`;
 };
