@@ -12,7 +12,7 @@ export class VersatileDesktopWindow extends BrowserWindow {
 			webPreferences: {
 				nodeIntegration: true,
 			},
-			icon: `${nodePath.join(`/*{OUTPUT_PATH}*/`, `desktop/favicon.ico`)}`,
+			icon: nodePath.join('/*{ICONS_PATH}*/', `512x512.png`),
 		};
 		super({ ...defaults, ...(windowSettings || {}) });
 

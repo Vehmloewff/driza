@@ -21,7 +21,7 @@ module.exports = async ({ dir, config, outputPath }) => {
 	await writeTemplate({ dir, config, outputPath });
 
 	// Wtite a config file
-	await writeBuildConfig({ config, outputPath });
+	await writeBuildConfig({ dir, config, outputPath });
 
 	// Create the shell scripts
 	await writeShellScripts({ outputPath });
@@ -35,7 +35,7 @@ module.exports = async ({ dir, config, outputPath }) => {
 async function runRollup({ config, dir, outputPath }) {
 	const bundle = await rollup({
 		input: nodePath.join(dir, config.desktopEntry),
-		plugins: [configureDesktop({ outputPath, config }), nodeResolve(), commonjs()],
+		plugins: [configureDesktop({ dir, outputPath, config }), nodeResolve(), commonjs()],
 		external: ['electron', 'path'],
 	});
 	await bundle.write({
@@ -61,8 +61,8 @@ async function writeTemplate({ config, outputPath, dir }) {
 	await write(nodePath.join(outputPath, `desktop/app.html`), format(template, prettierOptions('html')));
 }
 
-async function writeBuildConfig({ config, outputPath }) {
-	const packageJSON = require('../templates/build-config.json.js')({ outputPath, config });
+async function writeBuildConfig({ dir, config, outputPath }) {
+	const packageJSON = require('../templates/build-config.json.js')({ dir, outputPath, config });
 	await write(nodePath.join(outputPath, `desktop/electron-builder.json`), packageJSON);
 }
 
