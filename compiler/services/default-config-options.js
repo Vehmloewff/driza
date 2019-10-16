@@ -15,7 +15,7 @@ module.exports = () => {
 		appID: `versatile-app`,
 		productName: `Versatile App`,
 		backgroundColor: `#2e2c29`,
-		files: ['dist/desktop/**', 'icons/**'],
+		desktopFiles: [],
 		category: 'developer-tools',
 		iconsDir: `node_modules/versatile/icons`,
 	};
