@@ -6,11 +6,11 @@ module.exports = async ({ cwd, browser, desktop }) => {
 
 	if (browser) {
 		console.log(chalk.green(`Compiling for the browser...`));
-		await buildApp(cwd, { platform: `browser` });
+		await buildApp(cwd, { platform: `browser`, useConfig: true });
 	}
 	if (desktop) {
 		console.log(chalk.green(`Compiling for desktop...`));
-		await buildApp(cwd, { platform: `desktop` });
+		await buildApp(cwd, { platform: `desktop`, useConfig: true });
 	}
 
 	console.log(chalk.green(`Done!`));

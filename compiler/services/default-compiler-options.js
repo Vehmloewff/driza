@@ -3,5 +3,4 @@ module.exports = {
 	configPath: `versatile.config.js`,
 	path: `dist`,
 	platform: `browser`,
-	hotReload: false,
 };

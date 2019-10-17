@@ -1,7 +1,7 @@
 const baseFromRoute = require('../../services/base-from-route');
 const routeFromName = require('../../services/route-from-name');
 
-module.exports = ({ routes, hotReload }) => {
+module.exports = ({ routes }) => {
 	let imports = ``;
 	let code = ``;
 	let addStateCalls = ``;
@@ -30,20 +30,6 @@ module.exports = ({ routes, hotReload }) => {
 	code += addStateCalls;
 
 	code += `stateRouter.evaluateCurrentRoute(defaultState)\n`;
-
-	if (hotReload) {
-		code += `
-		const socket = new WebSocket('ws://localhost:10189');
-
-		socket.addEventListener('message', (event) => {
-			if (event.data === 'ok') console.log('[Versatile] dev client connected');
-			else if (event.data === 'reload') {
-				console.log('[Versatile] reloading app due to changes');
-				location.reload();
-			}
-		});
-		`;
-	}
 
 	return {
 		code,

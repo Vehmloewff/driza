@@ -51,7 +51,7 @@ const buildApp = async (dir, options) => {
 
 	// Configure Rollup plugins
 	let plugins = [
-		configureStartup({ platform: options.platform, clientRoutes, config, hotReload: options.hotReload }),
+		configureStartup({ platform: options.platform, clientRoutes, config }),
 		nodeResolve({ browser: options.platform === `browser` }),
 		commonjs(),
 		svelte({
@@ -72,7 +72,7 @@ const buildApp = async (dir, options) => {
 
 	// Which dependencies are external?
 	let external = [...nativeNodeModules, ...config.osDependencies];
-	if (options.platform === `browser`) external.push(...config.browserDependencies);
+	if (options.platform !== `browser`) external.push(...config.browserDependencies);
 
 	// Set global values for those dependencies
 	let globals = {};
