@@ -32,7 +32,7 @@ const liveServer = require('./changes-server');
 		.command('preview')
 		.description('Start application')
 		.action(() => {
-			dev = true;
+			preview = true;
 		});
 
 	program
@@ -46,6 +46,11 @@ const liveServer = require('./changes-server');
 		.option(`-b, --browser`, 'Run the browser code')
 		.option(`-d, --desktop`, 'Run the desktop application code')
 		// .option(`-m, --mobile`, 'Run the mobile app code')
+		.option(
+			`-dbp, --desktopBuildPlatforms <array>`,
+			'The platforms to build the desktop code for',
+			'["macos", "linux", "windows"]'
+		)
 		.option(`-a, --all`, 'Run the code on all platforms');
 
 	program.on('--help', () => {
@@ -64,6 +69,13 @@ const liveServer = require('./changes-server');
 		desktop = true;
 	}
 
+	let desktopBuildPlatforms = [];
+	try {
+		desktopBuildPlatforms = JSON.parse(program.desktopBuildPlatforms);
+	} catch (ex) {
+		stop(`Error parsing the "desktopBuildPlatforms" option.`, ex);
+	}
+
 	if (!dev && !build && !preview) stop(`A command must be specified.  See '${name} --help' for details.`);
 	if (!desktop && !browser)
 		stop(`We have to compile for at least one platform.  Did you forget to pass the browser flag ('--browser')?`);
@@ -77,9 +89,12 @@ const liveServer = require('./changes-server');
 		console.log(build ? 'Building...' : 'Running...');
 
 		const type = build ? 'build' : 'run';
+		const options = [];
 
-		if (browser) await executeBash(cwd, outputPath, 'browser', type);
-		if (desktop) await executeBash(cwd, outputPath, 'desktop', type);
+		if (build) options.push(platformsFromArr(desktopBuildPlatforms));
+
+		if (browser) await executeBash(cwd, outputPath, 'browser', type, options);
+		if (desktop) await executeBash(cwd, outputPath, 'desktop', type, options);
 
 		console.log('Done!');
 	} catch (e) {
@@ -89,7 +104,7 @@ const liveServer = require('./changes-server');
 	}
 
 	if (dev) {
-		const server = await liveServer();
+		const server = liveServer();
 
 		let timeSpent = false;
 		setTimeout(() => {
@@ -138,28 +153,61 @@ async function compile({ cwd, dev, browser, desktop }) {
 	}
 }
 
-function executeBash(cwd, outputPath, platform, type) {
-	return new Promise((resolve, reject) => {
-		const bash = spawn('bash', [`${nodePath.join(cwd, outputPath, platform, type)}.sh`]);
+function executeBash(cwd, outputPath, platform, type, ...options) {
+	return new Promise((resolve) => {
+		const bash = spawn('bash', [`${nodePath.join(cwd, outputPath, platform, type)}.sh`, ...options]);
 
-		const quit = () => {
-			bash.disconnect();
-		};
+		const log = data => {
+			let str = String(data).trim();
+			str = str
+				.replace(/\n/g, '')
+				.replace(/•/g, '');
+
+			if (str === ``) return;
+			if (str === `VERSATILE_JOB_DONE`) return resolve();
+
+			console.log(str.trim());
+		}
 
 		bash.stdout.on('data', (data) => {
-			console.log(String(data).trim());
-			resolve(quit);
+			log(data)
 		});
 
 		bash.stderr.on('data', (data) => {
-			console.log(String(data).trim());
-			quit();
-			reject();
+			log(data)
 		});
+
+		bash.on(`close`, () => {
+			resolve();
+		})
 	});
 }
 
-function stop(err, num = 1) {
-	console.error(err);
-	process.exit(num);
+function stop(...err) {
+	console.error(...err);
+	process.exit(1);
+}
+
+function platformsFromArr(arr) {
+	if (arr.length === 0)
+		stop(`There must be at least one platform specified in the "desktopBuildPlatforms" option.`);
+	
+	const optionForPlatform = {
+		linux: 'l',
+		lin: 'lin',
+		l: 'l',
+		macos: 'm',
+		mac: 'm',
+		m: 'm',
+		windows: 'w',
+		win: 'w',
+		w: 'w',
+	}
+
+	let flag = `-`;
+	arr.forEach(p => {
+		flag += optionForPlatform[p];
+	});
+
+	return flag;
 }

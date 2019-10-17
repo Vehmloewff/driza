@@ -51,7 +51,7 @@ const buildApp = async (dir, options) => {
 
 	// Configure Rollup plugins
 	let plugins = [
-		configureStartup({ platform: options.platform, clientRoutes, config }),
+		configureStartup({ platform: options.platform, clientRoutes, config, hotReload: options.hotReload }),
 		nodeResolve({ browser: options.platform === `browser` }),
 		commonjs(),
 		svelte({

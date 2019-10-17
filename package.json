@@ -2,7 +2,7 @@
 	"name": "todo",
 	"version": "1.0.0",
 	"description": "TODO: Add description",
-	"main": "dist/desktop/index.js",
+	"main": "index.js",
 	"scripts": {
 		"test": "jest --verbose",
 		"test:watch": "jest --watch --verbose",
@@ -30,6 +30,7 @@
 	},
 	"dependencies": {
 		"abstract-state-router": "^6.1.0",
+		"acorn": "^7.1.0",
 		"debug": "^4.1.1",
 		"deep-for-each": "^3.0.0",
 		"electron": "^6.0.12",
@@ -43,6 +44,7 @@
 		"rollup-plugin-commonjs": "^10.1.0",
 		"rollup-plugin-node-resolve": "^5.2.0",
 		"rollup-plugin-svelte": "^5.1.0",
+		"run-electron": "^1.0.0",
 		"sausage-router": "^1.1.2",
 		"svelte": "^3.12.1",
 		"svelte-state-renderer": "^3.0.1",

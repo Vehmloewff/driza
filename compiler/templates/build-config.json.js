@@ -4,7 +4,10 @@ const nodePath = require('path');
 
 module.exports = ({ dir, outputPath, config }) => {
 	const iconPath = nodePath.join(dir, config.iconsDir);
-	const predefined = [nodePath.join(outputPath, `desktop/**`), nodePath.join(dir, config.iconsDir)];
+	const predefined = [
+		'dist/**/*',
+		'package.json'
+	];//[nodePath.join(outputPath, `**/*`), nodePath.join(dir, config.iconsDir)];
 
 	return `{
 		"appId": "${config.appID}",
@@ -31,7 +34,7 @@ module.exports = ({ dir, outputPath, config }) => {
 		},
 		"mac": {
 			"category": "${appCategories(config.category).mac}",
-			"icon": "${nodePath.join(iconPath, 'icon.icns')}",
+			"icon": "${nodePath.join(iconPath, 'icon')}",
 			"electronLanguages": [
 				"en"
 			]
@@ -41,13 +44,12 @@ module.exports = ({ dir, outputPath, config }) => {
 			"target": [
 				"AppImage",
 				"deb",
-				"zip",
 				"rpm"
 			],
 			"icon": "${iconPath}"
 		},
 		"win": {
-			"icon": "${nodePath.join(iconPath, 'icon.ico')}"
+			"icon": "${nodePath.join(iconPath, 'icon')}"
 		}
 	}`;
 };

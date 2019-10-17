@@ -3,14 +3,14 @@ const read = require('../services/read');
 const { format } = require('prettier');
 const prettierOptions = require('./lib/prettier-options');
 
-module.exports = ({ clientRoutes, config, platform }) => {
+module.exports = ({ clientRoutes, config, platform, hotReload }) => {
 	return {
 		name: 'versatile-dynamic',
 		async load(id) {
 			if (/versatile\/startup\/index\.js$/.test(id)) {
 				let code = await read(id);
 
-				const appData = createApp({ routes: clientRoutes, config });
+				const appData = createApp({ routes: clientRoutes, config, hotReload });
 
 				code = code
 					.replace(`/*{CREATE_APP_CODE}*/`, appData.code)
