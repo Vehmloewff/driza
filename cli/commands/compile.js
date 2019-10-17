@@ -14,6 +14,6 @@ module.exports = async ({ cwd, browser, desktop }) => {
 	}
 
 	console.log(chalk.green(`Done!`));
-	console.log(`Type ${chalk.blue('bash <output-dir>/<platform>/run.sh')} to run the app,`)
-	console.log(`or ${chalk.blue('bash <output-dir>/<platform>/build.sh')} to build it.`)
+	console.log(`Type ${chalk.blue('bash <output-dir>/<platform>/run.sh')} to run the app,`);
+	console.log(`or ${chalk.blue('bash <output-dir>/<platform>/build.sh')} to build it.`);
 };
