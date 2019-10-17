@@ -1,5 +1,5 @@
 {
-	"name": "todo",
+	"name": "versatile",
 	"version": "1.0.0",
 	"description": "TODO: Add description",
 	"main": "index.js",
@@ -40,6 +40,7 @@
 		"express": "^4.17.1",
 		"flat": "^4.1.0",
 		"hash-brown-router": "^3.4.1",
+		"listr": "^0.14.3",
 		"ora": "^4.0.2",
 		"read-file-tree": "^1.1.2",
 		"recursive-copy": "^2.0.10",
