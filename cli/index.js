@@ -7,6 +7,8 @@ const { spawn } = require('child_process');
 const watch = require('watch');
 const nodePath = require('path');
 const liveServer = require('./changes-server');
+const ora = require('ora');
+const chalk = require('chalk');
 
 (async function() {
 	let version = `0.1.0`;
@@ -83,65 +85,81 @@ const liveServer = require('./changes-server');
 	const cwd = process.cwd();
 	let crashed = false;
 
+	const spinner1 = ora('Compiling code').start();
 	try {
-		console.log('Compiling...');
 		await compile({ cwd, dev, browser, desktop });
-		console.log(build ? 'Building...' : 'Running...');
+		spinner1.succeed();
+	} catch (ex) {
+		spinner1.fail();
+		console.error(`  ` + chalk.red(ex));
+		crashed = true
+	}
+		
+
+	try {
+		const spinner2 = ora(build ? 'Building app' : 'Running app').start();
 
 		const type = build ? 'build' : 'run';
 		const options = [];
 
 		if (build) options.push(platformsFromArr(desktopBuildPlatforms));
 
-		if (browser) await executeBash(cwd, outputPath, 'browser', type, options);
-		if (desktop) await executeBash(cwd, outputPath, 'desktop', type, options);
-
-		console.log('Done!');
-	} catch (e) {
-		console.log(e);
-		console.error(`Failed due to an error.  There is likely additional logging output above.`);
+		if (browser) await executeBash(spinner2, cwd, outputPath, 'browser', type, options);
+		if (desktop) await executeBash(spinner2, cwd, outputPath, 'desktop', type, options);
+	} catch (ex) {
+		console.error(`  ` + chalk.red(ex));
 		crashed = true;
 	}
 
 	if (dev) {
-		const server = liveServer();
+		const spinner3 = ora('Starting file watcher');
 
-		let timeSpent = false;
-		setTimeout(() => {
-			timeSpent = true;
-		}, 2000);
+		try {
+			const server = liveServer();
 
-		watch.watchTree(
-			cwd,
-			{
-				ignoreDirectoryPattern: /(node_modules|dist)/,
-				interval: 2,
-			},
-			async (file) => {
-				if (!timeSpent) {
-					if (crashed) console.log(`Waiting for changes to restart...`);
-					else console.log(`Watching for file changes...`);
-					return;
+			let timeSpent = false;
+			setTimeout(() => {
+				timeSpent = true;
+			}, 2000);
+
+			watch.watchTree(
+				cwd,
+				{
+					ignoreDirectoryPattern: /(node_modules|dist)/,
+					interval: 2,
+				},
+				async (file) => {
+					if (!timeSpent) {
+						if (crashed) console.log(`Waiting for changes to restart...`);
+						else console.log(`  ` + chalk.grey(`Watching for file changes...`));
+						return;
+					}
+					file = file.replace(cwd + '/', '');
+
+					console.log(`\n\n  ` + chalk.grey(`${file} changed.  Recompiling...`));
+
+					try {
+						await compile({ cwd, dev, browser, desktop });
+						console.log(`  ` + chalk.grey(`Waiting for client...`));
+
+						await server.changeMade();
+
+						console.log(`  ` + chalk.grey(`Done!`));
+					} catch (e) {
+						console.error(`  ` + chalk.red(ex));
+						console.log(`  ` + chalk.grey(`Waiting for changes to restart...`));
+					}
 				}
-				file = file.replace(cwd + '/', '');
+			);
 
-				console.log(`\n\n${file} changed.  Recompiling...`);
-
-				try {
-					await compile({ cwd, dev, browser, desktop });
-					console.log(`Waiting for client...`);
-
-					await server.changeMade();
-
-					console.log(`Done!`);
-				} catch (e) {
-					console.log(e);
-					console.error(`Failed due to an error.  There is likely additional logging output above.`);
-					console.log(`Waiting for changes to restart...`);
-				}
-			}
-		);
+			spinner3.succeed();
+		} catch (ex) {
+			spinner3.fail();
+			console.error(`  ` + chalk.red(ex));
+		}
 	}
+
+	if (!build) console.log(`\n---------------- LOGS ----------------\n`);
 })();
 
 async function compile({ cwd, dev, browser, desktop }) {
@@ -153,18 +171,25 @@ async function compile({ cwd, dev, browser, desktop }) {
 	}
 }
 
-function executeBash(cwd, outputPath, platform, type, ...options) {
+function executeBash(spinner, cwd, outputPath, platform, type, ...options) {
 	return new Promise((resolve) => {
 		const bash = spawn('bash', [`${nodePath.join(cwd, outputPath, platform, type)}.sh`, ...options]);
 
-		const log = (data) => {
+		let shouldError = false;
+
+		const log = (data, err) => {
 			let str = String(data).trim();
 			str = str.replace(/\n/g, '').replace(/•/g, '');
 
 			if (str === ``) return;
 			if (str === `VERSATILE_JOB_DONE`) return resolve();
 
-			console.log(str.trim());
+			if (/Error:|⨯/.test(str)) {
+				err = true;
+				shouldError = true;
+			}
+
+			spinner.text = (`Building app\n  ` + chalk[err ? 'red' : 'grey'](str.trim()));
 		};
 
 		bash.stdout.on('data', (data) => {
@@ -172,10 +197,13 @@ function executeBash(cwd, outputPath, platform, type, ...options) {
 		});
 
 		bash.stderr.on('data', (data) => {
-			log(data);
+			shouldError = true;
+			log(data, true);
 		});
 
 		bash.on(`close`, () => {
+			if (shouldError) spinner.fail();
+			// else spinner.succeed();
 			resolve();
 		});
 	});
