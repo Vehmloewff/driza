@@ -4,10 +4,7 @@ const nodePath = require('path');
 
 module.exports = ({ dir, outputPath, config }) => {
 	const iconPath = nodePath.join(dir, config.iconsDir);
-	const predefined = [
-		'dist/**/*',
-		'package.json'
-	];//[nodePath.join(outputPath, `**/*`), nodePath.join(dir, config.iconsDir)];
+	const predefined = ['dist/**/*', 'package.json']; //[nodePath.join(outputPath, `**/*`), nodePath.join(dir, config.iconsDir)];
 
 	return `{
 		"appId": "${config.appID}",

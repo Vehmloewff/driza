@@ -157,29 +157,27 @@ function executeBash(cwd, outputPath, platform, type, ...options) {
 	return new Promise((resolve) => {
 		const bash = spawn('bash', [`${nodePath.join(cwd, outputPath, platform, type)}.sh`, ...options]);
 
-		const log = data => {
+		const log = (data) => {
 			let str = String(data).trim();
-			str = str
-				.replace(/\n/g, '')
-				.replace(/•/g, '');
+			str = str.replace(/\n/g, '').replace(/•/g, '');
 
 			if (str === ``) return;
 			if (str === `VERSATILE_JOB_DONE`) return resolve();
 
 			console.log(str.trim());
-		}
+		};
 
 		bash.stdout.on('data', (data) => {
-			log(data)
+			log(data);
 		});
 
 		bash.stderr.on('data', (data) => {
-			log(data)
+			log(data);
 		});
 
 		bash.on(`close`, () => {
 			resolve();
-		})
+		});
 	});
 }
 
@@ -189,9 +187,8 @@ function stop(...err) {
 }
 
 function platformsFromArr(arr) {
-	if (arr.length === 0)
-		stop(`There must be at least one platform specified in the "desktopBuildPlatforms" option.`);
-	
+	if (arr.length === 0) stop(`There must be at least one platform specified in the "desktopBuildPlatforms" option.`);
+
 	const optionForPlatform = {
 		linux: 'l',
 		lin: 'lin',
@@ -202,10 +199,10 @@ function platformsFromArr(arr) {
 		windows: 'w',
 		win: 'w',
 		w: 'w',
-	}
+	};
 
 	let flag = `-`;
-	arr.forEach(p => {
+	arr.forEach((p) => {
 		flag += optionForPlatform[p];
 	});
 
