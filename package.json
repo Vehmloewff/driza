@@ -1,6 +1,6 @@
 {
 	"name": "versatilejs",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "A compiler for bulding cross-platform apps with Svelte",
 	"main": "index.js",
 	"scripts": {
