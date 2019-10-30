@@ -65,6 +65,9 @@ module.exports = async ({ serverRoutes: routes, dir, config, options, outputPath
 };
 
 async function writeShellScripts({ outputPath }) {
-	await write(nodePath.join(outputPath, `browser/run.sh`), `node ${nodePath.join(outputPath, `browser/index.js`)}`);
-	await write(nodePath.join(outputPath, `browser/build.sh`), `echo "Done building!"`);
+	await write(
+		nodePath.join(outputPath, `browser/run.sh`),
+		`echo "VERSATILE_JOB_DONE" && node ${nodePath.join(outputPath, `browser/index.js`)}`
+	);
+	await write(nodePath.join(outputPath, `browser/build.sh`), `echo "VERSATILE_JOB_DONE"`);
 }

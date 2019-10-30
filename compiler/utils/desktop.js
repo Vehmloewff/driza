@@ -69,13 +69,15 @@ async function writeBuildConfig({ dir, config, outputPath }) {
 async function writeShellScripts({ outputPath }) {
 	await write(
 		nodePath.join(outputPath, `desktop/run.sh`),
-		`./node_modules/.bin/electron ${nodePath.join(outputPath, `desktop/index.js`)}`
+		`echo "VERSATILE_JOB_DONE" && ./node_modules/.bin/run-electron ${nodePath.join(outputPath, `desktop/index.js`)}`
 	);
 	await write(
 		nodePath.join(outputPath, 'desktop/build.sh'),
 		`./node_modules/.bin/electron-builder \
 		-c="${nodePath.join(outputPath, `desktop/electron-builder.json`)}" \
-		$1`
+		-c.extraMetadata.main="dist/desktop/index.js" \
+		$@ && 
+		echo "VERSATILE_JOB_DONE"`
 	);
 }
 

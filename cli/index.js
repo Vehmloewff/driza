@@ -2,51 +2,45 @@
 
 const Command = require('commander').Command;
 const program = new Command();
-const compiler = require('../compiler');
+const chalk = require('chalk');
 
-(async function() {
-	let version = `0.1.0`;
-	let name = `versatile`;
+const compile = require('./commands/compile');
 
-	let file = null;
-	program.arguments('<file>').action((val) => {
-		file = val;
+const version = `0.1.0`;
+const name = `versatile`;
+const cwd = process.cwd();
+
+program.version(version, '-v, --version', 'output the current version').arguments(`<cmd>`);
+
+program
+	.command(`compile`)
+	.description(`Compile your code`)
+	.option(`-b, --browser`, `For the browser`)
+	.option(`-d, --desktop`, `For desktop`)
+	.option(`-a, --all`, `For all supported platforms`)
+	.action((cmdObj) => {
+		tryWrapper(() =>
+			compile({
+				cwd,
+				desktop: cmdObj.desktop || cmdObj.all,
+				browser: cmdObj.browser || cmdObj.all,
+			})
+		);
 	});
 
-	program.version(version, '-v, --version', 'output the current version');
+program.on('--help', () => {
+	console.log('');
+	console.log('For more usage information, type the following:');
+	console.log(`  $ ${name} [command] --help`);
+});
 
-	program
-		.option(`-w, --watch`, "Watch file and it's dependencies for changes")
-		.option(`-b, --browser`, 'Run the browser code')
-		.option(`-d, --desktop`, 'Run the desktop application code')
-		// .option(`-m, --mobile`, 'Run the mobile app code')
-		.option(`-a, --all`, 'Run the code on all platforms')
-		.option(`-O, --no-open`, "Only compiles the code.  Usally used with the `--path 'dist' option")
-		.option(`-p, --path <path>`, 'The path to build the apps to - default: `node_modules/bounce/dist`');
+program.parse(process.argv);
 
-	program.on('--help', () => {
-		console.log('');
-		console.log('Example:');
-		console.log(`  $ ${name} main.js --browser --watch`);
-	});
-
-	program.parse(process.argv);
-
-	if (!file) {
-		console.log(`\nInvalid configuration.  See 'versatile --help' for usage information.\n`);
-		process.exit(1);
-	}
-
-	if (program.watch) console.log(`Watching ${file} for changes...`);
-
+function tryWrapper(fn) {
 	try {
-		console.log(`Building your app...`);
-		await compiler.buildApp(process.cwd(), file, { useConfig: true, platform: `browser` });
-		await compiler.buildApp(process.cwd(), file, { useConfig: true, platform: `desktop` });
-		console.log('Done!');
+		fn();
 	} catch (ex) {
 		console.error(ex);
-		console.error(`Failed due to an error.  There is likely additional logging output above.`);
-		if (program.watch) console.log(`Waiting for changes to restart...`);
+		console.error(chalk(`Failed due to an error.  There is likely additional logging output above.`));
 	}
-})();
+}
