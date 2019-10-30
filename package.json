@@ -1,7 +1,7 @@
 {
 	"name": "versatilejs",
 	"version": "0.1.1",
-	"description": "TODO: Add description",
+	"description": "A compiler for bulding cross-platform apps with Svelte",
 	"main": "index.js",
 	"scripts": {
 		"test": "jest --verbose",
