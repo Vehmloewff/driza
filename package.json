@@ -1,6 +1,6 @@
 {
-	"name": "versatile",
-	"version": "1.0.0",
+	"name": "versatilejs",
+	"version": "0.0.0",
 	"description": "TODO: Add description",
 	"main": "index.js",
 	"scripts": {
@@ -28,6 +28,13 @@
 		"type": "git",
 		"url": "https://github.com/Vehmloewff/todo"
 	},
+	"files": [
+		"compiler",
+		"icons",
+		"native",
+		"startup",
+		"index.js"
+	],
 	"dependencies": {
 		"abstract-state-router": "^6.1.0",
 		"acorn": "^7.1.0",
