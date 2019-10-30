@@ -7,7 +7,7 @@ module.exports = ({ clientRoutes, config, platform }) => {
 	return {
 		name: 'versatile-dynamic',
 		async load(id) {
-			if (/versatile\/startup\/index\.js$/.test(id)) {
+			if (/versatilejs\/startup\/index\.js$/.test(id)) {
 				let code = await read(id);
 
 				const appData = createApp({ routes: clientRoutes, config });
@@ -18,7 +18,7 @@ module.exports = ({ clientRoutes, config, platform }) => {
 
 				code = format(code, prettierOptions('babel'));
 				return code;
-			} else if (/versatile\/index.js$/.test(id)) {
+			} else if (/versatilejs\/index.js$/.test(id)) {
 				let code = await read(id);
 
 				code = code.replace(`/*{PLATFORM_BUILD}*/`, `${platform}`);

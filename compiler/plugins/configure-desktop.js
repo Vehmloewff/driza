@@ -7,7 +7,7 @@ module.exports = ({ dir, config, outputPath }) => {
 	return {
 		name: 'versatile-dynamic',
 		async load(id) {
-			if (/versatile\/native\/index\.js$/.test(id)) {
+			if (/versatilejs\/native\/index\.js$/.test(id)) {
 				let code = await read(id);
 
 				code = code

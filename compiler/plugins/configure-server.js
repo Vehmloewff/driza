@@ -7,7 +7,7 @@ module.exports = ({ routes, config, serve }) => {
 	return {
 		name: 'versatile-dynamic',
 		async load(id) {
-			if (/versatile\/startup\/index\.js$/.test(id)) {
+			if (/versatilejs\/startup\/index\.js$/.test(id)) {
 				let code = await read(id);
 
 				const serverData = createServer({ routes, config, serve });

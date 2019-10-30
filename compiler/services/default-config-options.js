@@ -17,6 +17,6 @@ module.exports = () => {
 		backgroundColor: `#2e2c29`,
 		desktopFiles: [],
 		category: 'developer-tools',
-		iconsDir: `node_modules/versatile/icons`,
+		iconsDir: `node_modules/versatilejs/icons`,
 	};
 };
