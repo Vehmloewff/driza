@@ -33,7 +33,8 @@
 		"icons",
 		"native",
 		"startup",
-		"index.js"
+		"index.js",
+		"cli"
 	],
 	"dependencies": {
 		"abstract-state-router": "^6.1.0",
