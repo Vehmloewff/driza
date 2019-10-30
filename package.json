@@ -26,7 +26,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://gitlab.com/jiknoapps/versatile"
+		"url": "https://github.com/Vehmloewff/versatilejs"
 	},
 	"files": [
 		"compiler",
