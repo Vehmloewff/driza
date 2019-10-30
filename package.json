@@ -10,7 +10,8 @@
 		"lint": "eslint . && npm run format",
 		"lint:test": "eslint . && npm run format:test",
 		"format:test": "prettier --check \"./**\"",
-		"postversion": "git push && git push --tags && rm -rf build/temp"
+		"preversion": "npm run test && npm run lint:test",
+		"postversion": "git push && git push --tags && rm -rf build/temp && npm publish"
 	},
 	"keywords": [],
 	"author": "",
