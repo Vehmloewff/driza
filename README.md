@@ -1,5 +1,7 @@
 # nodejs-template
 
+This project is in the early stages of development.  Contributions are welcome.
+
 ## Startup
 
 ```ssh
