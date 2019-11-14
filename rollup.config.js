@@ -22,13 +22,16 @@ if (prod) output.push({ file: pkg.module, format: 'es', ...sharedOutputOptions }
 export default {
 	input: prod ? 'src/index.ts' : 'globbed-tests.ts',
 	output,
+	external: [`path`],
 	plugins: [
 		globFiles({
 			file: `globbed-tests.ts`,
 			include: `./tests/**/*.ts`,
 			justImport: true,
 		}),
-		resolve(),
+		resolve({
+			preferBuiltins: true,
+		}),
 		commonjs(),
 		!prod && command(`node ${pkg.main} | zip-tap-reporter`, { exitOnFail: !watching }),
 		typescript({

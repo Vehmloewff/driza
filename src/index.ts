@@ -10,7 +10,7 @@ export interface BuildOptions {
 	plugins?: Plugin[];
 	rollupPlugins?: RollupPlugin[];
 	preprocess?: Preprocessor[];
-	exclude?: string[];
+	exclude?: RegExp[];
 }
 
 const defaultBuildOptions: BuildOptions = {
@@ -22,7 +22,7 @@ const defaultBuildOptions: BuildOptions = {
 	plugins: [],
 	rollupPlugins: [],
 	preprocess: [],
-	exclude: [],
+	exclude: [/^(.+\/|)_.+$/],
 };
 
 export async function buildApp(dir: string, options: BuildOptions) {
