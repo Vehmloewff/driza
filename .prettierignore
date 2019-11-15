@@ -1,9 +1,12 @@
-node_modules/
+node_modules
 .eslintignore
 .gitignore
 .prettierignore
 LICENSE
-build
-**/*.ico
-**/*.icns
+/dist
+/typings
+
 **/*.png
+**/*.ico
+**/*.map
+**/*.jpg
