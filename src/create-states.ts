@@ -1,5 +1,13 @@
 import nodePath from 'path';
 
+export interface State {
+	name: string;
+	path: string;
+	id: string;
+	default?: boolean;
+	defaultRoute: string;
+}
+
 export default (paths: string[], exclude: RegExp[], basePath: string = '') => {
 	paths = paths.filter(path => {
 		let match = false;
