@@ -1,28 +1,21 @@
-import { Plugin, Preprocessor } from './interfaces';
-import { Plugin as RollupPlugin } from 'rollup';
+import { BuildOptions, Plugin, PluginParams } from './interfaces';
 
-export interface BuildOptions {
-	name?: string;
-	machineName?: string;
-	description?: string;
-	isExport?: boolean;
-	client?: string;
-	plugins?: Plugin[];
-	rollupPlugins?: RollupPlugin[];
-	preprocess?: Preprocessor[];
-	exclude?: RegExp[];
-}
+export { PluginParams, Plugin };
 
 const defaultBuildOptions: BuildOptions = {
 	name: `Versatile App`,
 	machineName: `versatile-app`,
 	description: `TODO: add a description`,
-	isExport: false,
-	client: `./src`,
 	plugins: [],
-	rollupPlugins: [],
-	preprocess: [],
-	exclude: [/^(.+\/|)_.+$/],
+	watch: {
+		enable: false,
+		clearScreen: true,
+	},
+	dependencies: {
+		nativeModules: [],
+		sandboxedModules: [],
+		dualModules: [],
+	},
 };
 
 export async function buildApp(dir: string, options: BuildOptions) {
