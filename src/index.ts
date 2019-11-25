@@ -1,6 +1,4 @@
-import { BuildOptions, Plugin, PluginParams } from './interfaces';
-
-export { PluginParams, Plugin };
+import { BuildOptions } from './interfaces';
 
 const defaultBuildOptions: BuildOptions = {
 	name: `Versatile App`,
@@ -21,3 +19,6 @@ const defaultBuildOptions: BuildOptions = {
 export async function buildApp(dir: string, options: BuildOptions) {
 	options = Object.assign(options, defaultBuildOptions);
 }
+
+// Export the types
+export * from './interfaces';
