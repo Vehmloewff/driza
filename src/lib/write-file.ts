@@ -6,7 +6,7 @@ export default (root: string) => {
 	const files: { code: string; path: string; id: string; params: any }[] = [];
 
 	const writeFileNow = async (path: string, code: string, id: string) => {
-		await write(nodePath.join(root, path, id), code);
+		await write(nodePath.join(root, id, path), code);
 	};
 
 	return {
@@ -17,8 +17,8 @@ export default (root: string) => {
 		transformFiles: async (
 			fn: (code?: string, file?: string, params?: any) => string | Promise<string>
 		) => {
-			asyncForeach(files, async ({ code, path }) => {
-				code = await fn(path, code);
+			asyncForeach(files, async ({ code, path, params }) => {
+				code = await fn(path, code, params);
 			});
 		},
 		now: async () => {

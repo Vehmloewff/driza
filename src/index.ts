@@ -5,6 +5,7 @@ import createScopedValues from './lib/scoped-values';
 import watchedFiles from './lib/watched-files';
 import callFuncs from './lib/call-funcs';
 import { asyncForeach } from './lib/utils';
+import { pathToFileURL } from 'url';
 
 const defaultBuildOptions: BuildOptions = {
 	name: `Versatile App`,
@@ -25,7 +26,7 @@ const defaultBuildOptions: BuildOptions = {
 };
 
 export async function buildApp(dir: string, options: BuildOptions) {
-	options = Object.assign(options, defaultBuildOptions);
+	options = Object.assign(defaultBuildOptions, options);
 
 	const outputPath = nodePath.join(dir, options.outputDir);
 	const { setValue, getValue } = createScopedValues();
@@ -71,13 +72,13 @@ export async function buildApp(dir: string, options: BuildOptions) {
 	await build.call();
 	await afterBuild.call();
 
-	await writeFiles();
 	await transformFiles((code, _, params: TransformParams) => {
 		code = code.replace(`/*{%^&$#_PLATFORM_HERE_#$&^%}*/ return 'notset';`, params.platform);
 		code = code.replace(`/*{%^&$#_PLATFORM_IS_SANDBOXED_#$&^%}*/`, `${params.isSandboxed}`);
 
 		return code;
 	});
+	await writeFiles();
 	await afterWrite.call();
 
 	onFinish.call();
