@@ -26,7 +26,7 @@ export default {
 	plugins: [
 		globFiles({
 			file: `globbed-tests.ts`,
-			include: `./tests/**/*.ts`,
+			include: `./tests/**/*.test.ts`,
 			justImport: true,
 		}),
 		resolve({
