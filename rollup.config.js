@@ -22,7 +22,7 @@ if (prod) output.push({ file: pkg.module, format: 'es', ...sharedOutputOptions }
 export default {
 	input: prod ? 'src/index.ts' : 'globbed-tests.ts',
 	output,
-	external: [`path`],
+	external: [`path`, `fs`],
 	plugins: [
 		globFiles({
 			file: `globbed-tests.ts`,
