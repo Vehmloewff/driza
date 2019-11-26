@@ -42,6 +42,7 @@
 		"tslib": "^1.10.0",
 		"typescript": "^3.7.2",
 		"zip-tap": "^1.0.4",
+		"@types/write": "^2.0.0",
 		"zip-tap-reporter": "^1.0.3"
 	},
 	"homepage": "https://github.com/Vehmloewff/todo",
@@ -50,6 +51,7 @@
 		"url": "https://github.com/Vehmloewff/todo"
 	},
 	"dependencies": {
-		"debug": "^4.1.1"
+		"debug": "^4.1.1",
+		"write": "^2.0.0"
 	}
 }

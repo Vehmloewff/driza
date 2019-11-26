@@ -12,7 +12,5 @@
 		"lib": ["es5", "es6", "dom"]
 	},
 	"target": "ESNext",
-	"module": "ES6",
-	"include": ["src", "untyped.d.ts"],
-	"exclude": ["node_modules"]
+	"module": "ES6"
 }
