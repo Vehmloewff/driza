@@ -13,4 +13,4 @@ export default () =>
 	buildApp(nodePath.resolve(`tests/fixture/should-build`), {
 		outputDir: `out`,
 		plugins: [myPlugin],
-	});
+	}).promise();
