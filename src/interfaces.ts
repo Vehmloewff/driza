@@ -1,5 +1,9 @@
 import { EventEmitter } from 'events';
 
+export interface GoEmitter extends EventEmitter {
+	run: () => Promise<void>;
+}
+
 export interface BuildOptions {
 	name?: string;
 	machineName?: string;
@@ -32,6 +36,9 @@ export interface PluginParams {
 	writeFile: (path: string, code: string) => void;
 	writeFileNow: (path: string, code: string, id: string) => Promise<void>;
 	build: (fn: () => void | Promise<void>) => void;
+	warn: (message: string, des?: string) => void;
+	error: (message: string, des?: string) => void;
+	notice: (message: string, des?: string) => void;
 }
 
 export interface Plugin {
