@@ -31,7 +31,7 @@ type CustomEmit = (event?: string, value?: any) => void;
 export function buildApp(
 	dir: string,
 	options: BuildOptions
-): { promise: (emit: CustomEmit) => Promise<void>; emitter: () => GoEmitter } {
+): { promise: () => Promise<void>; emitter: () => GoEmitter } {
 	async function promiseBuilt(emit: CustomEmit) {
 		options = Object.assign(defaultBuildOptions, options);
 
