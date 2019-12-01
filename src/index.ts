@@ -1,4 +1,4 @@
-import { BuildOptions, Plugin } from './interfaces';
+import { BuildOptions, Plugin, GoEmitter } from './interfaces';
 import nodePath from 'path';
 import createWritingFuncs from './lib/write-file';
 import createScopedValues from './lib/scoped-values';
@@ -6,6 +6,7 @@ import watchedFiles from './lib/watched-files';
 import callFuncs from './lib/call-funcs';
 import { asyncForeach } from './lib/utils';
 import { EventEmitter } from 'events';
+import CustomError from './lib/custom-error';
 
 const defaultBuildOptions: BuildOptions = {
 	name: `Versatile App`,
@@ -25,8 +26,13 @@ const defaultBuildOptions: BuildOptions = {
 	},
 };
 
-export function buildApp(dir: string, options: BuildOptions) {
-	async function promiseBuilt(emit: (event?: string, value?: any) => void) {
+type CustomEmit = (event?: string, value?: any) => void;
+
+export function buildApp(
+	dir: string,
+	options: BuildOptions
+): { promise: (emit: CustomEmit) => Promise<void>; emitter: () => GoEmitter } {
+	async function promiseBuilt(emit: CustomEmit) {
 		options = Object.assign(defaultBuildOptions, options);
 
 		const outputPath = nodePath.join(dir, options.outputDir);
@@ -54,20 +60,42 @@ export function buildApp(dir: string, options: BuildOptions) {
 					platform: plugin.platformResult,
 				});
 
-				await plugin.run({
-					versatileParams: options,
-					setValue,
-					getValue,
-					addWatchFile,
-					removeWatchFile,
-					beforeBuild: beforeBuild.add,
-					afterBuild: afterBuild.add,
-					afterWrite: afterWrite.add,
-					onFinish: onFinish.add,
-					writeFile,
-					writeFileNow,
-					build: build.add,
-				});
+				const transformStandardMessage = (obj: {
+					message: string;
+					description: string;
+				}) => {
+					obj.message = `${plugin.name}: ${obj.message}`;
+					if (!obj.description) obj.description = ``;
+
+					return obj;
+				};
+
+				try {
+					await plugin.run({
+						versatileParams: options,
+						setValue,
+						getValue,
+						addWatchFile,
+						removeWatchFile,
+						beforeBuild: beforeBuild.add,
+						afterBuild: afterBuild.add,
+						afterWrite: afterWrite.add,
+						onFinish: onFinish.add,
+						writeFile,
+						writeFileNow,
+						build: build.add,
+						warn: (message, description) =>
+							emit(`warn`, transformStandardMessage({ message, description })),
+						error: (message, description) => {
+							emit(`error`, transformStandardMessage({ message, description }));
+							throw new CustomError(message, description);
+						},
+						notice: (message, description) =>
+							emit(`notice`, transformStandardMessage({ message, description })),
+					});
+				} catch (e) {
+					if (e.thrower !== `versatile`) emit(`error`, e);
+				}
 			});
 
 			await beforeBuild.call();
@@ -103,14 +131,16 @@ export function buildApp(dir: string, options: BuildOptions) {
 	}
 
 	return {
-		promise: () => {
-			return promiseBuilt(() => {});
-		},
+		promise: () => promiseBuilt(() => {}),
 		emitter: () => {
-			const emitter = new EventEmitter();
-			promiseBuilt((event: string, value: any) => {
-				emitter.emit(event, value);
-			});
+			const emitter: GoEmitter = new (class extends EventEmitter {
+				async run() {
+					await promiseBuilt((event: string, value: any) => {
+						this.emit(event, value);
+					});
+				}
+			})();
+
 			return emitter;
 		},
 	};
