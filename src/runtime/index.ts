@@ -1,1 +1,1 @@
-export const me = `default`;
+export * from './internal/bootstrap';
