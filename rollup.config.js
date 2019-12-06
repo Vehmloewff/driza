@@ -80,7 +80,7 @@ const compiler = {
 };
 
 const workflowManager = {
-	input: `src/workflow-manager/index.ts`,
+	input: `src/workflow/index.ts`,
 	output: generateOutputOptions({
 		file: `workflow/index`,
 		...sharedOutputOptions,
