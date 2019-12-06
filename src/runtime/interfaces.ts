@@ -17,6 +17,7 @@ export interface Renderer<RendererResult> {
 		parent: RendererResult;
 		props: ComponentProps[ComponentTypes];
 		removed: Store<boolean>;
+		dispatch: (event: string, data?: any) => Promise<void>;
 	}) => RendererResult;
 }
 
@@ -26,6 +27,7 @@ export interface ComponentBasics {
 	destroy: () => void;
 	reMount: () => void;
 	removed: Store<boolean>;
+	dispatch: (event: string, data?: any) => Promise<void>;
 	props: ComponentProps[ComponentTypes];
 }
 
