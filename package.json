@@ -2,8 +2,8 @@
 	"name": "todo",
 	"version": "0.0.0",
 	"description": "TODO: Add description",
-	"main": "dist/build.cjs.js",
-	"module": "dist/build.esm.js",
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
 	"typings": "typings/index.d.ts",
 	"scripts": {
 		"build": "cross-env NODE_ENV=production rollup -c && tsc",
@@ -27,6 +27,11 @@
 		"url": "https://github.com/Vehmloewff"
 	},
 	"files": [
+		"compiler",
+		"internal",
+		"store",
+		"workflow",
+		"style",
 		"dist",
 		"typings"
 	],

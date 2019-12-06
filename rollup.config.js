@@ -19,7 +19,7 @@ const sharedOutputOptions = {
 	sourcemap,
 };
 
-const globalPlugins = (dir, oldDir) => [
+const globalPlugins = (dir, oldDir, disable) => [
 	resolve({
 		preferBuiltins: true,
 		browser: browserMode,
@@ -29,6 +29,7 @@ const globalPlugins = (dir, oldDir) => [
 		typescript: require('typescript'),
 	}),
 	prod &&
+		!disable &&
 		command(
 			[
 				`node scripts/add-package-json.js "${dir}"`,
@@ -87,6 +88,15 @@ const workflowManager = {
 	plugins: globalPlugins(`workflow`),
 };
 
+const index = {
+	input: `src/runtime/index.ts`,
+	output: generateOutputOptions({
+		file: `dist/index`,
+		...sharedOutputOptions,
+	}),
+	plugins: globalPlugins(null, null, true),
+};
+
 const runtimes = readdirSync(`src/runtime`, 'utf-8')
 	.filter(dir => dir.indexOf(`.`) === -1)
 	.map(dir => ({
@@ -98,4 +108,4 @@ const runtimes = readdirSync(`src/runtime`, 'utf-8')
 		plugins: globalPlugins(dir, `runtime/${dir}`),
 	}));
 
-export default prod ? [compiler, workflowManager, ...runtimes] : testRound;
+export default prod ? [index, compiler, workflowManager, ...runtimes] : testRound;

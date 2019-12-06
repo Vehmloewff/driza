@@ -1,10 +1,16 @@
-node_modules
 .eslintignore
 .gitignore
 .prettierignore
 LICENSE
+node_modules
 /dist
-/typings
+typings
+globbed-*
+/compiler
+/workflow
+/store
+/style
+/internal
 
 **/*.png
 **/*.ico
