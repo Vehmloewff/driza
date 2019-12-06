@@ -1,12 +1,12 @@
 import { describe } from 'zip-tap';
-import { store, dependantStore, readableStore } from '.';
+import { ssimpleStore, dependantStore, readableStore } from '.';
 
 describe(`stores`, it => {
 	it(`should update and call the subscribers`, expect => {
 		const changes = [`this`, `that`, `then`, `there`];
 		let count = 0;
 
-		const myStore = store(changes[count]);
+		const myStore = ssimpleStore(changes[count]);
 
 		myStore.subscribe((_, initial) => {
 			if (!initial) count++;
@@ -30,7 +30,7 @@ describe(`stores`, it => {
 	});
 
 	it(`should unsubscribe themselves when prompted to do so`, expect => {
-		const myStore = store(`this`);
+		const myStore = ssimpleStore(`this`);
 
 		const unsubscribe = myStore.subscribe(val => expect(val).toBe(`this`));
 
@@ -40,7 +40,7 @@ describe(`stores`, it => {
 	});
 
 	it(`readable stores should update themselves accoring to the second param`, expect => {
-		const firstStore = store(`that`);
+		const firstStore = ssimpleStore(`that`);
 
 		const mirror = readableStore(`this`, ({ set }) => firstStore.subscribe(val => set(val)));
 
@@ -52,9 +52,9 @@ describe(`stores`, it => {
 	});
 
 	it(`dependant stores should update when the dependents do`, expect => {
-		const store1 = store(`then`);
-		const store2 = store(`where`);
-		const store3 = store(`happened`);
+		const store1 = ssimpleStore(`then`);
+		const store2 = ssimpleStore(`where`);
+		const store3 = ssimpleStore(`happened`);
 
 		const shouldUpdateWhenChildrenDo = dependantStore(
 			() => [store1.get(), store2.get(), store3.get()],

@@ -10,7 +10,7 @@ export interface StoreActions<StoreType> {
 
 export interface Store<StoreType> extends ReadableStore<StoreType>, StoreActions<StoreType> {}
 
-export const store = <StoreType>(startValue: StoreType): Store<StoreType> => {
+export const ssimpleStore = <StoreType>(startValue: StoreType): Store<StoreType> => {
 	let value: StoreType = startValue;
 	let subscribers: ((currentValue: StoreType, initial: boolean) => void)[] = [];
 
@@ -45,7 +45,7 @@ export const dependantStore = <StoreType>(
 	startValue: () => StoreType,
 	...updatables: Store<any>[]
 ): Store<StoreType> => {
-	const { subscribe, set, update, get } = store(startValue());
+	const { subscribe, set, update, get } = ssimpleStore(startValue());
 
 	updatables.forEach(updatable => {
 		updatable.subscribe(() => set(startValue()));
@@ -63,7 +63,7 @@ export const readableStore = <StoreType>(
 	startValue: StoreType,
 	updater: (actions: StoreActions<StoreType>) => void
 ): ReadableStore<StoreType> => {
-	const { subscribe, set, update, get } = store(startValue);
+	const { subscribe, set, update, get } = ssimpleStore(startValue);
 
 	updater({ set, update });
 
