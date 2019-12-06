@@ -1,1 +1,1 @@
-export const me = `internal`;
+export * from './renderer';
