@@ -8,5 +8,6 @@ export const bootstrapComponent = (component: ComponentBasics & AdditionalCompon
 		parent: renderer.root(),
 		props: component.props,
 		removed: component.removed,
+		dispatch: component.dispatch,
 	});
 };
