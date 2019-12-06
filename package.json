@@ -8,9 +8,9 @@
 	"scripts": {
 		"build": "cross-env NODE_ENV=production rollup -c && tsc",
 		"test": "cross-env NODE_ENV=development cross-env rollup -c",
-		"test:runtime": "cross-env VERSATILE_FILTER='src/runtime' npm run test",
-		"test:workflow": "cross-env VERSATILE_FILTER='src/workflow-manager' npm run test",
-		"test:compiler": "cross-env VERSATILE_FILTER='src/compiler' npm run test",
+		"test:runtime": "cross-env VERSATILE_FILTER='src/runtime' npm run test --",
+		"test:workflow": "cross-env VERSATILE_FILTER='src/workflow-manager' npm run test --",
+		"test:compiler": "cross-env VERSATILE_FILTER='src/compiler' npm run test --",
 		"lint": "prettier --write \"./**\"",
 		"lint:test": "prettier --check \"./**\"",
 		"preversion": "npm run test && npm run lint:test && npm run build",
