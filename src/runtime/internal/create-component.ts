@@ -6,7 +6,7 @@ import renderer, { RendererResult } from './renderer';
 
 const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/versatilejs/issues/new`;
 
-export const createComponent = <UserImpliedProps, UserReturnedResult>(
+export const createComponentOrElement = <UserImpliedProps, UserReturnedResult>(
 	fn: (
 		props: UserImpliedProps,
 		UI: UserInterface,
