@@ -8,7 +8,7 @@ const unexpectedError = `An unexpected error occured.  Please open an issue to r
 export const createComponentOrElement = <UserImpliedProps, UserReturnedResult>(
 	fn: (props: UserImpliedProps, self: Omit<ComponentBasics, 'props'>) => UserReturnedResult,
 	type: ComponentTypes
-): ((props: UserImpliedProps) => ComponentBasics & UserReturnedResult) => {
+) => {
 	const eventDispatcher = createEventDispatcher();
 
 	const removed = simpleStore(false);
@@ -71,9 +71,11 @@ export const createComponentOrElement = <UserImpliedProps, UserReturnedResult>(
 		hasBeenRendered: simpleStore(false),
 	};
 
-	return (props: UserImpliedProps) => ({
+	return (
+		props: UserImpliedProps
+	): Omit<ComponentBasics, 'props'> & UserReturnedResult & { props: UserImpliedProps } => ({
 		...self,
 		...fn(props, self),
-		props: props,
+		props,
 	});
 };

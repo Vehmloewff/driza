@@ -2,7 +2,6 @@ import {
 	UserInterface,
 	ComponentProps,
 	EaseLikeFunction,
-	ComponentTypes,
 	ComponentBasics,
 	UITypes,
 } from '../interfaces';
