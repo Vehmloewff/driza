@@ -341,7 +341,7 @@ export interface UserInterface {
 	scrollView: (
 		props: ComponentProps['scrollView']
 	) => ComponentBasics & {
-		scrollTo: (pos: number) => Promise<void>;
+		scrollTo: (pos: number, easing: EaseLikeFunction) => Promise<void>;
 	};
 	actionBar: (props: ComponentProps['actionBar']) => ComponentBasics;
 
@@ -355,3 +355,5 @@ export interface UserInterface {
 		};
 	};
 }
+
+export type EaseLikeFunction = (t: number) => number;
