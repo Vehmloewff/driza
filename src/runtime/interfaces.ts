@@ -280,8 +280,14 @@ export interface ComponentBasics {
 	destroy: () => void;
 	reMount: () => void;
 	removed: Store<boolean>;
-	dispatch: (event: string, data?: any) => Promise<void>;
+	dispatch: (event: string, data?: any) => Promise<number>;
 	props: ComponentProps[ComponentTypes];
+	children: Store<ComponentBasics[]>;
+	render: (...components: ComponentBasics[]) => void;
+}
+
+export interface ElementBasics {
+	$: (...components: ComponentBasics[]) => ElementBasics;
 }
 
 export interface AdditionalComponentValues {
