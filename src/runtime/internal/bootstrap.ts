@@ -1,13 +1,13 @@
 import { ComponentBasics, AdditionalComponentValues } from '../interfaces';
 import renderer from './renderer';
-import { ssimpleStore } from '../store';
+import { simpleStore } from '../store';
 
 export const bootstrapComponent = async (
 	component: ComponentBasics & AdditionalComponentValues
 ) => {
 	const renderedResult = renderer.component({
 		type: `virtual`,
-		order: ssimpleStore([null]),
+		order: simpleStore([null]),
 		parent: renderer.root(),
 		props: component.props,
 		removed: component.removed,

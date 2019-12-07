@@ -1,6 +1,6 @@
 import { random } from '../../utils';
 import renderer from '../internal/renderer';
-import { Store, ssimpleStore } from '../store';
+import { Store, simpleStore } from '../store';
 
 export interface FontOptions {
 	default?: 'arial' | 'courier-new' | 'georgia' | 'times-new-roman' | 'trebuchet=ms' | 'verdana';
@@ -22,8 +22,8 @@ export class Font {
 	ttf: string = null;
 	svg: string = null;
 
-	loaded: Store<boolean> = ssimpleStore(false);
-	error: Store<string> = ssimpleStore(null);
+	loaded: Store<boolean> = simpleStore(false);
+	error: Store<string> = simpleStore(null);
 
 	constructor(options: FontOptions = {}) {
 		if (options.default) this.id = options.default;

@@ -1,6 +1,6 @@
 import { UserInterface, ComponentBasics, ComponentTypes } from '../interfaces';
 import { createEventDispatcher } from './events';
-import { ssimpleStore, Store } from '../store';
+import { simpleStore, Store } from '../store';
 import { createUI } from './create-ui';
 import renderer, { RendererResult } from './renderer';
 
@@ -18,9 +18,9 @@ export const createComponent = <UserImpliedProps, UserReturnedResult>(
 
 	const UI: UserInterface = createUI();
 
-	const removed = ssimpleStore(false);
-	const children: Store<ComponentBasics[]> = ssimpleStore([]);
-	const order: Store<RendererResult[]> = ssimpleStore([]);
+	const removed = simpleStore(false);
+	const children: Store<ComponentBasics[]> = simpleStore([]);
+	const order: Store<RendererResult[]> = simpleStore([]);
 
 	function inisateChild(child: ComponentBasics, renderedParent: RendererResult, index: number) {
 		if (index > order.get().length) throw new Error(unexpectedError);
@@ -74,7 +74,7 @@ export const createComponent = <UserImpliedProps, UserReturnedResult>(
 		render: (...newChildren) => {
 			children.set(newChildren);
 		},
-		hasBeenRendered: ssimpleStore(false),
+		hasBeenRendered: simpleStore(false),
 	};
 
 	return (props: UserImpliedProps) => {
