@@ -1,65 +1,79 @@
-import { UserInterface, ComponentProps, EaseLikeFunction } from '../interfaces';
+import {
+	UserInterface,
+	ComponentProps,
+	EaseLikeFunction,
+	ComponentTypes,
+	ComponentBasics,
+	UITypes,
+} from '../interfaces';
 import { createComponentOrElement } from './create-component-or-element';
 import { RendererResult } from './renderer';
 import { simpleStore, Store } from '../store';
 import { Mediator } from '../../utils';
+import { propsDefaults } from './reasonable-defaults';
+
+const create = (fn: (props: any, SELF: Omit<ComponentBasics, 'props'>) => any, type: UITypes) =>
+	createComponentOrElement(
+		(props, SELF) => fn(Object.assign(propsDefaults[type], props), SELF),
+		type
+	);
 
 export const createUI = (): UserInterface => ({
 	// Inputs
-	button: createComponentOrElement(() => {}, 'select'),
+	button: create(() => {}, 'select'),
 
 	// Text inputs
-	textField: createComponentOrElement(() => {}, 'select'),
+	textField: create(() => {}, 'select'),
 
-	textView: createComponentOrElement(() => {}, 'select'),
+	textView: create(() => {}, 'select'),
 
 	// Options Inputs
-	switch: createComponentOrElement(() => {}, 'select'),
+	switch: create(() => {}, 'select'),
 
-	checkbox: createComponentOrElement(() => {}, 'select'),
-
-	//
-	slider: createComponentOrElement(() => {}, 'select'),
+	checkbox: create(() => {}, 'select'),
 
 	//
-	select: createComponentOrElement(() => {}, 'select'),
+	slider: create(() => {}, 'select'),
 
 	//
-	segmentedBar: createComponentOrElement(() => {}, 'select'),
+	select: create(() => {}, 'select'),
 
-	radio: createComponentOrElement(() => {}, 'select'),
+	//
+	segmentedBar: create(() => {}, 'select'),
+
+	radio: create(() => {}, 'select'),
 
 	// Complex options inputs
-	datePicker: createComponentOrElement(() => {}, 'select'),
+	datePicker: create(() => {}, 'select'),
 
-	timePicker: createComponentOrElement(() => {}, 'select'),
+	timePicker: create(() => {}, 'select'),
 
-	listPicker: createComponentOrElement(() => {}, 'select'),
+	listPicker: create(() => {}, 'select'),
 
 	// Moving
-	activityIndicator: createComponentOrElement(() => {}, 'select'),
+	activityIndicator: create(() => {}, 'select'),
 
-	progress: createComponentOrElement(() => {}, 'select'),
+	progress: create(() => {}, 'select'),
 
-	dialogs: createComponentOrElement(() => {}, 'select'),
+	dialogs: create(() => {}, 'select'),
 
-	menu: createComponentOrElement(() => {}, 'select'),
+	menu: create(() => {}, 'select'),
 
 	// Static
-	label: createComponentOrElement(() => {}, 'select'),
+	label: create(() => {}, 'select'),
 
-	image: createComponentOrElement(() => {}, 'select'),
+	image: create(() => {}, 'select'),
 
-	htmlView: createComponentOrElement(() => {}, 'select'),
+	htmlView: create(() => {}, 'select'),
 
-	listView: createComponentOrElement(() => {}, 'select'),
+	listView: create(() => {}, 'select'),
 
-	tabView: createComponentOrElement(() => {}, 'select'),
+	tabView: create(() => {}, 'select'),
 
-	tabItem: createComponentOrElement(() => {}, 'select'),
+	tabItem: create(() => {}, 'select'),
 
 	// Layout
-	page: createComponentOrElement((__, SELF) => {
+	page: create((__, SELF) => {
 		const mediator: Store<Mediator> = simpleStore(null);
 
 		SELF.once(`create`, (data: RendererResult) => mediator.set(data.mediator));
@@ -80,27 +94,27 @@ export const createUI = (): UserInterface => ({
 		};
 	}, 'select'),
 
-	childPageSlot: createComponentOrElement(() => {}, 'select'),
+	childPageSlot: create(() => {}, 'select'),
 
-	stackLayout: createComponentOrElement(() => {}, 'select'),
+	stackLayout: create(() => {}, 'select'),
 
-	gridLayout: createComponentOrElement(() => {}, 'select'),
+	gridLayout: create(() => {}, 'select'),
 
-	absoluteLayout: createComponentOrElement(() => {}, 'select'),
+	absoluteLayout: create(() => {}, 'select'),
 
-	wrapLayout: createComponentOrElement(() => {}, 'select'),
+	wrapLayout: create(() => {}, 'select'),
 
-	scrollView: createComponentOrElement(
+	scrollView: create(
 		(props: ComponentProps['scrollView']) => ({
 			scrollTo: async (pos: number, easing: EaseLikeFunction) => {},
 		}),
 		'select'
 	),
 
-	actionBar: createComponentOrElement(() => {}, 'select'),
+	actionBar: create(() => {}, 'select'),
 
 	// Other
-	webView: createComponentOrElement((props, SELF) => {
+	webView: create((props: ComponentProps['webView'], SELF) => {
 		const mediator: Store<Mediator> = simpleStore(null);
 
 		SELF.once(`create`, (data: RendererResult) => mediator.set(data.mediator));

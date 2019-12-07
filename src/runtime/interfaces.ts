@@ -3,7 +3,7 @@ import { GlobalStyles, GlobalStates, TextStyles, InputStyles } from './style/int
 import { Color } from './style/color';
 import { Font } from './style/font';
 
-export type ComponentTypes =
+export type UITypes =
 	// Inputs
 	| 'button'
 
@@ -52,8 +52,9 @@ export type ComponentTypes =
 	| 'actionBar'
 
 	// Other
-	| 'virtual'
 	| 'webView';
+
+export type ComponentTypes = UITypes | 'virtual';
 
 export interface DefaultPropsOnElement {
 	disabled?: Store<boolean>;
@@ -165,7 +166,9 @@ export interface ComponentProps {
 	progress: DefaultPropsOnElement & {
 		value: Store<number>;
 		style?: Store<
-			GlobalStyles & { mainColor: Color } & GlobalStates<GlobalStyles & { mainColor: Color }>
+			GlobalStyles & { mainColor?: Color } & GlobalStates<
+					GlobalStyles & { mainColor?: Color }
+				>
 		>;
 	};
 	dialogs: DefaultPropsOnElement & {
@@ -223,35 +226,35 @@ export interface ComponentProps {
 		currentChild: Store<string>;
 	};
 	stackLayout: DefaultPropsOnElement & {
-		style?: GlobalStyles & GlobalStates<GlobalStyles>;
+		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
 		orientation?: Store<'horizantal' | 'vertical'>;
 	};
 	gridLayout: DefaultPropsOnElement & {
 		columns?: Store<number>;
 		rows?: Store<number>;
-		style?: GlobalStyles & GlobalStates<GlobalStyles>;
+		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
 	};
 	gridItem: DefaultPropsOnElement & {
 		columnSpan?: Store<number>;
 		rowSpan?: Store<number>;
-		style?: GlobalStyles & GlobalStates<GlobalStyles>;
+		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
 	};
 	absoluteLayout: DefaultPropsOnElement & {
-		style?: GlobalStyles & GlobalStates<GlobalStyles>;
+		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
 	};
 	wrapLayout: DefaultPropsOnElement & {
-		style?: GlobalStyles & GlobalStates<GlobalStyles>;
+		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
 	};
 	dockLayout: DefaultPropsOnElement & {
-		style?: GlobalStyles & GlobalStates<GlobalStyles>;
+		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
 		stretchLastChild?: Store<boolean>;
 	};
 	scrollView: DefaultPropsOnElement & {
 		scrollPos?: Store<number>;
-		style?: GlobalStyles & GlobalStates<GlobalStyles>;
+		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
 	};
 	actionBar: DefaultPropsOnElement & {
-		style?: GlobalStyles & GlobalStates<GlobalStyles>;
+		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
 	};
 
 	// Other
