@@ -1,5 +1,5 @@
 import { ComponentBasics, AdditionalComponentValues } from '../interfaces';
-import renderer from './renderer';
+import renderer from '../internal/renderer';
 import { simpleStore } from '../store';
 
 export const bootstrapComponent = async (

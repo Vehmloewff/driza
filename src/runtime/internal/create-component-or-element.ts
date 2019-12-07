@@ -1,5 +1,5 @@
 import { ComponentBasics, ComponentTypes } from '../interfaces';
-import { createEventDispatcher } from './events';
+import { createEventDispatcher } from '../index/events';
 import { simpleStore, Store } from '../store';
 import renderer, { RendererResult } from './renderer';
 

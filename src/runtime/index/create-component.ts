@@ -1,6 +1,6 @@
-import { createComponentOrElement } from './create-component-or-element';
+import { createComponentOrElement } from '../internal/create-component-or-element';
 import { UserInterface, ComponentBasics } from '../interfaces';
-import { createUI } from './create-ui';
+import { createUI } from '../internal/create-ui';
 
 export const createComponent = <UserImpliedProps, UserReturnedResult>(
 	fn: (

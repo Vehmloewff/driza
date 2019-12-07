@@ -98,7 +98,7 @@ const index = {
 };
 
 const runtimes = readdirSync(`src/runtime`, 'utf-8')
-	.filter(dir => dir.indexOf(`.`) === -1)
+	.filter(dir => dir.indexOf(`.`) === -1 && dir !== `index`)
 	.map(dir => ({
 		input: `src/runtime/${dir}/index.ts`,
 		output: generateOutputOptions({

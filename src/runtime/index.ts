@@ -1,4 +1,4 @@
-export * from './internal/bootstrap';
-export * from './internal/events';
+export * from './index/bootstrap';
+export * from './index/events';
 export * from './interfaces';
-export * from './internal/create-component';
+export * from './index/create-component';
