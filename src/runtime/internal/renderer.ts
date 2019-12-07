@@ -1,15 +1,14 @@
 import { Renderer } from '../interfaces';
-import { Store, simpleStore } from '../store';
 import { Font } from '../style/font';
+import { Mediator, createMediator } from '../../utils';
 
-export type RendererResult = { element: string; id: string; removed: Store<boolean> };
+export type RendererResult = { data: any; mediator: Mediator };
 
 const renderer: Renderer<RendererResult> = {
-	root: () => ({ element: `root`, id: `some-id`, removed: simpleStore(false) }),
-	component: ({ removed, type, parent }) => ({
-		element: `${parent.element}>element:${type}`,
-		id: `some-id`,
-		removed,
+	root: () => ({ data: `some-id`, mediator: createMediator() }),
+	component: ({ type, parent }) => ({
+		data: { element: `${parent}>element:${type}`, id: `some-id` },
+		mediator: createMediator(),
 	}),
 	applyFont: async (font: Font) => console.log('Applying Font...', font),
 };

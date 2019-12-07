@@ -1,5 +1,6 @@
 import { createComponentOrElement } from './create-component-or-element';
 import { UserInterface, ComponentBasics } from '../interfaces';
+import { createUI } from './create-ui';
 
 export const createComponent = <UserImpliedProps, UserReturnedResult>(
 	fn: (
@@ -7,4 +8,7 @@ export const createComponent = <UserImpliedProps, UserReturnedResult>(
 		UI: UserInterface,
 		self: Omit<ComponentBasics, 'props'>
 	) => UserReturnedResult
-) => createComponentOrElement(fn, `virtual`);
+) =>
+	createComponentOrElement((props: UserImpliedProps, SELF) => {
+		fn(props, createUI(), SELF);
+	}, `virtual`);

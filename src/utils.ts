@@ -42,3 +42,42 @@ export const random = (length: number) => {
 
 	return chars;
 };
+
+// Adapted from https://github.com/TehShrike/mannish/blob/master/index.js
+export interface Mediator {
+	provide: <Arg, ReturnType>(name: string, fn: (arg: Arg) => ReturnType) => () => void;
+	call: <Arg, ReturnType>(name: string, arg: Arg) => ReturnType;
+}
+
+export const createMediator = (): Mediator => {
+	const providers = Object.create(null);
+
+	return {
+		provide: <Arg, ReturnType>(name: string, fn: (arg: Arg) => ReturnType) => {
+			if (typeof fn !== `function`) {
+				throw new Error(`${fn} is not a function`);
+			} else if (typeof name !== `string`) {
+				throw new Error(`The provider name must be a string`);
+			} else if (providers[name]) {
+				throw new Error(`There is already a provider for "${name}"`);
+			} else {
+				providers[name] = fn;
+			}
+
+			let removed = false;
+			return () => {
+				if (!removed) {
+					delete providers[name];
+					removed = true;
+				}
+			};
+		},
+		call: <Arg, ReturnType>(name: string, arg: Arg): ReturnType => {
+			if (providers[name]) {
+				return providers[name](arg);
+			} else {
+				throw new Error(`No provider found for "${name}"`);
+			}
+		},
+	};
+};

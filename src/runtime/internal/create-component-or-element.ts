@@ -1,22 +1,15 @@
-import { UserInterface, ComponentBasics, ComponentTypes } from '../interfaces';
+import { ComponentBasics, ComponentTypes } from '../interfaces';
 import { createEventDispatcher } from './events';
 import { simpleStore, Store } from '../store';
-import { createUI } from './create-ui';
 import renderer, { RendererResult } from './renderer';
 
 const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/versatilejs/issues/new`;
 
 export const createComponentOrElement = <UserImpliedProps, UserReturnedResult>(
-	fn: (
-		props: UserImpliedProps,
-		UI: UserInterface,
-		self: Omit<ComponentBasics, 'props'>
-	) => UserReturnedResult,
+	fn: (props: UserImpliedProps, self: Omit<ComponentBasics, 'props'>) => UserReturnedResult,
 	type: ComponentTypes
-) => {
+): ((props: UserImpliedProps) => ComponentBasics & UserReturnedResult) => {
 	const eventDispatcher = createEventDispatcher();
-
-	const UI: UserInterface = createUI();
 
 	const removed = simpleStore(false);
 	const children: Store<ComponentBasics[]> = simpleStore([]);
@@ -68,6 +61,7 @@ export const createComponentOrElement = <UserImpliedProps, UserReturnedResult>(
 	const self: Omit<ComponentBasics, 'props'> = {
 		dispatch: eventDispatcher.dispatch,
 		on: eventDispatcher.on,
+		once: eventDispatcher.once,
 		destroy: () => removed.set(true),
 		reMount: () => removed.set(false),
 		removed,
@@ -77,13 +71,9 @@ export const createComponentOrElement = <UserImpliedProps, UserReturnedResult>(
 		hasBeenRendered: simpleStore(false),
 	};
 
-	return (props: UserImpliedProps) => {
-		const thisComponent: ComponentBasics = {
-			...self,
-			...fn(props, UI, self),
-			props: props,
-		};
-
-		return thisComponent;
-	};
+	return (props: UserImpliedProps) => ({
+		...self,
+		...fn(props, self),
+		props: props,
+	});
 };

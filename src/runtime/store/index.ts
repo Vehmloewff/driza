@@ -4,8 +4,8 @@ export interface ReadableStore<StoreType> {
 }
 
 export interface StoreActions<StoreType> {
-	set: (newValue: StoreType) => StoreType;
-	update: (fn: (currentValue: StoreType) => StoreType) => StoreType;
+	set: (newValue: StoreType) => void;
+	update: (fn: (currentValue: StoreType) => StoreType) => void;
 }
 
 export interface Store<StoreType> extends ReadableStore<StoreType>, StoreActions<StoreType> {}
@@ -25,8 +25,6 @@ export const simpleStore = <StoreType>(startValue: StoreType): Store<StoreType> 
 	const set = (newValue: StoreType) => {
 		value = newValue;
 		subscribers.forEach(fn => fn(value, false));
-
-		return value;
 	};
 
 	const update = (fn: (currentValue: StoreType) => StoreType) => set(fn(value));

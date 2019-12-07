@@ -43,6 +43,7 @@ export type ComponentTypes =
 
 	// Layout
 	| 'page'
+	| 'childPageSlot'
 	| 'stackLayout'
 	| 'gridLayout'
 	| 'absoluteLayout'
@@ -218,7 +219,7 @@ export interface ComponentProps {
 		>;
 		defaultChild?: Store<string>;
 	};
-	childSlot: {
+	childPageSlot: {
 		currentChild: Store<string>;
 	};
 	stackLayout: DefaultPropsOnElement & {
@@ -257,6 +258,7 @@ export interface ComponentProps {
 	webView: DefaultPropsOnElement & {
 		src: Store<string>;
 		isLoading: Store<boolean>;
+		history: Store<string[]>;
 	};
 	virtual: { [key: string]: any };
 }
@@ -277,6 +279,7 @@ export interface Renderer<RendererResult> {
 // The core fundamentals of all components
 export interface ComponentBasics {
 	on: (event: string, cb: (data?: any) => Promise<void> | void) => void;
+	once: (event: string, cb: (data?: any) => Promise<void> | void) => void;
 	destroy: () => void;
 	reMount: () => void;
 	removed: Store<boolean>;
@@ -301,7 +304,6 @@ export interface UserInterface {
 	// Text inputs
 	textField: (props: ComponentProps['textField']) => ComponentBasics;
 	textView: (props: ComponentProps['textView']) => ComponentBasics;
-	search: (props: ComponentProps[ComponentTypes]) => ComponentBasics;
 
 	// Options Inputs
 	switch: (props: ComponentProps['switch']) => ComponentBasics;
@@ -339,7 +341,7 @@ export interface UserInterface {
 	) => ComponentBasics & {
 		go: (route: string, params: { [key: string]: any }) => Promise<void>;
 	};
-	childSlot: (props: ComponentProps['childSlot']) => ComponentBasics;
+	childPageSlot: (props: ComponentProps['childPageSlot']) => ComponentBasics;
 	stackLayout: (props: ComponentProps['stackLayout']) => ComponentBasics;
 	gridLayout: (props: ComponentProps['gridLayout']) => ComponentBasics;
 	absoluteLayout: (props: ComponentProps['absoluteLayout']) => ComponentBasics;
