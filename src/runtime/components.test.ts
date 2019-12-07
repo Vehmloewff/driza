@@ -2,42 +2,35 @@ import { describe } from 'zip-tap';
 import { createComponent } from '.';
 import { Store, simpleStore } from './store';
 import { UserInterface, ComponentBasics, ComponentTypes } from './interfaces';
-import { Color } from './style';
+import { Color, GlobalStyles } from './style';
 import { bootstrapComponent } from './index/bootstrap';
 
-describe(`components`, it => {
-	it(`should create the component without any errors`, expect => {
-		const App = createComponent((props: { cool: boolean }) => {
-			if (props.cool) console.log('Cool!');
+describe(`components`, async it => {
+	await it(`should create the component without any errors`, async expect => {
+		let called = 0;
 
-			// const button = UI.button({
-			// 	text: simpleStore(``),
-			// 	style: simpleStore({
-			// 		backgroundColor: new Color([0, 0, 0, 1]),
-			// 	}),
-			// });
+		const App = createComponent((props: { cool: Store<boolean> }, UI, SELF) => {
+			SELF.once(`create`, () => {
+				called++;
+				expect(props.cool.get()).toBe(true);
+			});
 
-			// SELF.render(button);
+			const button = UI.button({
+				text: simpleStore(``),
+				style: simpleStore({
+					backgroundColor: new Color([0, 0, 0, 1]),
+				}),
+			});
+
+			SELF.render(button);
 		});
 
-		const app = App({ cool: true });
+		const app = App({ cool: simpleStore(true) });
 
 		app.props.cool;
 
-		bootstrapComponent(app);
+		await bootstrapComponent(app);
+
+		expect(called).toBe(1);
 	});
-
-	const create = <User extends {}, ReturnVal extends {}>(fn: (props: User) => ReturnVal) => {
-		return (props: User) => ({ ...fn(props), props });
-	};
-
-	const Me = create((props: { me: boolean }) => {
-		return {
-			Elijah: 'me',
-		};
-	});
-
-	let me = Me({ me: true });
-
-	me.props.me;
 });
