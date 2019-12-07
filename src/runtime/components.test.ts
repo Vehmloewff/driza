@@ -1,8 +1,7 @@
 import { describe } from 'zip-tap';
 import { createComponent } from '.';
 import { Store, simpleStore } from './store';
-import { UserInterface, ComponentBasics, ComponentTypes } from './interfaces';
-import { Color, GlobalStyles } from './style';
+import { Color } from './style';
 import { bootstrapComponent } from './index/bootstrap';
 
 describe(`components`, async it => {
