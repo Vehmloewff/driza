@@ -1,5 +1,7 @@
 import { Store } from './store';
 import { GlobalStyles, GlobalStates, TextStyles, InputStyles } from './style/interfaces';
+import { Color } from './style/color';
+import { Font } from './style/font';
 
 export type ComponentTypes =
 	// Inputs
@@ -269,6 +271,7 @@ export interface Renderer<RendererResult> {
 		removed: Store<boolean>;
 		dispatch: (event: string, data?: any) => Promise<void>;
 	}) => RendererResult;
+	applyFont: (params: Font) => Promise<void>;
 }
 
 // The core fundamentals of all components

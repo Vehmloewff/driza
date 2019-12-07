@@ -1,3 +1,6 @@
+import { Color } from './color';
+import { Font } from './font';
+
 export type BorderStyles =
 	| 'dotted'
 	| 'dashed'
