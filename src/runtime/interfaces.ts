@@ -265,11 +265,11 @@ export interface Renderer<RendererResult> {
 	root: () => RendererResult;
 	component: (values: {
 		type: ComponentTypes;
-		order: RendererResult[];
+		order: Store<RendererResult[]>;
 		parent: RendererResult;
 		props: ComponentProps[ComponentTypes];
 		removed: Store<boolean>;
-		dispatch: (event: string, data?: any) => Promise<void>;
+		dispatch: (event: string, data?: any) => Promise<number>;
 	}) => RendererResult;
 	applyFont: (params: Font) => Promise<void>;
 }
@@ -282,8 +282,8 @@ export interface ComponentBasics {
 	removed: Store<boolean>;
 	dispatch: (event: string, data?: any) => Promise<number>;
 	props: ComponentProps[ComponentTypes];
-	children: Store<ComponentBasics[]>;
 	render: (...components: ComponentBasics[]) => void;
+	hasBeenRendered: Store<boolean>;
 }
 
 export interface ElementBasics {

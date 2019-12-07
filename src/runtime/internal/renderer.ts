@@ -2,7 +2,7 @@ import { Renderer } from '../interfaces';
 import { Store, ssimpleStore } from '../store';
 import { Font } from '../style/font';
 
-type RendererResult = { element: string; id: string; removed: Store<boolean> };
+export type RendererResult = { element: string; id: string; removed: Store<boolean> };
 
 const renderer: Renderer<RendererResult> = {
 	root: () => ({ element: `root`, id: `some-id`, removed: ssimpleStore(false) }),
