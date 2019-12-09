@@ -137,4 +137,5 @@ export const createUI = (): UserInterface => ({
 			history,
 		};
 	}, 'select'),
+	element: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'element'),
 });

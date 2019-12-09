@@ -18,6 +18,8 @@ describe(`components`, async it => {
 
 			const layout = UI.stackLayout({});
 
+			const element = UI.element();
+
 			const button = UI.button({
 				text: simpleStore(``),
 				style: simpleStore({
@@ -25,7 +27,7 @@ describe(`components`, async it => {
 				}),
 			});
 
-			SELF.render(layout2.$(layout.$(button)));
+			SELF.render(layout2.$(layout.$(element.$(button))));
 		});
 
 		const app = App({ cool: simpleStore(true) });

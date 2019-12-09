@@ -187,4 +187,7 @@ export const propsDefaults: Omit<ComponentProps, 'virtual'> = {
 		isLoading: simpleStore(false),
 		history: simpleStore([]),
 	},
+	element: {
+		...widelyUsedPropsDefaults,
+	},
 };

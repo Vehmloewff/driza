@@ -52,7 +52,8 @@ export type UITypes =
 	| 'actionBar'
 
 	// Other
-	| 'webView';
+	| 'webView'
+	| 'element';
 
 export type ComponentTypes = UITypes | 'virtual';
 
@@ -257,6 +258,9 @@ export interface ComponentProps {
 		isLoading: Store<boolean>;
 		history: Store<string[]>;
 	};
+	element: DefaultPropsOnElement & {
+		style: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+	};
 	virtual: { [key: string]: any };
 }
 
@@ -412,6 +416,10 @@ export interface UserInterface {
 			foward: () => Promise<void>;
 		};
 	};
+	element: (
+		props?: ComponentProps['element']
+	) => TransitionApplicableResult<UserInterface['element'], ComponentProps['element']['style']> &
+		PublicRenderShortcut<TransitionApplicableResult<UserInterface['element'], ComponentProps['element']['style']>>;
 }
 
 export type EaseLikeFunction = (t: number) => number;
