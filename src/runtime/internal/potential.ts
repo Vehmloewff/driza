@@ -17,6 +17,8 @@ export const createPotential = <Element extends Omit<ComponentBasics, 'props'>, 
 	const fire = (name: PotentialKeys, params: AnimationParamaters): Promise<void> => {
 		return new Promise(resolve => {
 			SELF.once('create', () => {
+				if (!animations[name]) return resolve();
+
 				SELF.dispatch(
 					'animation',
 					animations[name].map(animation => {
