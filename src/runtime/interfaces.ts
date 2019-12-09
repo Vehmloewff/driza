@@ -165,11 +165,7 @@ export interface ComponentProps {
 	};
 	progress: DefaultPropsOnElement & {
 		value: Store<number>;
-		style?: Store<
-			GlobalStyles & { mainColor?: Color } & GlobalStates<
-					GlobalStyles & { mainColor?: Color }
-				>
-		>;
+		style?: Store<GlobalStyles & { mainColor?: Color } & GlobalStates<GlobalStyles & { mainColor?: Color }>>;
 	};
 	dialogs: DefaultPropsOnElement & {
 		primaryText?: Store<string>;
@@ -217,9 +213,7 @@ export interface ComponentProps {
 		name: Store<string>;
 		route: Store<string>;
 		paramaters?: Store<{ [key: string]: any }>;
-		resolve?: Store<
-			(paramaters: { [key: string]: any }) => Promise<void | string> | void | string
-		>;
+		resolve?: Store<(paramaters: { [key: string]: any }) => Promise<void | string> | void | string>;
 		defaultChild?: Store<string>;
 	};
 	childPageSlot: {
