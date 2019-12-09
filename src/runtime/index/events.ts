@@ -1,7 +1,7 @@
 import { asyncForeach } from '../../utils';
 
 export const createEventDispatcher = () => {
-	type Listener = (data?: any) => Promise<void> | void;
+	type Listener = (data: any | undefined, args: any[], addArg: (data: any) => void) => Promise<void> | void;
 
 	const dispatchAwaiters: {
 		[event: string]: {
@@ -9,13 +9,18 @@ export const createEventDispatcher = () => {
 			oneTimeListeners: Listener[];
 			called: boolean;
 			callWithData?: any;
+			args?: any[];
 		};
 	} = {};
 
 	const addEventListener = (event: string, listener: Listener, once: boolean = false) => {
 		if (dispatchAwaiters[event]) {
+			if (!dispatchAwaiters[event].args) dispatchAwaiters[event].args = [];
+
 			if (dispatchAwaiters[event].called && once) {
-				listener(dispatchAwaiters[event].callWithData);
+				listener(dispatchAwaiters[event].callWithData, dispatchAwaiters[event].args, data => {
+					dispatchAwaiters[event].args.push(data);
+				});
 			}
 
 			dispatchAwaiters[event][once ? 'oneTimeListeners' : 'listeners'].push(listener);
@@ -39,12 +44,18 @@ export const createEventDispatcher = () => {
 	};
 
 	const dispatch = async (event: string, data?: any) => {
+		const addArg = (data: any) => {
+			dispatchAwaiters[event].args.push(data);
+		};
+
 		if (dispatchAwaiters[event]) {
-			asyncForeach(dispatchAwaiters[event].listeners, async listener => await listener(data));
+			dispatchAwaiters[event].args = [];
+
+			await asyncForeach(dispatchAwaiters[event].listeners, async listener => await listener(data, dispatchAwaiters[event].args, addArg));
 
 			let called = 0;
 			while (dispatchAwaiters[event].oneTimeListeners.length) {
-				await dispatchAwaiters[event].oneTimeListeners[0](data);
+				await dispatchAwaiters[event].oneTimeListeners[0](data, dispatchAwaiters[event].args, addArg);
 
 				dispatchAwaiters[event].oneTimeListeners.shift();
 

@@ -24,7 +24,7 @@ describe(`createEventDispatcher`, async it => {
 		expect(called).toBe(3);
 	});
 
-	it(`should only call the 'once' events once`, async expect => {
+	await it(`should only call the 'once' events once`, async expect => {
 		const { once, dispatch } = createEventDispatcher();
 
 		let called = 0;
@@ -46,7 +46,7 @@ describe(`createEventDispatcher`, async it => {
 		expect(called).toBe(2);
 	});
 
-	it(`should remove listener when prompted to do so`, async expect => {
+	await it(`should remove listener when prompted to do so`, async expect => {
 		const { on, dispatch } = createEventDispatcher();
 
 		let called = 0;
@@ -69,5 +69,31 @@ describe(`createEventDispatcher`, async it => {
 		await dispatch(`event`, `cool`);
 
 		expect(called).toBe(2);
+	});
+
+	await it(`should respect the args`, async expect => {
+		const { on, dispatch } = createEventDispatcher();
+
+		let called = 0;
+
+		on(`event`, (__, _, addArg) => {
+			addArg('you');
+			called++;
+		});
+
+		on(`event`, (_, args, addArg) => {
+			expect(args).toMatchObject([`you`]);
+			addArg(`me`);
+			called++;
+		});
+
+		on(`event`, (_, args) => {
+			expect(args).toMatchObject([`you`, `me`]);
+			called++;
+		});
+
+		await dispatch(`event`);
+
+		expect(called).toBe(3);
 	});
 });
