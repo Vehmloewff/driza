@@ -39,10 +39,7 @@ export const simpleStore = <StoreType>(startValue: StoreType): Store<StoreType> 
 	};
 };
 
-export const dependantStore = <StoreType>(
-	startValue: () => StoreType,
-	...updatables: Store<any>[]
-): Store<StoreType> => {
+export const dependantStore = <StoreType>(startValue: () => StoreType, ...updatables: Store<any>[]): Store<StoreType> => {
 	const { subscribe, set, update, get } = simpleStore(startValue());
 
 	updatables.forEach(updatable => {
@@ -57,10 +54,7 @@ export const dependantStore = <StoreType>(
 	};
 };
 
-export const readableStore = <StoreType>(
-	startValue: StoreType,
-	updater: (actions: StoreActions<StoreType>) => void
-): ReadableStore<StoreType> => {
+export const readableStore = <StoreType>(startValue: StoreType, updater: (actions: StoreActions<StoreType>) => void): ReadableStore<StoreType> => {
 	const { subscribe, set, update, get } = simpleStore(startValue);
 
 	updater({ set, update });

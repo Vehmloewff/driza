@@ -1,17 +1,7 @@
 import { Color } from './color';
 import { Font } from './font';
 
-export type BorderStyles =
-	| 'dotted'
-	| 'dashed'
-	| 'solid'
-	| 'double'
-	| 'groove'
-	| 'ridge'
-	| 'inset'
-	| 'outset'
-	| 'none'
-	| 'hidden';
+export type BorderStyles = 'dotted' | 'dashed' | 'solid' | 'double' | 'groove' | 'ridge' | 'inset' | 'outset' | 'none' | 'hidden';
 
 export interface TextShadow {
 	x?: number;
@@ -147,12 +137,3 @@ export interface GlobalStates<Styles> {
 	blurred?: Styles;
 	disabled?: Styles;
 }
-
-export type Potential<Element, ElementStyles> = (
-	element: Element,
-	options: { [key: string]: any }
-) => {
-	duration: number; // ms
-	delay: number; // ms
-	run: (position: number) => ElementStyles;
-};

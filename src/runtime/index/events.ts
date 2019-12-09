@@ -28,9 +28,7 @@ export const createEventDispatcher = () => {
 		}
 
 		return () => {
-			dispatchAwaiters[event].listeners = (dispatchAwaiters[event].listeners || []).filter(
-				fn => fn !== listener
-			);
+			dispatchAwaiters[event].listeners = (dispatchAwaiters[event].listeners || []).filter(fn => fn !== listener);
 		};
 	};
 

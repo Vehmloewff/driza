@@ -2,9 +2,7 @@ import { ComponentBasics, AdditionalComponentValues } from '../interfaces';
 import renderer from '../internal/renderer';
 import { simpleStore } from '../store';
 
-export const bootstrapComponent = async (
-	component: ComponentBasics & AdditionalComponentValues
-) => {
+export const bootstrapComponent = async (component: ComponentBasics & AdditionalComponentValues) => {
 	const renderedResult = renderer.component({
 		type: `virtual`,
 		order: simpleStore([null]),

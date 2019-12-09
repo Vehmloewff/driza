@@ -1,7 +1,4 @@
-export const asyncForeach = async <T>(
-	arr: T[],
-	fn: (value?: T, index?: number) => Promise<void> | void
-) => {
+export const asyncForeach = async <T>(arr: T[], fn: (value?: T, index?: number) => Promise<void> | void) => {
 	for (let index in arr) {
 		await fn(arr[index], Number(index));
 	}
@@ -16,10 +13,7 @@ export const cb2Asnyc = (fn: Function, ...args: any[]): Promise<any> => {
 	});
 };
 
-export const callLikeArray = async <T>(
-	valOrArray: T[] | T,
-	cb: (val: T) => void | Promise<void>
-) => {
+export const callLikeArray = async <T>(valOrArray: T[] | T, cb: (val: T) => void | Promise<void>) => {
 	if (Array.isArray(valOrArray)) asyncForeach(valOrArray, async val => await cb(val));
 	else await cb(valOrArray);
 };

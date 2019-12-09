@@ -23,12 +23,8 @@ export class Color {
 		}
 
 		if (!Array.isArray(options) && options.alpha) {
-			if (this.hex.length === 7)
-				this.hex = this.hex + this.componentToHex(options.alpha * 225);
-			else
-				throw new Error(
-					`The 'alpha' option is illegal when the alpha value is set with rgb or hex.`
-				);
+			if (this.hex.length === 7) this.hex = this.hex + this.componentToHex(options.alpha * 225);
+			else throw new Error(`The 'alpha' option is illegal when the alpha value is set with rgb or hex.`);
 		}
 	}
 
@@ -38,8 +34,7 @@ export class Color {
 	}
 
 	private rgbToHex(r: number, g: number, b: number, a?: number): string {
-		const baseHex =
-			'#' + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
+		const baseHex = '#' + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
 
 		if (a === 0) return baseHex + `00`;
 		if (!a || a === 1) return baseHex;

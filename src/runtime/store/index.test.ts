@@ -56,12 +56,7 @@ describe(`stores`, it => {
 		const store2 = simpleStore(`where`);
 		const store3 = simpleStore(`happened`);
 
-		const shouldUpdateWhenChildrenDo = dependantStore(
-			() => [store1.get(), store2.get(), store3.get()],
-			store1,
-			store2,
-			store3
-		);
+		const shouldUpdateWhenChildrenDo = dependantStore(() => [store1.get(), store2.get(), store3.get()], store1, store2, store3);
 
 		store2.set(`that`);
 

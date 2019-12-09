@@ -30,15 +30,9 @@ const globalPlugins = (dir, oldDir, disable) => [
 	}),
 	prod &&
 		!disable &&
-		command(
-			[
-				`node scripts/add-package-json.js "${dir}"`,
-				`node scripts/add-ts-definition.js "${dir}" "${oldDir || dir}"`,
-			],
-			{
-				exitOnFail: !watching,
-			}
-		),
+		command([`node scripts/add-package-json.js "${dir}"`, `node scripts/add-ts-definition.js "${dir}" "${oldDir || dir}"`], {
+			exitOnFail: !watching,
+		}),
 ];
 
 function generateOutputOptions(options) {
