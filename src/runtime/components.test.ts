@@ -14,9 +14,9 @@ describe(`components`, async it => {
 				expect(props.cool.get()).toBe(true);
 			});
 
-			const layout2 = UI.wrapLayout({});
+			const layout2 = UI.wrapLayout();
 
-			const layout = UI.stackLayout({});
+			const layout = UI.stackLayout();
 
 			const element = UI.element();
 
