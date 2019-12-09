@@ -96,4 +96,30 @@ describe(`createEventDispatcher`, async it => {
 
 		expect(called).toBe(3);
 	});
+
+	await it(`should respect the args with once`, async expect => {
+		const { once, dispatch } = createEventDispatcher();
+
+		let called = 0;
+
+		once(`event`, (__, _, addArg) => {
+			addArg('you');
+			called++;
+		});
+
+		once(`event`, (_, args, addArg) => {
+			expect(args).toMatchObject([`you`]);
+			addArg(`me`);
+			called++;
+		});
+
+		once(`event`, (_, args) => {
+			expect(args).toMatchObject([`you`, `me`]);
+			called++;
+		});
+
+		await dispatch(`event`);
+
+		expect(called).toBe(3);
+	});
 });
