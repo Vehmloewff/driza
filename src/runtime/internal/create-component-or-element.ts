@@ -5,15 +5,21 @@ import renderer, { RendererResult } from './renderer';
 
 const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/versatilejs/issues/new`;
 
-export const createComponentOrElement = <UserImpliedProps, UserReturnedResult>(
+export const createComponentOrElement = <UserDefinedProps extends {}, UserImpliedProps extends UserDefinedProps, UserReturnedResult>(
 	fn: (props: UserImpliedProps, self: Omit<ComponentBasics, 'props'>) => UserReturnedResult,
+	defaultProps: UserDefinedProps,
 	type: ComponentTypes
-) => {
+): ((props: UserImpliedProps) => Omit<ComponentBasics, 'props'> & UserReturnedResult & { props: UserImpliedProps }) => {
 	const eventDispatcher = createEventDispatcher();
 
 	const removed = simpleStore(false);
 	const children: Store<ComponentBasics[]> = simpleStore([]);
 	const order: Store<RendererResult[]> = simpleStore([]);
+
+	removed.subscribe(async remove => {
+		if (remove) await eventDispatcher.dispatch(`beforedestroy`);
+		else await eventDispatcher.dispatch(`beforemount`);
+	});
 
 	function inisateChild(child: ComponentBasics, renderedParent: RendererResult, index: number) {
 		if (index > order.get().length) throw new Error(unexpectedError);
@@ -71,11 +77,13 @@ export const createComponentOrElement = <UserImpliedProps, UserReturnedResult>(
 		hasBeenRendered: simpleStore(false),
 	};
 
-	return (
-		props: UserImpliedProps
-	): Omit<ComponentBasics, 'props'> & UserReturnedResult & { props: UserImpliedProps } => ({
-		...self,
-		...fn(props, self),
-		props,
-	});
+	return (props?: UserImpliedProps) => {
+		props = Object.assign(defaultProps || {}, props);
+
+		return {
+			...self,
+			...fn(props, self),
+			props,
+		};
+	};
 };

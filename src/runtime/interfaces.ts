@@ -286,6 +286,29 @@ export interface ComponentBasics {
 	hasBeenRendered: Store<boolean>;
 }
 
+export type PotentialKeys = 'in' | 'out' | 'transition' | string;
+
+export interface AnimationParamaters {
+	[key: string]: any;
+}
+
+export interface TransitionApplicableResult<Element, Style> extends ComponentBasics {
+	potential: {
+		add: (key: PotentialKeys, fn: Animation<Element, Style>, defaultParamaters: AnimationParamaters, local: boolean) => () => void;
+		fire: (key: PotentialKeys, params: AnimationParamaters) => Promise<void>;
+	};
+}
+
+export type Animation<Element, Styles> = (
+	component: Element,
+	params: any
+) => {
+	duration?: number;
+	delay?: number;
+	style?: (fn: (t: number) => Styles | void) => void;
+	tick?: (fn: (t: number) => void) => void;
+};
+
 export interface ElementBasics {
 	$: (...components: ComponentBasics[]) => ElementBasics;
 }
@@ -296,41 +319,51 @@ export interface AdditionalComponentValues {
 
 export interface UserInterface {
 	// Inputs
-	button: (props: ComponentProps['button']) => ComponentBasics;
+	button: (props: ComponentProps['button']) => TransitionApplicableResult<UserInterface['button'], ComponentProps['button']['style']>;
 
 	// Text inputs
-	textField: (props: ComponentProps['textField']) => ComponentBasics;
-	textView: (props: ComponentProps['textView']) => ComponentBasics;
+	textField: (props: ComponentProps['textField']) => TransitionApplicableResult<UserInterface['textField'], ComponentProps['textField']['style']>;
+	textView: (props: ComponentProps['textView']) => TransitionApplicableResult<UserInterface['textView'], ComponentProps['textView']['style']>;
 
 	// Options Inputs
-	switch: (props: ComponentProps['switch']) => ComponentBasics;
-	checkbox: (props: ComponentProps['checkbox']) => ComponentBasics;
+	switch: (props: ComponentProps['switch']) => TransitionApplicableResult<UserInterface['switch'], ComponentProps['switch']['style']>;
+	checkbox: (props: ComponentProps['checkbox']) => TransitionApplicableResult<UserInterface['checkbox'], ComponentProps['checkbox']['style']>;
 	//
-	slider: (props: ComponentProps['slider']) => ComponentBasics;
+	slider: (props: ComponentProps['slider']) => TransitionApplicableResult<UserInterface['slider'], ComponentProps['slider']['style']>;
 	//
-	select: (props: ComponentProps['select']) => ComponentBasics;
+	select: (props: ComponentProps['select']) => TransitionApplicableResult<UserInterface['select'], ComponentProps['select']['style']>;
 	//
-	segmentedBar: (props: ComponentProps['segmentedBar']) => ComponentBasics;
-	radio: (props: ComponentProps['radio']) => ComponentBasics;
+	segmentedBar: (
+		props: ComponentProps['segmentedBar']
+	) => TransitionApplicableResult<UserInterface['segmentedBar'], ComponentProps['segmentedBar']['style']>;
+	radio: (props: ComponentProps['radio']) => TransitionApplicableResult<UserInterface['radio'], ComponentProps['radio']['style']>;
 
 	// Complex options inputs
-	datePicker: (props: ComponentProps['datePicker']) => ComponentBasics;
-	timePicker: (props: ComponentProps['timePicker']) => ComponentBasics;
-	listPicker: (props: ComponentProps['listPicker']) => ComponentBasics;
+	datePicker: (
+		props: ComponentProps['datePicker']
+	) => TransitionApplicableResult<UserInterface['datePicker'], ComponentProps['datePicker']['style']>;
+	timePicker: (
+		props: ComponentProps['timePicker']
+	) => TransitionApplicableResult<UserInterface['timePicker'], ComponentProps['timePicker']['style']>;
+	listPicker: (
+		props: ComponentProps['listPicker']
+	) => TransitionApplicableResult<UserInterface['listPicker'], ComponentProps['listPicker']['style']>;
 
 	// Moving
-	activityIndicator: (props: ComponentProps['activityIndicator']) => ComponentBasics;
-	progress: (props: ComponentProps['progress']) => ComponentBasics;
+	activityIndicator: (
+		props: ComponentProps['activityIndicator']
+	) => TransitionApplicableResult<UserInterface['activityIndicator'], ComponentProps['activityIndicator']['style']>;
+	progress: (props: ComponentProps['progress']) => TransitionApplicableResult<UserInterface['progress'], ComponentProps['progress']['style']>;
 	dialogs: (props: ComponentProps['dialogs']) => ComponentBasics;
-	menu: (props: ComponentProps['menu']) => ComponentBasics;
+	menu: (props: ComponentProps['menu']) => TransitionApplicableResult<UserInterface['menu'], ComponentProps['menu']['style']>;
 
 	// Static
-	label: (props: ComponentProps['label']) => ComponentBasics;
-	image: (props: ComponentProps['image']) => ComponentBasics;
+	label: (props: ComponentProps['label']) => TransitionApplicableResult<UserInterface['label'], ComponentProps['label']['style']>;
+	image: (props: ComponentProps['image']) => TransitionApplicableResult<UserInterface['image'], ComponentProps['image']['style']>;
 	htmlView: (props: ComponentProps['htmlView']) => ComponentBasics;
-	listView: (props: ComponentProps['listView']) => ComponentBasics;
-	tabView: (props: ComponentProps['tabView']) => ComponentBasics;
-	tabItem: (props: ComponentProps['tabItem']) => ComponentBasics;
+	listView: (props: ComponentProps['listView']) => TransitionApplicableResult<UserInterface['listView'], ComponentProps['listView']['style']>;
+	tabView: (props: ComponentProps['tabView']) => TransitionApplicableResult<UserInterface['tabView'], ComponentProps['tabView']['style']>;
+	tabItem: (props: ComponentProps['tabItem']) => TransitionApplicableResult<UserInterface['tabItem'], ComponentProps['tabItem']['style']>;
 
 	// Layout
 	page: (
@@ -339,16 +372,24 @@ export interface UserInterface {
 		go: (route: string, params: { [key: string]: any }) => Promise<void>;
 	};
 	childPageSlot: (props: ComponentProps['childPageSlot']) => ComponentBasics;
-	stackLayout: (props: ComponentProps['stackLayout']) => ComponentBasics;
-	gridLayout: (props: ComponentProps['gridLayout']) => ComponentBasics;
-	absoluteLayout: (props: ComponentProps['absoluteLayout']) => ComponentBasics;
-	wrapLayout: (props: ComponentProps['wrapLayout']) => ComponentBasics;
+	stackLayout: (
+		props: ComponentProps['stackLayout']
+	) => TransitionApplicableResult<UserInterface['stackLayout'], ComponentProps['stackLayout']['style']>;
+	gridLayout: (
+		props: ComponentProps['gridLayout']
+	) => TransitionApplicableResult<UserInterface['gridLayout'], ComponentProps['gridLayout']['style']>;
+	absoluteLayout: (
+		props: ComponentProps['absoluteLayout']
+	) => TransitionApplicableResult<UserInterface['absoluteLayout'], ComponentProps['absoluteLayout']['style']>;
+	wrapLayout: (
+		props: ComponentProps['wrapLayout']
+	) => TransitionApplicableResult<UserInterface['wrapLayout'], ComponentProps['wrapLayout']['style']>;
 	scrollView: (
 		props: ComponentProps['scrollView']
-	) => ComponentBasics & {
+	) => TransitionApplicableResult<UserInterface['button'], ComponentProps['button']['style']> & {
 		scrollTo: (pos: number, easing: EaseLikeFunction) => Promise<void>;
 	};
-	actionBar: (props: ComponentProps['actionBar']) => ComponentBasics;
+	actionBar: (props: ComponentProps['actionBar']) => TransitionApplicableResult<UserInterface['actionBar'], ComponentProps['actionBar']['style']>;
 
 	// Other
 	webView: (
