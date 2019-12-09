@@ -14,7 +14,7 @@ export const createPotential = <Element extends Omit<ComponentBasics, 'props'>, 
 		return () => (animations[name] = animations[name].filter(o => o !== obj));
 	};
 
-	const fire = (name: PotentialKeys, params: AnimationParamaters): Promise<void> => {
+	const fire = (name: PotentialKeys, params: AnimationParamaters = {}): Promise<void> => {
 		return new Promise(resolve => {
 			SELF.once('create', () => {
 				if (!animations[name]) return resolve();
@@ -34,7 +34,19 @@ export const createPotential = <Element extends Omit<ComponentBasics, 'props'>, 
 		});
 	};
 
-	// TODO: Listen for the `beforemount` and `beforedestroy` events and call fire for `in` `out` and `transition`
+	SELF.on(`beforemount`, (_, __, addArg) => {
+		if (animations.in && animations.in.length) {
+			addArg(`animation-comming`);
+			fire('in', {});
+		}
+	});
+
+	SELF.on(`beforedestroy`, (_, __, addArg) => {
+		if (animations.out && animations.out.length) {
+			addArg(`animation-comming`);
+			fire('out', {});
+		}
+	});
 
 	return {
 		potential: {

@@ -297,7 +297,7 @@ export interface AnimationParamaters {
 export interface TransitionApplicableResult<Element, Style> extends ComponentBasics {
 	potential: {
 		add: (key: PotentialKeys, fn: Animation<Element, Style>, defaultParamaters: AnimationParamaters, local: boolean) => () => void;
-		fire: (key: PotentialKeys, params: AnimationParamaters) => Promise<void>;
+		fire: (key: PotentialKeys, params?: AnimationParamaters) => Promise<void>;
 	};
 }
 
