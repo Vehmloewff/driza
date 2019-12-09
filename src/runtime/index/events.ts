@@ -1,8 +1,7 @@
 import { asyncForeach } from '../../utils';
+import { EventListener as Listener } from '../interfaces';
 
 export const createEventDispatcher = () => {
-	type Listener = (data: any | undefined, args: any[], addArg: (data: any) => void) => Promise<void> | void;
-
 	const dispatchAwaiters: {
 		[event: string]: {
 			listeners: Listener[];

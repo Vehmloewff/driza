@@ -273,10 +273,12 @@ export interface Renderer<RendererResult> {
 	applyFont: (params: Font) => Promise<void>;
 }
 
+export type EventListener = (data: any | undefined, args: any[], addArg: (data: any) => void) => Promise<void> | void;
+
 // The core fundamentals of all components
 export interface ComponentBasics {
-	on: (event: string, cb: (data?: any) => Promise<void> | void) => void;
-	once: (event: string, cb: (data?: any) => Promise<void> | void) => void;
+	on: (event: string, cb: EventListener) => void;
+	once: (event: string, cb: EventListener) => void;
 	destroy: () => void;
 	reMount: () => void;
 	removed: Store<boolean>;
