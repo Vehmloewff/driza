@@ -3,6 +3,7 @@ import { createComponent } from '.';
 import { Store, simpleStore } from './store';
 import { Color } from './style';
 import { bootstrapComponent } from './index/bootstrap';
+import { $$if } from './index/render-if';
 
 describe(`components`, async it => {
 	await it(`should create the component without any errors`, async expect => {
@@ -27,7 +28,16 @@ describe(`components`, async it => {
 				}),
 			});
 
-			SELF.render(layout2.$(layout.$(element.$(button))));
+			SELF.render(
+				layout2.$(
+					layout.$(
+						$$if(simpleStore(called === 0))
+							.render(button)
+							.else()
+							.render(element.$(button))
+					)
+				)
+			);
 		});
 
 		const app = App({ cool: simpleStore(true) });

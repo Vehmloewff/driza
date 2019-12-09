@@ -288,9 +288,12 @@ export interface ComponentBasics {
 	removed: Store<boolean>;
 	dispatch: (event: string, data?: any) => Promise<number>;
 	props: ComponentProps[ComponentTypes];
-	render: (...components: ComponentBasics[]) => void;
 	children: Store<ComponentBasics[]>;
 	hasBeenRendered: Store<boolean>;
+}
+
+export interface PrivateComponentBasics extends ComponentBasics {
+	render: (...components: ComponentBasics[]) => void;
 }
 
 export type PotentialKeys = 'in' | 'out' | 'transition' | string;

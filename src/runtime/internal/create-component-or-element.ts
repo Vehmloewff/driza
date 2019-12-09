@@ -1,4 +1,4 @@
-import { ComponentBasics, ComponentTypes } from '../interfaces';
+import { ComponentBasics, ComponentTypes, PrivateComponentBasics } from '../interfaces';
 import { createEventDispatcher } from '../index/events';
 import { simpleStore, Store } from '../store';
 import renderer, { RendererResult } from './renderer';
@@ -6,7 +6,7 @@ import renderer, { RendererResult } from './renderer';
 const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/versatilejs/issues/new`;
 
 export const createComponentOrElement = <UserDefinedProps extends {}, UserImpliedProps extends UserDefinedProps, UserReturnedResult>(
-	fn: (props: UserImpliedProps, self: Omit<ComponentBasics, 'props'> & { props: UserImpliedProps }) => UserReturnedResult,
+	fn: (props: UserImpliedProps, self: Omit<PrivateComponentBasics, 'props'> & { props: UserImpliedProps }) => UserReturnedResult,
 	defaultProps: UserDefinedProps,
 	type: ComponentTypes
 ): ((props: UserImpliedProps) => Omit<ComponentBasics, 'props'> & UserReturnedResult & { props: UserImpliedProps }) => {
@@ -72,10 +72,11 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		reMount: () => removed.set(false),
 		removed,
 		children,
-		render: (...newChildren) => {
-			children.set(newChildren);
-		},
 		hasBeenRendered: simpleStore(false),
+	};
+
+	const render = (...newChildren: ComponentBasics[]) => {
+		children.set(newChildren);
 	};
 
 	return (props?: UserImpliedProps) => {
@@ -83,7 +84,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 
 		return {
 			...self,
-			...fn(props, { ...self, props }),
+			...fn(props, { ...self, props, render }),
 			props,
 		};
 	};
