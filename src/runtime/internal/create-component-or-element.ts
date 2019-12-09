@@ -6,7 +6,7 @@ import renderer, { RendererResult } from './renderer';
 const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/versatilejs/issues/new`;
 
 export const createComponentOrElement = <UserDefinedProps extends {}, UserImpliedProps extends UserDefinedProps, UserReturnedResult>(
-	fn: (props: UserImpliedProps, self: Omit<ComponentBasics, 'props'>) => UserReturnedResult,
+	fn: (props: UserImpliedProps, self: Omit<ComponentBasics, 'props'> & { props: UserImpliedProps }) => UserReturnedResult,
 	defaultProps: UserDefinedProps,
 	type: ComponentTypes
 ): ((props: UserImpliedProps) => Omit<ComponentBasics, 'props'> & UserReturnedResult & { props: UserImpliedProps }) => {
@@ -71,6 +71,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		destroy: () => removed.set(true),
 		reMount: () => removed.set(false),
 		removed,
+		children,
 		render: (...newChildren) => {
 			children.set(newChildren);
 		},
@@ -82,7 +83,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 
 		return {
 			...self,
-			...fn(props, self),
+			...fn(props, { ...self, props }),
 			props,
 		};
 	};

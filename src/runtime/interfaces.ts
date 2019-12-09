@@ -285,6 +285,7 @@ export interface ComponentBasics {
 	dispatch: (event: string, data?: any) => Promise<number>;
 	props: ComponentProps[ComponentTypes];
 	render: (...components: ComponentBasics[]) => void;
+	children: Store<ComponentBasics[]>;
 	hasBeenRendered: Store<boolean>;
 }
 
@@ -301,6 +302,10 @@ export interface TransitionApplicableResult<Element, Style> extends ComponentBas
 	};
 }
 
+export interface PublicRenderShortcut<Element> {
+	$: (...children: ComponentBasics[]) => Element;
+}
+
 export type Animation<Element, Styles> = (
 	component: Element,
 	params: any
@@ -310,10 +315,6 @@ export type Animation<Element, Styles> = (
 	style?: (fn: (t: number) => Styles | void) => void;
 	tick?: (fn: (t: number) => void) => void;
 };
-
-export interface ElementBasics {
-	$: (...components: ComponentBasics[]) => ElementBasics;
-}
 
 export interface AdditionalComponentValues {
 	[name: string]: any;
@@ -370,28 +371,37 @@ export interface UserInterface {
 	// Layout
 	page: (
 		props: ComponentProps['page']
-	) => ComponentBasics & {
-		go: (route: string, params: { [key: string]: any }) => Promise<void>;
-	};
+	) => ComponentBasics &
+		PublicRenderShortcut<ComponentBasics & { go: (route: string, params: { [key: string]: any }) => Promise<void> }> & {
+			go: (route: string, params: { [key: string]: any }) => Promise<void>;
+		};
 	childPageSlot: (props: ComponentProps['childPageSlot']) => ComponentBasics;
 	stackLayout: (
 		props: ComponentProps['stackLayout']
-	) => TransitionApplicableResult<UserInterface['stackLayout'], ComponentProps['stackLayout']['style']>;
+	) => TransitionApplicableResult<UserInterface['stackLayout'], ComponentProps['stackLayout']['style']> &
+		PublicRenderShortcut<TransitionApplicableResult<UserInterface['stackLayout'], ComponentProps['stackLayout']['style']>>;
 	gridLayout: (
 		props: ComponentProps['gridLayout']
-	) => TransitionApplicableResult<UserInterface['gridLayout'], ComponentProps['gridLayout']['style']>;
+	) => TransitionApplicableResult<UserInterface['gridLayout'], ComponentProps['gridLayout']['style']> &
+		PublicRenderShortcut<TransitionApplicableResult<UserInterface['gridLayout'], ComponentProps['gridLayout']['style']>>;
 	absoluteLayout: (
 		props: ComponentProps['absoluteLayout']
-	) => TransitionApplicableResult<UserInterface['absoluteLayout'], ComponentProps['absoluteLayout']['style']>;
+	) => TransitionApplicableResult<UserInterface['absoluteLayout'], ComponentProps['absoluteLayout']['style']> &
+		PublicRenderShortcut<TransitionApplicableResult<UserInterface['absoluteLayout'], ComponentProps['absoluteLayout']['style']>>;
 	wrapLayout: (
 		props: ComponentProps['wrapLayout']
-	) => TransitionApplicableResult<UserInterface['wrapLayout'], ComponentProps['wrapLayout']['style']>;
+	) => TransitionApplicableResult<UserInterface['wrapLayout'], ComponentProps['wrapLayout']['style']> &
+		PublicRenderShortcut<TransitionApplicableResult<UserInterface['wrapLayout'], ComponentProps['wrapLayout']['style']>>;
 	scrollView: (
 		props: ComponentProps['scrollView']
-	) => TransitionApplicableResult<UserInterface['button'], ComponentProps['button']['style']> & {
-		scrollTo: (pos: number, easing: EaseLikeFunction) => Promise<void>;
-	};
-	actionBar: (props: ComponentProps['actionBar']) => TransitionApplicableResult<UserInterface['actionBar'], ComponentProps['actionBar']['style']>;
+	) => TransitionApplicableResult<UserInterface['button'], ComponentProps['button']['style']> &
+		PublicRenderShortcut<TransitionApplicableResult<UserInterface['button'], ComponentProps['button']['style']>> & {
+			scrollTo: (pos: number, easing: EaseLikeFunction) => Promise<void>;
+		};
+	actionBar: (
+		props: ComponentProps['actionBar']
+	) => TransitionApplicableResult<UserInterface['actionBar'], ComponentProps['actionBar']['style']> &
+		PublicRenderShortcut<TransitionApplicableResult<UserInterface['actionBar'], ComponentProps['actionBar']['style']>>;
 
 	// Other
 	webView: (

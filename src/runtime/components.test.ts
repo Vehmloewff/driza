@@ -14,6 +14,10 @@ describe(`components`, async it => {
 				expect(props.cool.get()).toBe(true);
 			});
 
+			const layout2 = UI.wrapLayout({});
+
+			const layout = UI.stackLayout({});
+
 			const button = UI.button({
 				text: simpleStore(``),
 				style: simpleStore({
@@ -21,12 +25,12 @@ describe(`components`, async it => {
 				}),
 			});
 
-			SELF.render(button);
+			SELF.render(layout2.$(layout.$(button)));
 		});
 
 		const app = App({ cool: simpleStore(true) });
 
-		app.props.cool;
+		expect(app.props.cool.get()).toBe(true);
 
 		await bootstrapComponent(app);
 

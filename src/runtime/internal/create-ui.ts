@@ -5,6 +5,7 @@ import { simpleStore, Store } from '../store';
 import { Mediator } from '../../utils';
 import { propsDefaults } from './reasonable-defaults';
 import { createPotential } from './potential';
+import { create$ } from './render-children';
 
 const create = (fn: (props: any, SELF: Omit<ComponentBasics, 'props'>) => any, type: UITypes) =>
 	createComponentOrElement((props, SELF) => fn(props, SELF), propsDefaults[type], type);
@@ -70,6 +71,7 @@ export const createUI = (): UserInterface => ({
 		SELF.once(`create`, (data: RendererResult) => mediator.set(data.mediator));
 
 		return {
+			...create$(SELF),
 			go: async (route: string, params: { [key: string]: any }) => {
 				const unsubscribe = mediator.subscribe(mediator => {
 					if (!mediator) return;
@@ -85,22 +87,25 @@ export const createUI = (): UserInterface => ({
 
 	childPageSlot: create((_, SELF) => createPotential(SELF), 'select'),
 
-	stackLayout: create((_, SELF) => createPotential(SELF), 'select'),
+	stackLayout: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'select'),
 
-	gridLayout: create((_, SELF) => createPotential(SELF), 'select'),
+	gridLayout: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'select'),
 
-	absoluteLayout: create((_, SELF) => createPotential(SELF), 'select'),
+	absoluteLayout: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'select'),
 
-	wrapLayout: create((_, SELF) => createPotential(SELF), 'select'),
+	wrapLayout: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'select'),
 
 	scrollView: create(
-		(props: ComponentProps['scrollView']) => ({
-			scrollTo: async (pos: number, easing: EaseLikeFunction) => {},
+		(props: ComponentProps['scrollView'], SELF) => ({
+			scrollTo: async (pos: number, easing: EaseLikeFunction) => {
+				// TODO make this ease
+			},
+			...create$(SELF),
 		}),
 		'select'
 	),
 
-	actionBar: create((_, SELF) => createPotential(SELF), 'select'),
+	actionBar: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'select'),
 
 	// Other
 	webView: create((props: ComponentProps['webView'], SELF) => {
