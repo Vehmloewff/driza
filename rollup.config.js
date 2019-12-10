@@ -5,6 +5,7 @@ import typescript from 'rollup-plugin-typescript';
 import globFiles from 'rollup-plugin-glob-files';
 import nodePath from 'path';
 import { readdirSync } from 'fs';
+import removeMockPlugin from './scripts/remove-mock-plugin';
 
 const name = 'versatilejs';
 const sourcemap = false;
@@ -34,6 +35,7 @@ const globalPlugins = (dir, oldDir, disable) => [
 	typescript({
 		typescript: require('typescript'),
 	}),
+	removeMockPlugin,
 	prod &&
 		!disable &&
 		command([`node scripts/add-package-json.js "${dir}"`, `node scripts/add-ts-definition.js "${dir}" "${oldDir || dir}"`], {
