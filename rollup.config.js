@@ -79,6 +79,7 @@ const workflowManager = {
 		file: `workflow/index`,
 		...sharedOutputOptions,
 	}),
+	external: [`events`],
 	plugins: globalPlugins(`workflow`),
 };
 
