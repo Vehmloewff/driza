@@ -1,7 +1,7 @@
 {
-	"name": "todo",
+	"name": "versatilejs",
 	"version": "0.0.0",
-	"description": "TODO: Add description",
+	"description": "Still in development... Check back soon!",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
 	"typings": "typings/index.d.ts",
@@ -49,10 +49,10 @@
 		"zip-tap": "^1.0.4",
 		"zip-tap-reporter": "^1.0.4"
 	},
-	"homepage": "https://github.com/Vehmloewff/todo",
+	"homepage": "https://github.com/Vehmloewff/versatilejs",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Vehmloewff/todo"
+		"url": "https://github.com/Vehmloewff/versatilejs"
 	},
 	"dependencies": {
 		"rollup": "^1.27.9"
