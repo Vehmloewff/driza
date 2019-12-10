@@ -11,6 +11,7 @@ globbed-*
 /store
 /style
 /internal
+/easing
 
 **/*.png
 **/*.ico

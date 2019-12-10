@@ -30,15 +30,9 @@ const globalPlugins = (dir, oldDir, disable) => [
 	}),
 	prod &&
 		!disable &&
-		command(
-			[
-				`node scripts/add-package-json.js "${dir}"`,
-				`node scripts/add-ts-definition.js "${dir}" "${oldDir || dir}"`,
-			],
-			{
-				exitOnFail: !watching,
-			}
-		),
+		command([`node scripts/add-package-json.js "${dir}"`, `node scripts/add-ts-definition.js "${dir}" "${oldDir || dir}"`], {
+			exitOnFail: !watching,
+		}),
 ];
 
 function generateOutputOptions(options) {
@@ -98,7 +92,7 @@ const index = {
 };
 
 const runtimes = readdirSync(`src/runtime`, 'utf-8')
-	.filter(dir => dir.indexOf(`.`) === -1)
+	.filter(dir => dir.indexOf(`.`) === -1 && dir !== `index`)
 	.map(dir => ({
 		input: `src/runtime/${dir}/index.ts`,
 		output: generateOutputOptions({

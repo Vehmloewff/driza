@@ -8,9 +8,9 @@
 	"scripts": {
 		"build": "cross-env NODE_ENV=production rollup -c && tsc",
 		"test": "cross-env NODE_ENV=development cross-env rollup -c",
-		"test:runtime": "cross-env VERSATILE_FILTER='src/runtime' npm run test",
-		"test:workflow": "cross-env VERSATILE_FILTER='src/workflow-manager' npm run test",
-		"test:compiler": "cross-env VERSATILE_FILTER='src/compiler' npm run test",
+		"test:runtime": "cross-env VERSATILE_FILTER='src/runtime' npm run test --",
+		"test:workflow": "cross-env VERSATILE_FILTER='src/workflow-manager' npm run test --",
+		"test:compiler": "cross-env VERSATILE_FILTER='src/compiler' npm run test --",
 		"lint": "prettier --write \"./**\"",
 		"lint:test": "prettier --check \"./**\"",
 		"preversion": "npm run test && npm run lint:test && npm run build",
@@ -37,27 +37,22 @@
 	],
 	"license": "MIT",
 	"devDependencies": {
-		"@types/minimatch": "^3.0.3",
-		"acorn": "^7.1.0",
 		"cross-env": "^6.0.3",
 		"prettier": "^1.19.1",
-		"rollup": "^1.27.0",
+		"rollup": "^1.27.8",
 		"rollup-plugin-command": "^1.0.7",
 		"rollup-plugin-commonjs": "^10.1.0",
 		"rollup-plugin-glob-files": "^1.0.2",
 		"rollup-plugin-node-resolve": "^5.2.0",
 		"rollup-plugin-typescript": "^1.0.1",
 		"tslib": "^1.10.0",
-		"typescript": "^3.7.2",
+		"typescript": "^3.7.3",
 		"zip-tap": "^1.0.4",
-		"zip-tap-reporter": "^1.0.3"
+		"zip-tap-reporter": "^1.0.4"
 	},
 	"homepage": "https://github.com/Vehmloewff/todo",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Vehmloewff/todo"
-	},
-	"dependencies": {
-		"debug": "^4.1.1"
 	}
 }

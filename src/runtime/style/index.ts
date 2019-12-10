@@ -1,1 +1,2 @@
-export const me = `style`;
+export * from './color';
+export * from './interfaces';
