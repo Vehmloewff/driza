@@ -40,6 +40,7 @@
 		"rollup-plugin-typescript": "^1.0.1",
 		"tslib": "^1.10.0",
 		"typescript": "^3.7.2",
+		"versatilejs": "^0.2.0-next.1",
 		"zip-tap": "^1.0.2",
 		"zip-tap-reporter": "^1.0.0"
 	},
@@ -47,8 +48,5 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Vehmloewff/todo"
-	},
-	"dependencies": {
-		"debug": "^4.1.1"
 	}
 }

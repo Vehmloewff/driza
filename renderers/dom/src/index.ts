@@ -1,3 +1,6 @@
-export function sayHello(name: string): string {
-	return `Hello, ${name}!`;
+import { Mediator } from 'versatilejs';
+
+export interface RendererResult {
+	data: HTMLElement;
+	mediator: Mediator;
 }
