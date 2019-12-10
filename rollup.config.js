@@ -19,6 +19,12 @@ const sharedOutputOptions = {
 	sourcemap,
 };
 
+const external = {
+	workflow: [`events`],
+	runtime: [],
+	compiler: [],
+};
+
 const globalPlugins = (dir, oldDir, disable) => [
 	resolve({
 		preferBuiltins: true,
@@ -62,6 +68,7 @@ const testRound = {
 		...globalPlugins(),
 		command(`node dist/build.js | zip-tap-reporter`, { exitOnFail: !watching }),
 	],
+	external: external.workflow.concat(external.compiler, external.runtime),
 };
 
 const compiler = {
@@ -71,6 +78,7 @@ const compiler = {
 		...sharedOutputOptions,
 	}),
 	plugins: globalPlugins(`compiler`),
+	external: external.compiler,
 };
 
 const workflowManager = {
@@ -79,7 +87,7 @@ const workflowManager = {
 		file: `workflow/index`,
 		...sharedOutputOptions,
 	}),
-	external: [`events`],
+	external: external.workflow,
 	plugins: globalPlugins(`workflow`),
 };
 
@@ -89,6 +97,7 @@ const index = {
 		file: `dist/index`,
 		...sharedOutputOptions,
 	}),
+	external: external.runtime,
 	plugins: globalPlugins(null, null, true),
 };
 
@@ -100,6 +109,7 @@ const runtimes = readdirSync(`src/runtime`, 'utf-8')
 			file: `${dir}/index`,
 			...sharedOutputOptions,
 		}),
+		external: external.runtime,
 		plugins: globalPlugins(dir, `runtime/${dir}`),
 	}));
 
