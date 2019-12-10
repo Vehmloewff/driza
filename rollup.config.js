@@ -35,7 +35,7 @@ const globalPlugins = (dir, oldDir, disable) => [
 	typescript({
 		typescript: require('typescript'),
 	}),
-	removeMockPlugin,
+	prod && removeMockPlugin,
 	prod &&
 		!disable &&
 		command([`node scripts/add-package-json.js "${dir}"`, `node scripts/add-ts-definition.js "${dir}" "${oldDir || dir}"`], {
