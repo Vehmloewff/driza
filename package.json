@@ -4,7 +4,7 @@
 	"description": "Still in development... Check back soon!",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
-	"typings": "typings/index.d.ts",
+	"typings": "typings/runtime/index.d.ts",
 	"scripts": {
 		"build": "cross-env NODE_ENV=production rollup -c && tsc",
 		"test": "cross-env NODE_ENV=development cross-env rollup -c",
