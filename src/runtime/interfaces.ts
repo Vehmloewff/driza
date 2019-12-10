@@ -426,3 +426,5 @@ export interface UserInterface {
 }
 
 export type EaseLikeFunction = (t: number) => number;
+
+export type ComponentConstructor<Props> = (props: Props, UI: UserInterface, SELF: PrivateComponentBasics) => any;

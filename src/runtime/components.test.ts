@@ -4,6 +4,7 @@ import { Store, simpleStore } from './store';
 import { Color } from './style';
 import { bootstrapComponent } from './index/bootstrap';
 import { $$if } from './index/render-if';
+import { $$each } from './index/each';
 
 describe(`components`, async it => {
 	await it(`should create the component without any errors`, async expect => {
@@ -28,13 +29,20 @@ describe(`components`, async it => {
 				}),
 			});
 
+			const thing = simpleStore([`one`, `two`, `three`]);
+
 			SELF.render(
 				layout2.$(
 					layout.$(
 						$$if(simpleStore(called === 0))
 							.render(button)
 							.else()
-							.render(element.$(button))
+							.render(element.$(button)),
+						$$each(thing).as(item => {
+							return UI.label({
+								text: simpleStore(item),
+							});
+						})
 					)
 				)
 			);
