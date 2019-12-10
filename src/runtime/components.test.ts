@@ -35,13 +35,17 @@ describe(`components`, async it => {
 					layout.$(
 						IF(simpleStore(called === 0))
 							.render(button)
+							.elseif(simpleStore(called === 1))
+							.render(() => UI.label({ text: simpleStore(`Hello`) }))
+							.elseif(simpleStore(called === 2))
+							.render(() => UI.label({ text: simpleStore(`Hello`) }))
 							.else()
 							.render(element.$(button)),
-						EACH(thing).as(item => {
-							return UI.label({
+						EACH(thing).as(item =>
+							UI.label({
 								text: simpleStore(item),
-							});
-						})
+							})
+						)
 					)
 				)
 			);
