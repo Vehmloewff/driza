@@ -6,8 +6,8 @@ import globFiles from 'rollup-plugin-glob-files';
 import nodePath from 'path';
 import { readdirSync } from 'fs';
 
-const name = 'todo';
-const sourcemap = true;
+const name = 'versatilejs';
+const sourcemap = false;
 const prod = process.env.NODE_ENV === 'production';
 const watching = process.env.ROLLUP_WATCH;
 const testDir = process.env.VERSATILE_FILTER || ``;
