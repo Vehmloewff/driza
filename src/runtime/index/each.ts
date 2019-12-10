@@ -1,23 +1,23 @@
 import { createComponent } from './create-component';
-import { UserInterface, ComponentBasics, PublicComponentBasics } from '../interfaces';
+import { ComponentBasics, PublicComponentBasics } from '../interfaces';
 import { asyncForeach } from '../../utils';
 import { Store } from '../store';
 
 interface EachResult<Value> {
 	as: (
-		cb: (item: Value) => Promise<PublicComponentBasics> | PublicComponentBasics
+		cb: (item: Value, index: number, originalArray: Store<Value[]>) => Promise<PublicComponentBasics> | PublicComponentBasics
 	) => PublicComponentBasics & {
 		else: (component: PublicComponentBasics | (() => PublicComponentBasics)) => PublicComponentBasics;
 	};
 }
 
 const each = <Value>(array: Store<Value[]>, _: any, SELF: ComponentBasics): EachResult<Value> => {
-	const as: EachResult<Value>['as'] = (cb: (item: Value) => Promise<PublicComponentBasics> | PublicComponentBasics) => {
+	const as: EachResult<Value>['as'] = cb => {
 		array.subscribe(async arr => {
 			const components: PublicComponentBasics[] = [];
 
-			await asyncForeach(arr, async item => {
-				const userResult = await cb(item);
+			await asyncForeach(arr, async (item, index) => {
+				const userResult = await cb(item, index, array);
 
 				components.push(userResult);
 			});
