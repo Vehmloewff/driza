@@ -45,4 +45,4 @@ const each = <Value>(array: Store<Value[]>, _: any, SELF: PrivateComponentBasics
 	return { as };
 };
 
-export const $$each = createComponent(each);
+export const EACH = createComponent(each);

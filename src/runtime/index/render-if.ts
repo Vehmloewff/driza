@@ -4,7 +4,7 @@ import { createComponent } from './create-component';
 
 type Expression = Store<any | (() => Promise<any> | any)>;
 
-export const $$if = createComponent((expression: Expression, UI, SELF) => {
+export const IF = createComponent((expression: Expression, UI, SELF) => {
 	const render = (...components: ((() => ComponentBasics) | ComponentBasics)[]) => {
 		const sureComponents: ComponentBasics[] = [];
 
@@ -30,10 +30,10 @@ export const $$if = createComponent((expression: Expression, UI, SELF) => {
 				const mirror = simpleStore(expression.get());
 				expression.subscribe(val => mirror.set(!val));
 
-				return $$if(mirror);
+				return IF(mirror);
 			},
 			elseif: (expression: Expression) => {
-				return $$if(expression);
+				return IF(expression);
 			},
 		};
 	};
