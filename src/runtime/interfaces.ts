@@ -428,3 +428,8 @@ export interface UserInterface {
 export type EaseLikeFunction = (t: number) => number;
 
 export type ComponentConstructor<Props> = (props: Props, UI: UserInterface, SELF: ComponentBasics) => any;
+
+export interface Mediator {
+	provide: <Arg, ReturnType>(name: string, fn: (arg: Arg) => ReturnType) => () => void;
+	call: <Arg, ReturnType>(name: string, arg: Arg) => ReturnType;
+}

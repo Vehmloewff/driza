@@ -5,3 +5,4 @@ export * from './index/create-component';
 export * from './index/extract-mediator';
 export * from './index/if';
 export * from './index/each';
+export { createMediator } from '../utils';
