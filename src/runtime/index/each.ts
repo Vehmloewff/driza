@@ -1,20 +1,20 @@
 import { createComponent } from './create-component';
-import { UserInterface, PrivateComponentBasics, ComponentBasics } from '../interfaces';
+import { UserInterface, ComponentBasics, PublicComponentBasics } from '../interfaces';
 import { asyncForeach } from '../../utils';
 import { Store } from '../store';
 
 interface EachResult<Value> {
 	as: (
-		cb: (item: Value) => Promise<ComponentBasics> | ComponentBasics
-	) => ComponentBasics & {
-		else: (component: ComponentBasics | (() => ComponentBasics)) => ComponentBasics;
+		cb: (item: Value) => Promise<PublicComponentBasics> | PublicComponentBasics
+	) => PublicComponentBasics & {
+		else: (component: PublicComponentBasics | (() => PublicComponentBasics)) => PublicComponentBasics;
 	};
 }
 
-const each = <Value>(array: Store<Value[]>, _: any, SELF: PrivateComponentBasics): EachResult<Value> => {
-	const as: EachResult<Value>['as'] = (cb: (item: Value) => Promise<ComponentBasics> | ComponentBasics) => {
+const each = <Value>(array: Store<Value[]>, _: any, SELF: ComponentBasics): EachResult<Value> => {
+	const as: EachResult<Value>['as'] = (cb: (item: Value) => Promise<PublicComponentBasics> | PublicComponentBasics) => {
 		array.subscribe(async arr => {
-			const components: ComponentBasics[] = [];
+			const components: PublicComponentBasics[] = [];
 
 			await asyncForeach(arr, async item => {
 				const userResult = await cb(item);
@@ -28,7 +28,7 @@ const each = <Value>(array: Store<Value[]>, _: any, SELF: PrivateComponentBasics
 		return {
 			...SELF,
 			else: toRender => {
-				let component: ComponentBasics;
+				let component: PublicComponentBasics;
 
 				if (typeof toRender === 'function') component = toRender();
 				else component = toRender;

@@ -1,4 +1,4 @@
-import { UserInterface, ComponentProps, EaseLikeFunction, ComponentBasics, UITypes } from '../interfaces';
+import { UserInterface, ComponentProps, EaseLikeFunction, PublicComponentBasics, UITypes } from '../interfaces';
 import { createComponentOrElement } from './create-component-or-element';
 import { RendererResult } from './renderer';
 import { simpleStore, Store } from '../store';
@@ -7,7 +7,7 @@ import { propsDefaults } from './reasonable-defaults';
 import { createPotential } from './potential';
 import { create$ } from './render-children';
 
-const create = (fn: (props: any, SELF: Omit<ComponentBasics, 'props'>) => any, type: UITypes) =>
+const create = (fn: (props: any, SELF: Omit<PublicComponentBasics, 'props'>) => any, type: UITypes) =>
 	createComponentOrElement((props, SELF) => fn(props, SELF), propsDefaults[type], type);
 
 export const createUI = (): UserInterface => ({

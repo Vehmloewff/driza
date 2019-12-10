@@ -1,4 +1,4 @@
-import { ComponentBasics, ComponentTypes, PrivateComponentBasics } from '../interfaces';
+import { PublicComponentBasics, ComponentTypes, ComponentBasics } from '../interfaces';
 import { createEventDispatcher } from '../index/events';
 import { simpleStore, Store } from '../store';
 import renderer, { RendererResult } from './renderer';
@@ -6,14 +6,14 @@ import renderer, { RendererResult } from './renderer';
 const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/versatilejs/issues/new`;
 
 export const createComponentOrElement = <UserDefinedProps extends {}, UserImpliedProps extends UserDefinedProps, UserReturnedResult>(
-	fn: (props: UserImpliedProps, self: Omit<PrivateComponentBasics, 'props'> & { props: UserImpliedProps }) => UserReturnedResult,
+	fn: (props: UserImpliedProps, self: Omit<ComponentBasics, 'props'> & { props: UserImpliedProps }) => UserReturnedResult,
 	defaultProps: UserDefinedProps,
 	type: ComponentTypes
-): ((props: UserImpliedProps) => Omit<ComponentBasics, 'props'> & UserReturnedResult & { props: UserImpliedProps }) => {
+): ((props: UserImpliedProps) => Omit<PublicComponentBasics, 'props'> & UserReturnedResult & { props: UserImpliedProps }) => {
 	const eventDispatcher = createEventDispatcher();
 
 	const removed = simpleStore(false);
-	const children: Store<ComponentBasics[]> = simpleStore([]);
+	const children: Store<PublicComponentBasics[]> = simpleStore([]);
 	const order: Store<RendererResult[]> = simpleStore([]);
 
 	removed.subscribe(async remove => {
@@ -21,7 +21,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		else await eventDispatcher.dispatch(`beforemount`);
 	});
 
-	function inisateChild(child: ComponentBasics, renderedParent: RendererResult, index: number) {
+	function inisateChild(child: PublicComponentBasics, renderedParent: RendererResult, index: number) {
 		if (index > order.get().length) throw new Error(unexpectedError);
 
 		order.update(currentOrder => {
@@ -64,7 +64,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		});
 	});
 
-	const self: Omit<ComponentBasics, 'props'> = {
+	const self: Omit<PublicComponentBasics, 'props'> = {
 		dispatch: eventDispatcher.dispatch,
 		on: eventDispatcher.on,
 		once: eventDispatcher.once,
@@ -75,7 +75,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		hasBeenRendered: simpleStore(false),
 	};
 
-	const render = (...newChildren: ComponentBasics[]) => {
+	const render = (...newChildren: PublicComponentBasics[]) => {
 		children.set(newChildren);
 	};
 

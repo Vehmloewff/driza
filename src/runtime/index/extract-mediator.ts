@@ -1,7 +1,7 @@
-import { ComponentBasics } from '../interfaces';
+import { PublicComponentBasics } from '../interfaces';
 import { RendererResult } from '../internal/renderer';
 
-export const extractMediator = (SELF: Omit<ComponentBasics, 'props'>) => {
+export const extractMediator = (SELF: Omit<PublicComponentBasics, 'props'>) => {
 	return new Promise((resolve, reject) => {
 		SELF.once(`create`, (data: RendererResult) => {
 			if (typeof data.mediator === 'function') resolve(data.mediator);

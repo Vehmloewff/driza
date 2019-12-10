@@ -1,6 +1,6 @@
-import { ComponentBasics, Animation, PotentialKeys, TransitionApplicableResult, AnimationParamaters } from '../interfaces';
+import { PublicComponentBasics, Animation, PotentialKeys, TransitionApplicableResult, AnimationParamaters } from '../interfaces';
 
-export const createPotential = <Element extends Omit<ComponentBasics, 'props'>, Style>(
+export const createPotential = <Element extends Omit<PublicComponentBasics, 'props'>, Style>(
 	SELF: Element
 ): Pick<TransitionApplicableResult<Element, Style>, 'potential'> => {
 	const animations: { [key: string]: { fn: Animation<Element, Style>; local: boolean; defaultParams: AnimationParamaters }[] } = {};

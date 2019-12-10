@@ -1,15 +1,15 @@
-import { ComponentBasics } from '../interfaces';
+import { PublicComponentBasics } from '../interfaces';
 import { Store, simpleStore } from '../store';
 import { createComponent } from './create-component';
 
 type Expression = Store<any | (() => Promise<any> | any)>;
 
 export const IF = createComponent((expression: Expression, UI, SELF) => {
-	const render = (...components: ((() => ComponentBasics) | ComponentBasics)[]) => {
-		const sureComponents: ComponentBasics[] = [];
+	const render = (...components: ((() => PublicComponentBasics) | PublicComponentBasics)[]) => {
+		const sureComponents: PublicComponentBasics[] = [];
 
 		components.forEach(c => {
-			let component: ComponentBasics = null;
+			let component: PublicComponentBasics = null;
 
 			if (typeof c === 'function') {
 				component = c();
