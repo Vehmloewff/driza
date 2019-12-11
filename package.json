@@ -5,7 +5,7 @@
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
 	"browser": "dist/index.browser.js",
-	"versatile": "dist/index.ts",
+	"versatile": "src/runtime/index.ts",
 	"typings": "typings/runtime/index.d.ts",
 	"scripts": {
 		"build": "cross-env NODE_ENV=production rollup -c && tsc",
@@ -36,7 +36,8 @@
 		"style",
 		"dist",
 		"typings",
-		"easing"
+		"easing",
+		"src"
 	],
 	"license": "MIT",
 	"devDependencies": {
