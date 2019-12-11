@@ -7,18 +7,16 @@ import nodePath from 'path';
 import { readdirSync } from 'fs';
 import removeMockPlugin from './scripts/remove-mock-plugin';
 
-const name = 'versatilejs';
 const sourcemap = false;
 const prod = process.env.NODE_ENV === 'production';
 const watching = process.env.ROLLUP_WATCH;
 const testDir = process.env.VERSATILE_FILTER || ``;
 const testPattern = nodePath.resolve(testDir, `**/*.test.ts`);
-const browserMode = process.env.VERSATILE_ENV === `browser`;
 
-const sharedOutputOptions = {
-	name,
+const sharedOutputOptions = (dir = null) => ({
+	name: !dir ? undefined : `versatilejs${dir === `index` ? `` : `.${dir}`}`,
 	sourcemap,
-};
+});
 
 const external = {
 	workflow: [`events`],
@@ -29,7 +27,7 @@ const external = {
 const globalPlugins = (dir, oldDir, disable) => [
 	resolve({
 		preferBuiltins: true,
-		browser: browserMode,
+		browser: dir !== `compiler` && dir !== `workflow`,
 	}),
 	commonjs(),
 	typescript({
@@ -43,8 +41,8 @@ const globalPlugins = (dir, oldDir, disable) => [
 		}),
 ];
 
-function generateOutputOptions(options) {
-	return [
+function generateOutputOptions(options, browser = false) {
+	const result = [
 		{
 			...options,
 			file: options.file + `.js`,
@@ -56,11 +54,20 @@ function generateOutputOptions(options) {
 			format: `esm`,
 		},
 	];
+
+	if (browser)
+		result.push({
+			...options,
+			file: options.file + `.browser.js`,
+			format: `iife`,
+		});
+
+	return result;
 }
 
 const testRound = {
 	input: `globbed-tests.ts`,
-	output: { file: `dist/build.js`, format: 'cjs', ...sharedOutputOptions },
+	output: { file: `dist/build.js`, format: 'cjs', ...sharedOutputOptions() },
 	plugins: [
 		globFiles({
 			file: `globbed-tests.ts`,
@@ -77,7 +84,7 @@ const compiler = {
 	input: `src/compiler/index.ts`,
 	output: generateOutputOptions({
 		file: `compiler/index`,
-		...sharedOutputOptions,
+		...sharedOutputOptions(),
 	}),
 	plugins: globalPlugins(`compiler`),
 	external: external.compiler,
@@ -95,10 +102,13 @@ const workflowManager = {
 
 const index = {
 	input: `src/runtime/index.ts`,
-	output: generateOutputOptions({
-		file: `dist/index`,
-		...sharedOutputOptions,
-	}),
+	output: generateOutputOptions(
+		{
+			file: `dist/index`,
+			...sharedOutputOptions(`index`),
+		},
+		true
+	),
 	external: external.runtime,
 	plugins: globalPlugins(null, null, true),
 };
@@ -107,10 +117,13 @@ const runtimes = readdirSync(`src/runtime`, 'utf-8')
 	.filter(dir => dir.indexOf(`.`) === -1 && dir !== `index`)
 	.map(dir => ({
 		input: `src/runtime/${dir}/index.ts`,
-		output: generateOutputOptions({
-			file: `${dir}/index`,
-			...sharedOutputOptions,
-		}),
+		output: generateOutputOptions(
+			{
+				file: `${dir}/index`,
+				...sharedOutputOptions(dir),
+			},
+			true
+		),
 		external: external.runtime,
 		plugins: globalPlugins(dir, `runtime/${dir}`),
 	}));
