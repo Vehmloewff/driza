@@ -14,10 +14,10 @@ const testDir = process.env.VERSATILE_FILTER || ``;
 const testPattern = nodePath.resolve(testDir, `**/*.test.ts`);
 
 const sharedOutputOptions = (dir = null) => ({
-	name: !dir ? undefined : `versatilejs${dir === `index` ? `` : `.${dir}`}`,
+	name: !dir ? undefined : `versatilejs.${dir}`,
 	sourcemap,
 	globals: {
-		'@self': 'versatilejs',
+		'@self': 'versatilejs.index',
 
 		'@self/easing': 'versatilejs.easing',
 		'@self/internal': 'versatilejs.internal',
