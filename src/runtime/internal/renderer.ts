@@ -1,4 +1,4 @@
-import { Renderer } from '@self';
+import { Renderer } from '../interfaces';
 import { Font } from '@self/style';
 import { Mediator, createMediator } from '../../utils';
 

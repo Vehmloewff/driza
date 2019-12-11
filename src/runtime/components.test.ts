@@ -1,9 +1,7 @@
 import { describe } from 'zip-tap';
-import { createComponent } from '.';
-import { Store, simpleStore } from './store';
-import { Color } from './style';
-import { bootstrapComponent } from './index/bootstrap';
-import { IF, EACH } from '.';
+import { createComponent, bootstrapComponent, IF, EACH } from '@self';
+import { Store, simpleStore } from '@self/store';
+import { Color } from '@self/style';
 
 describe(`components`, async it => {
 	await it(`should create the component without any errors`, async expect => {

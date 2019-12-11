@@ -1,4 +1,5 @@
-import { PublicComponentBasics, ComponentTypes, ComponentBasics, createEventDispatcher } from '@self';
+import { createEventDispatcher } from './events';
+import { PublicComponentBasics, ComponentTypes, ComponentBasics } from '../interfaces';
 import { simpleStore, Store } from '@self/store';
 import renderer, { RendererResult } from './renderer';
 

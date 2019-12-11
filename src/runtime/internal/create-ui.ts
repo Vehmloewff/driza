@@ -1,4 +1,4 @@
-import { UserInterface, ComponentProps, EaseLikeFunction, PublicComponentBasics, UITypes } from '@self';
+import { UserInterface, ComponentProps, EaseLikeFunction, PublicComponentBasics, UITypes } from '../interfaces';
 import { createComponentOrElement } from './create-component-or-element';
 import { RendererResult } from './renderer';
 import { simpleStore, Store } from '@self/store';

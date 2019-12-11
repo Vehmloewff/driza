@@ -1,5 +1,5 @@
 import { PublicComponentBasics, AdditionalComponentValues } from '../interfaces';
-import { renderer } from '@self/internal';
+import renderer from './renderer';
 import { simpleStore } from '@self/store';
 
 export const bootstrapComponent = async (component: PublicComponentBasics & AdditionalComponentValues) => {

@@ -1,4 +1,4 @@
-import { DefaultPropsOnElement, ComponentProps } from '@self';
+import { DefaultPropsOnElement, ComponentProps } from '../interfaces';
 import { simpleStore } from '@self/store';
 
 export const globalPropsDefaults: DefaultPropsOnElement = {

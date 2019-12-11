@@ -1,4 +1,4 @@
-import { PublicComponentBasics } from '@self';
+import { PublicComponentBasics } from '../interfaces';
 
 export const create$ = <Element extends Omit<PublicComponentBasics, 'props'>>(
 	SELF: Element

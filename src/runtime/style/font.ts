@@ -1,6 +1,6 @@
 import { random } from '../../utils';
 import { renderer } from '@self/internal';
-import { Store, simpleStore } from '../store';
+import { Store, simpleStore } from '@self/store';
 
 export interface FontOptions {
 	default?: 'arial' | 'courier-new' | 'georgia' | 'times-new-roman' | 'trebuchet=ms' | 'verdana';
