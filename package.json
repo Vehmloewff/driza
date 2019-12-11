@@ -1,6 +1,6 @@
 {
 	"name": "versatilejs",
-	"version": "0.2.0-next.6",
+	"version": "0.2.0-next.7",
 	"description": "Still in development... Check back soon!",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
