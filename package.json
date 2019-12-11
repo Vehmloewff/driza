@@ -34,7 +34,8 @@
 		"workflow",
 		"style",
 		"dist",
-		"typings"
+		"typings",
+		"easing"
 	],
 	"license": "MIT",
 	"devDependencies": {
