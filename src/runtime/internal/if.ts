@@ -1,5 +1,5 @@
 import { PublicComponentBasics, ComponentBasics } from '../interfaces';
-import { Store, simpleStore } from '@self/store';
+import { Store, simpleStore } from 'versatilejs/store';
 import { createComponent } from './create-component';
 
 type Expression = Store<any | (() => Promise<any> | any)>;

@@ -1,5 +1,5 @@
 import { DefaultPropsOnElement, ComponentProps } from '../interfaces';
-import { simpleStore } from '@self/store';
+import { simpleStore } from 'versatilejs/store';
 
 export const globalPropsDefaults: DefaultPropsOnElement = {
 	hidden: simpleStore(false),

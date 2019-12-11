@@ -1,7 +1,7 @@
 import { describe } from 'zip-tap';
-import { createComponent, bootstrapComponent, IF, EACH } from '@self';
-import { Store, simpleStore } from '@self/store';
-import { Color } from '@self/style';
+import { createComponent, bootstrapComponent, IF, EACH } from 'versatilejs';
+import { Store, simpleStore } from 'versatilejs/store';
+import { Color } from 'versatilejs/style';
 
 describe(`components`, async it => {
 	await it(`should create the component without any errors`, async expect => {

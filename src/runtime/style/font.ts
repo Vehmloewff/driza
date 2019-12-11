@@ -1,6 +1,6 @@
 import { random } from '../../utils';
-import { renderer } from '@self/internal';
-import { Store, simpleStore } from '@self/store';
+import { renderer } from 'versatilejs/internal';
+import { Store, simpleStore } from 'versatilejs/store';
 
 export interface FontOptions {
 	default?: 'arial' | 'courier-new' | 'georgia' | 'times-new-roman' | 'trebuchet=ms' | 'verdana';

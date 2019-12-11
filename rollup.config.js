@@ -17,18 +17,18 @@ const sharedOutputOptions = (dir = null) => ({
 	name: !dir ? undefined : `versatilejs.${dir}`,
 	sourcemap,
 	globals: {
-		'@self': 'versatilejs.index',
+		versatilejs: 'versatilejs.index',
 
-		'@self/easing': 'versatilejs.easing',
-		'@self/internal': 'versatilejs.internal',
-		'@self/store': 'versatilejs.store',
-		'@self/style': 'versatilejs.style',
+		'versatilejs/easing': 'versatilejs.easing',
+		'versatilejs/internal': 'versatilejs.internal',
+		'versatilejs/store': 'versatilejs.store',
+		'versatilejs/style': 'versatilejs.style',
 	},
 });
 
 const external = {
 	workflow: [`events`],
-	runtime: id => id.startsWith(`@self`),
+	runtime: id => id.startsWith(`versatilejs`),
 	compiler: [],
 };
 

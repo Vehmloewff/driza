@@ -1,7 +1,7 @@
 import { UserInterface, ComponentProps, EaseLikeFunction, PublicComponentBasics, UITypes } from '../interfaces';
 import { createComponentOrElement } from './create-component-or-element';
 import { RendererResult } from './renderer';
-import { simpleStore, Store } from '@self/store';
+import { simpleStore, Store } from 'versatilejs/store';
 import { Mediator } from '../../utils';
 import { propsDefaults } from './reasonable-defaults';
 import { createPotential } from './potential';

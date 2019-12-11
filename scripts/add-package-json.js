@@ -8,6 +8,9 @@ const pkg = {
 
 const dir = process.argv[2];
 
-if (dir !== `workflow` && dir !== `compiler`) pkg.browser = `index.browser.js`;
+if (dir !== `workflow` && dir !== `compiler`) {
+	pkg.browser = `index.browser.js`;
+	pkg.versatile = `index.ts`;
+}
 
 write(dir + `/package.json`, JSON.stringify(pkg));

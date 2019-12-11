@@ -1,6 +1,6 @@
 import { PublicComponentBasics, AdditionalComponentValues } from '../interfaces';
 import renderer from './renderer';
-import { simpleStore } from '@self/store';
+import { simpleStore } from 'versatilejs/store';
 
 export const bootstrapComponent = async (component: PublicComponentBasics & AdditionalComponentValues) => {
 	const renderedResult = renderer.component({
