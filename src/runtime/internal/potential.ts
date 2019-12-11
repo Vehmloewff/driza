@@ -1,4 +1,4 @@
-import { PublicComponentBasics, Animation, PotentialKeys, TransitionApplicableResult, AnimationParamaters } from '../interfaces';
+import { PublicComponentBasics, Animation, PotentialKeys, TransitionApplicableResult, AnimationParamaters } from '@self';
 
 export const createPotential = <Element extends Omit<PublicComponentBasics, 'props'>, Style>(
 	SELF: Element

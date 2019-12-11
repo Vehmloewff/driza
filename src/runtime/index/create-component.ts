@@ -1,6 +1,5 @@
-import { createComponentOrElement } from '../internal/create-component-or-element';
+import { createComponentOrElement, createUI } from '@self/internal';
 import { UserInterface, ComponentBasics } from '../interfaces';
-import { createUI } from '../internal/create-ui';
 
 export const createComponent = <UserImpliedProps, UserReturnedResult>(
 	fn: (props: UserImpliedProps, UI: UserInterface, self: Omit<ComponentBasics, 'props'> & { props: UserImpliedProps }) => UserReturnedResult

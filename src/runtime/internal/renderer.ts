@@ -1,5 +1,5 @@
-import { Renderer } from '../interfaces';
-import { Font } from '../style/font';
+import { Renderer } from '@self';
+import { Font } from '@self/style';
 import { Mediator, createMediator } from '../../utils';
 
 export type RendererResult = { data: any; mediator: Mediator };

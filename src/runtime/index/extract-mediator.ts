@@ -1,5 +1,5 @@
 import { PublicComponentBasics } from '../interfaces';
-import { RendererResult } from '../internal/renderer';
+import { RendererResult } from '@self/internal';
 
 export const extractMediator = (SELF: Omit<PublicComponentBasics, 'props'>) => {
 	return new Promise((resolve, reject) => {

@@ -16,11 +16,19 @@ const testPattern = nodePath.resolve(testDir, `**/*.test.ts`);
 const sharedOutputOptions = (dir = null) => ({
 	name: !dir ? undefined : `versatilejs${dir === `index` ? `` : `.${dir}`}`,
 	sourcemap,
+	globals: {
+		'@self': 'versatilejs',
+
+		'@self/easing': 'versatilejs.easing',
+		'@self/internal': 'versatilejs.internal',
+		'@self/store': 'versatilejs.store',
+		'@self/style': 'versatilejs.style',
+	},
 });
 
 const external = {
 	workflow: [`events`],
-	runtime: [],
+	runtime: id => id.startsWith(`@self`),
 	compiler: [],
 };
 

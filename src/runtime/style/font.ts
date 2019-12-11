@@ -1,5 +1,5 @@
 import { random } from '../../utils';
-import renderer from '../internal/renderer';
+import { renderer } from '@self/internal';
 import { Store, simpleStore } from '../store';
 
 export interface FontOptions {

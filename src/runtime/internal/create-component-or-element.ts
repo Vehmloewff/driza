@@ -1,6 +1,5 @@
-import { PublicComponentBasics, ComponentTypes, ComponentBasics } from '../interfaces';
-import { createEventDispatcher } from '../index/events';
-import { simpleStore, Store } from '../store';
+import { PublicComponentBasics, ComponentTypes, ComponentBasics, createEventDispatcher } from '@self';
+import { simpleStore, Store } from '@self/store';
 import renderer, { RendererResult } from './renderer';
 
 const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/versatilejs/issues/new`;

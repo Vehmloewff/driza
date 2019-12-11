@@ -9,7 +9,16 @@
 		"declaration": true,
 		"declarationDir": "typings",
 		"emitDeclarationOnly": true,
-		"lib": ["es5", "es6", "dom"]
+		"lib": ["es5", "es6", "dom"],
+		"baseUrl": "src",
+		"paths": {
+			"@self": ["runtime"],
+
+			"@self/easing": ["runtime/easing"],
+			"@self/internal": ["runtime/internal"],
+			"@self/store": ["runtime/store"],
+			"@self/style": ["runtime/style"]
+		}
 	},
 	"target": "ESNext",
 	"module": "ES6",

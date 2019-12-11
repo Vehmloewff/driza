@@ -1,6 +1,5 @@
-import { DefaultPropsOnElement, ComponentProps } from '../interfaces';
-import { simpleStore } from '../store';
-import { Font } from '../style/font';
+import { DefaultPropsOnElement, ComponentProps } from '@self';
+import { simpleStore } from '@self/store';
 
 export const globalPropsDefaults: DefaultPropsOnElement = {
 	hidden: simpleStore(false),

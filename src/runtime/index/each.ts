@@ -1,7 +1,7 @@
 import { createComponent } from './create-component';
 import { ComponentBasics, PublicComponentBasics } from '../interfaces';
 import { asyncForeach } from '../../utils';
-import { Store } from '../store';
+import { Store } from '@self/store';
 
 interface EachResult<Value> {
 	as: (
