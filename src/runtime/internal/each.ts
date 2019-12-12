@@ -25,7 +25,7 @@ const each = <Value>(array: Store<Value[]>, _: any, SELF: ComponentBasics): Each
 				components.push(userResult);
 			});
 
-			if (arr.length) SELF.render(...components);
+			if (arr.length) await SELF.render(...components);
 
 			appIsReady.set(true);
 		});

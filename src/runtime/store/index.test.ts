@@ -62,4 +62,14 @@ describe(`stores`, it => {
 
 		expect(shouldUpdateWhenChildrenDo.get().join(' ')).toBe(`then that happened`);
 	});
+
+	it(`the stores should run independent of each other`, expect => {
+		const stores = () => simpleStore(true);
+		const store1 = stores();
+		const store2 = stores();
+
+		store1.set(false);
+
+		expect(store2.get()).toBe(true);
+	});
 });

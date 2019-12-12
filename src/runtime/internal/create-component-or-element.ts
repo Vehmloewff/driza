@@ -10,7 +10,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 	fn: (props: UserImpliedProps, self: Omit<ComponentBasics, 'props'> & { props: UserImpliedProps }) => UserReturnedResult,
 	defaultProps: UserDefinedProps,
 	type: ComponentTypes
-): ((props: UserImpliedProps) => Omit<PublicComponentBasics, 'props'> & UserReturnedResult & { props: UserImpliedProps }) => {
+) => (props?: UserImpliedProps): Omit<PublicComponentBasics, 'props'> & UserReturnedResult & { props: UserImpliedProps } => {
 	const eventDispatcher = createEventDispatcher();
 
 	const removed = simpleStore(false);
@@ -55,14 +55,13 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 			await inisateChild(child, rendererResult, index);
 		});
 
-		// TODO: Use `promiseSubscribe` once provided
-		children.subscribe((newChildren, initialCall) => {
+		children.subscribe(async (newChildren, initialCall) => {
 			if (initialCall) return;
 
 			// What changed?  Figure it out, then call inisateChild for each child
 			// that is not already inisiated
-			newChildren.forEach((child, index) => {
-				if (!child.hasBeenRendered) inisateChild(child, rendererResult, index);
+			await asyncForeach(newChildren, async (child, index) => {
+				if (!child.hasBeenRendered.get()) await inisateChild(child, rendererResult, index);
 			});
 		});
 	});
@@ -79,18 +78,13 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		hasBeenRendered: simpleStore(false),
 	};
 
-	const render = (...newChildren: PublicComponentBasics[]) => {
-		// TODO: Use `promiseSet` once provided and make this func async
-		children.set(newChildren);
-	};
+	const render = (...newChildren: PublicComponentBasics[]) => children.set(newChildren);
 
-	return (props?: UserImpliedProps) => {
-		props = Object.assign(defaultProps || {}, props);
+	props = Object.assign(defaultProps || {}, props);
 
-		return {
-			...self,
-			...fn(props, { ...self, props, render }),
-			props,
-		};
+	return {
+		...self,
+		...fn(props, { ...self, props, render }),
+		props,
 	};
 };

@@ -294,7 +294,7 @@ export interface PublicComponentBasics {
 }
 
 export interface ComponentBasics extends PublicComponentBasics {
-	render: (...components: PublicComponentBasics[]) => void;
+	render: (...components: PublicComponentBasics[]) => Promise<void>;
 }
 
 export type PotentialKeys = 'in' | 'out' | 'transition' | string;
