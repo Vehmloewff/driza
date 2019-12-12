@@ -2,6 +2,7 @@ import { describe } from 'zip-tap';
 import { createComponent, bootstrapComponent, IF, EACH } from 'versatilejs';
 import { Store, simpleStore } from 'versatilejs/store';
 import { Color } from 'versatilejs/style';
+import { setRenderer, createMediator } from './internal';
 
 describe(`components`, async it => {
 	await it(`should create the component without any errors`, async expect => {
@@ -52,6 +53,29 @@ describe(`components`, async it => {
 		const app = App({ cool: simpleStore(true) });
 
 		expect(app.props.cool.get()).toBe(true);
+
+		setRenderer({
+			root: () => {
+				called++;
+				return {
+					data: `root`,
+					mediator: createMediator(),
+				};
+			},
+			component: ({ parent, type, props }) => {
+				called++;
+				const data = parent.data + `>` + type;
+
+				console.log(type, props);
+				console.log(data, `\n\n`);
+
+				return {
+					data,
+					mediator: createMediator(),
+				};
+			},
+			applyFont: async () => {},
+		});
 
 		await bootstrapComponent(app);
 

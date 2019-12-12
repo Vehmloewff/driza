@@ -14,6 +14,7 @@ const testDir = process.env.VERSATILE_FILTER || ``;
 const testPattern = nodePath.resolve(testDir, `**/*.test.ts`);
 
 const runtimeExports = ['versatilejs', 'versatilejs/easing', 'versatilejs/internal', 'versatilejs/store', 'versatilejs/style'];
+const runtimePaths = ['runtime', 'runtime/easing', 'runtime/internal', 'runtime/store', 'runtime/style'];
 
 const sharedOutputOptions = (dir = null) => {
 	const isUp = dir === `index`;
@@ -30,8 +31,8 @@ const sharedOutputOptions = (dir = null) => {
 
 const nodejsModulesToExclude = [`events`];
 
-const external = (runtime = false, test = false) => id =>
-	((test || !runtime) && nodejsModulesToExclude.find(m => m === id)) || ((test || runtime) && runtimeExports.find(e => e === id));
+const external = (runtime = false) => id =>
+	(!runtime && nodejsModulesToExclude.find(m => m === id)) || (runtime && runtimeExports.find(e => e === id));
 
 const globalPlugins = (dir, oldDir, disable) => [
 	resolve({
@@ -65,7 +66,7 @@ const generateOutputOptions = options => [
 
 const testRound = {
 	input: `globbed-tests.ts`,
-	output: { file: `dist/build.js`, format: 'cjs', ...sharedOutputOptions() },
+	output: { file: `dist/build.js`, format: 'cjs' },
 	plugins: [
 		globFiles({
 			file: `globbed-tests.ts`,
@@ -75,7 +76,7 @@ const testRound = {
 		...globalPlugins(),
 		command(`node dist/build.js | zip-tap-reporter`, { exitOnFail: !watching }),
 	],
-	external: external(true, true),
+	external: external(),
 };
 
 const compiler = {
