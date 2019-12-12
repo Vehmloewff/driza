@@ -2,6 +2,7 @@ import { createEventDispatcher } from './events';
 import { PublicComponentBasics, ComponentTypes, ComponentBasics } from '../interfaces';
 import { simpleStore, Store } from 'versatilejs/store';
 import { RendererResult, getRenderer } from './renderer';
+import { asyncForeach } from 'utils';
 
 const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/versatilejs/issues/new`;
 
@@ -9,7 +10,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 	fn: (props: UserImpliedProps, self: Omit<ComponentBasics, 'props'> & { props: UserImpliedProps }) => UserReturnedResult,
 	defaultProps: UserDefinedProps,
 	type: ComponentTypes
-): ((props: UserImpliedProps) => Omit<PublicComponentBasics, 'props'> & UserReturnedResult & { props: UserImpliedProps }) => {
+) => (props?: UserImpliedProps): Omit<PublicComponentBasics, 'props'> & UserReturnedResult & { props: UserImpliedProps } => {
 	const eventDispatcher = createEventDispatcher();
 
 	const removed = simpleStore(false);
@@ -21,7 +22,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		else await eventDispatcher.dispatch(`beforemount`);
 	});
 
-	function inisateChild(child: PublicComponentBasics, renderedParent: RendererResult, index: number) {
+	async function inisateChild(child: PublicComponentBasics, renderedParent: RendererResult, index: number) {
 		if (index > order.get().length) throw new Error(unexpectedError);
 
 		order.update(currentOrder => {
@@ -45,21 +46,22 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 
 		child.hasBeenRendered.set(true);
 
-		child.dispatch(`create`, renderedChild);
+		await child.dispatch(`create`, renderedChild);
 	}
 
-	eventDispatcher.once(`create`, (rendererResult: RendererResult) => {
+	eventDispatcher.once(`create`, async (rendererResult: RendererResult) => {
 		// Assume that all children have not been mounted yet
-		children.get().forEach((child, index) => {
-			inisateChild(child, rendererResult, index);
+		await asyncForeach(children.get(), async (child, index) => {
+			await inisateChild(child, rendererResult, index);
 		});
-		children.subscribe((newChildren, initialCall) => {
+
+		children.subscribe(async (newChildren, initialCall) => {
 			if (initialCall) return;
 
 			// What changed?  Figure it out, then call inisateChild for each child
 			// that is not already inisiated
-			newChildren.forEach((child, index) => {
-				if (!child.hasBeenRendered) inisateChild(child, rendererResult, index);
+			await asyncForeach(newChildren, async (child, index) => {
+				if (!child.hasBeenRendered.get()) await inisateChild(child, rendererResult, index);
 			});
 		});
 	});
@@ -76,17 +78,13 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		hasBeenRendered: simpleStore(false),
 	};
 
-	const render = (...newChildren: PublicComponentBasics[]) => {
-		children.set(newChildren);
-	};
+	const render = (...newChildren: PublicComponentBasics[]) => children.set(newChildren);
 
-	return (props?: UserImpliedProps) => {
-		props = Object.assign(defaultProps || {}, props);
+	props = Object.assign(defaultProps || {}, props);
 
-		return {
-			...self,
-			...fn(props, { ...self, props, render }),
-			props,
-		};
+	return {
+		...self,
+		...fn(props, { ...self, props, render }),
+		props,
 	};
 };

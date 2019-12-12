@@ -2,6 +2,7 @@ import { createComponent } from './create-component';
 import { ComponentBasics, PublicComponentBasics } from '../interfaces';
 import { asyncForeach } from '../../utils';
 import { Store } from 'versatilejs/store';
+import { appIsReady } from './app-is-ready';
 
 interface EachResult<Value> {
 	as: (
@@ -12,6 +13,8 @@ interface EachResult<Value> {
 }
 
 const each = <Value>(array: Store<Value[]>, _: any, SELF: ComponentBasics): EachResult<Value> => {
+	appIsReady.set(false);
+
 	const as: EachResult<Value>['as'] = cb => {
 		array.subscribe(async arr => {
 			const components: PublicComponentBasics[] = [];
@@ -22,7 +25,9 @@ const each = <Value>(array: Store<Value[]>, _: any, SELF: ComponentBasics): Each
 				components.push(userResult);
 			});
 
-			if (arr.length) SELF.render(...components);
+			if (arr.length) await SELF.render(...components);
+
+			appIsReady.set(true);
 		});
 
 		return {

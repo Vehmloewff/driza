@@ -3,6 +3,7 @@ import { createComponent, bootstrapComponent, IF, EACH } from 'versatilejs';
 import { Store, simpleStore } from 'versatilejs/store';
 import { Color } from 'versatilejs/style';
 import { setRenderer, createMediator } from './internal';
+import delay from 'delay';
 
 describe(`components`, async it => {
 	await it(`should create the component without any errors`, async expect => {
@@ -41,11 +42,13 @@ describe(`components`, async it => {
 							.render(() => UI.label({ text: simpleStore(`Hello`) }))
 							.else()
 							.render(element.$(button)),
-						EACH(thing).as(item =>
-							UI.label({
+						EACH(thing).as(async item => {
+							await delay(100);
+
+							return UI.label({
 								text: simpleStore(item),
-							})
-						)
+							});
+						})
 					)
 				)
 			);
@@ -61,12 +64,12 @@ describe(`components`, async it => {
 			`root>virtual>wrapLayout`,
 			`root>virtual>wrapLayout>stackLayout`,
 			`root>virtual>wrapLayout>stackLayout>virtual`,
-			`root>virtual>wrapLayout>stackLayout>virtual`,
 			`root>virtual>wrapLayout>stackLayout>virtual>element`,
-			`root>virtual>wrapLayout>stackLayout>virtual>label`,
-			`root>virtual>wrapLayout>stackLayout>virtual>label`,
-			`root>virtual>wrapLayout>stackLayout>virtual>label`,
 			`root>virtual>wrapLayout>stackLayout>virtual>element>button`,
+			`root>virtual>wrapLayout>stackLayout>virtual`,
+			`root>virtual>wrapLayout>stackLayout>virtual>label`,
+			`root>virtual>wrapLayout>stackLayout>virtual>label`,
+			`root>virtual>wrapLayout>stackLayout>virtual>label`,
 		];
 
 		setRenderer({
@@ -80,8 +83,6 @@ describe(`components`, async it => {
 			component: ({ parent, type }) => {
 				const data = parent.data + `>` + type;
 
-				console.log(rendererd);
-
 				expect(calls[rendererd]).toBe(data);
 
 				rendererd++;
@@ -94,12 +95,10 @@ describe(`components`, async it => {
 			applyFont: async () => {},
 		});
 
-		// TODO: `bootstrapComponent`'s promise isn't working
-		// BODY: It should wait for the entire app to be rendererd, but it doesn't.
 		await bootstrapComponent(app);
 
 		expect(called).toBe(1);
 
-		// expect(rendererd).toBe(calls.length);
+		expect(rendererd).toBe(calls.length);
 	});
 });

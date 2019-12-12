@@ -1,10 +1,12 @@
+import { asyncForeach } from 'utils';
+
 export interface ReadableStore<StoreType> {
 	get: () => StoreType;
 	subscribe: (fn: (currentValue: StoreType, initial: boolean) => void) => () => void;
 }
 
 export interface StoreActions<StoreType> {
-	set: (newValue: StoreType) => void;
+	set: (newValue: StoreType) => Promise<void>;
 	update: (fn: (currentValue: StoreType) => StoreType) => void;
 }
 
@@ -12,9 +14,9 @@ export interface Store<StoreType> extends ReadableStore<StoreType>, StoreActions
 
 export const simpleStore = <StoreType>(startValue: StoreType): Store<StoreType> => {
 	let value: StoreType = startValue;
-	let subscribers: ((currentValue: StoreType, initial: boolean) => void)[] = [];
+	let subscribers: ((currentValue: StoreType, initial: boolean) => Promise<void> | void)[] = [];
 
-	const subscribe = (fn: (currentValue: StoreType, intial: boolean) => void) => {
+	const subscribe = (fn: (currentValue: StoreType, intial: boolean) => Promise<void> | void) => {
 		fn(value, true);
 
 		subscribers.push(fn);
@@ -22,9 +24,9 @@ export const simpleStore = <StoreType>(startValue: StoreType): Store<StoreType> 
 		return () => (subscribers = subscribers.filter(subscriber => subscriber !== fn));
 	};
 
-	const set = (newValue: StoreType) => {
+	const set = async (newValue: StoreType) => {
 		value = newValue;
-		subscribers.forEach(fn => fn(value, false));
+		await asyncForeach(subscribers, async fn => await fn(value, false));
 	};
 
 	const update = (fn: (currentValue: StoreType) => StoreType) => set(fn(value));

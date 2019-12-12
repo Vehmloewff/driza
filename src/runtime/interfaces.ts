@@ -101,7 +101,8 @@ export interface ComponentProps {
 	};
 	checkbox: DefaultPropsOnElement & {
 		checked?: Store<boolean>;
-		// TODO?: Some sort of check svg
+		// TODO: Add some sort of check svg
+		// BODY: Maybe an icon component?
 		style?: Store<
 			GlobalStyles &
 				GlobalStates<GlobalStyles> & {
@@ -294,7 +295,7 @@ export interface PublicComponentBasics {
 }
 
 export interface ComponentBasics extends PublicComponentBasics {
-	render: (...components: PublicComponentBasics[]) => void;
+	render: (...components: PublicComponentBasics[]) => Promise<void>;
 }
 
 export type PotentialKeys = 'in' | 'out' | 'transition' | string;
