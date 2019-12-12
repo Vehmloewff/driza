@@ -8,7 +8,7 @@ import delay from 'delay';
 describe(`components`, async it => {
 	await it(`should create the component without any errors`, async expect => {
 		let called = 0;
-		let rendererd = 0;
+		let rendered = 0;
 
 		const App = createComponent((props: { cool: Store<boolean> }, UI, SELF) => {
 			SELF.once(`create`, () => {
@@ -74,7 +74,7 @@ describe(`components`, async it => {
 
 		setRenderer({
 			root: () => {
-				rendererd++;
+				rendered++;
 				return {
 					data: `root`,
 					mediator: createMediator(),
@@ -83,9 +83,9 @@ describe(`components`, async it => {
 			component: ({ parent, type }) => {
 				const data = parent.data + `>` + type;
 
-				expect(calls[rendererd]).toBe(data);
+				expect(calls[rendered]).toBe(data);
 
-				rendererd++;
+				rendered++;
 
 				return {
 					data,
@@ -99,6 +99,6 @@ describe(`components`, async it => {
 
 		expect(called).toBe(1);
 
-		expect(rendererd).toBe(calls.length);
+		expect(rendered).toBe(calls.length);
 	});
 });
