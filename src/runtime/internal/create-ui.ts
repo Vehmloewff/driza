@@ -12,57 +12,58 @@ const create = (fn: (props: any, SELF: Omit<PublicComponentBasics, 'props'>) => 
 
 export const createUI = (): UserInterface => ({
 	// Inputs
-	button: create((_, SELF) => createPotential(SELF), 'select'),
+	button: create((_, SELF) => createPotential(SELF), 'button'),
 
 	// Text inputs
-	textField: create((_, SELF) => createPotential(SELF), 'select'),
+	textField: create((_, SELF) => createPotential(SELF), 'textField'),
 
-	textView: create((_, SELF) => createPotential(SELF), 'select'),
+	textView: create((_, SELF) => createPotential(SELF), 'textView'),
 
 	// Options Inputs
-	switch: create((_, SELF) => createPotential(SELF), 'select'),
+	switch: create((_, SELF) => createPotential(SELF), 'switch'),
 
-	checkbox: create((_, SELF) => createPotential(SELF), 'select'),
+	checkbox: create((_, SELF) => createPotential(SELF), 'checkbox'),
 
 	//
-	slider: create((_, SELF) => createPotential(SELF), 'select'),
+	slider: create((_, SELF) => createPotential(SELF), 'slider'),
 
 	//
 	select: create((_, SELF) => createPotential(SELF), 'select'),
 
 	//
-	segmentedBar: create((_, SELF) => createPotential(SELF), 'select'),
+	segmentedBar: create((_, SELF) => createPotential(SELF), 'segmentedBar'),
 
-	radio: create((_, SELF) => createPotential(SELF), 'select'),
+	radio: create((_, SELF) => createPotential(SELF), 'radio'),
 
 	// Complex options inputs
-	datePicker: create((_, SELF) => createPotential(SELF), 'select'),
+	datePicker: create((_, SELF) => createPotential(SELF), 'datePicker'),
 
-	timePicker: create((_, SELF) => createPotential(SELF), 'select'),
+	timePicker: create((_, SELF) => createPotential(SELF), 'timePicker'),
 
-	listPicker: create((_, SELF) => createPotential(SELF), 'select'),
+	listPicker: create((_, SELF) => createPotential(SELF), 'listPicker'),
 
 	// Moving
-	activityIndicator: create((_, SELF) => createPotential(SELF), 'select'),
+	activityIndicator: create((_, SELF) => createPotential(SELF), 'activityIndicator'),
 
-	progress: create((_, SELF) => createPotential(SELF), 'select'),
+	progress: create((_, SELF) => createPotential(SELF), 'progress'),
 
-	dialogs: create(() => {}, 'select'),
+	// TODO: name this `dialog`
+	dialogs: create(() => {}, 'dialogs'),
 
-	menu: create((_, SELF) => createPotential(SELF), 'select'),
+	menu: create((_, SELF) => createPotential(SELF), 'menu'),
 
 	// Static
-	label: create((_, SELF) => createPotential(SELF), 'select'),
+	label: create((_, SELF) => createPotential(SELF), 'label'),
 
-	image: create((_, SELF) => createPotential(SELF), 'select'),
+	image: create((_, SELF) => createPotential(SELF), 'image'),
 
-	htmlView: create(() => {}, 'select'),
+	htmlView: create(() => {}, 'htmlView'),
 
-	listView: create((_, SELF) => createPotential(SELF), 'select'),
+	listView: create((_, SELF) => createPotential(SELF), 'listView'),
 
-	tabView: create((_, SELF) => createPotential(SELF), 'select'),
+	tabView: create((_, SELF) => createPotential(SELF), 'tabView'),
 
-	tabItem: create((_, SELF) => createPotential(SELF), 'select'),
+	tabItem: create((_, SELF) => createPotential(SELF), 'tabItem'),
 
 	// Layout
 	page: create((__, SELF) => {
@@ -83,29 +84,29 @@ export const createUI = (): UserInterface => ({
 				});
 			},
 		};
-	}, 'select'),
+	}, 'page'),
 
-	childPageSlot: create((_, SELF) => createPotential(SELF), 'select'),
+	childPageSlot: create((_, SELF) => createPotential(SELF), 'childPageSlot'),
 
-	stackLayout: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'select'),
+	stackLayout: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'stackLayout'),
 
-	gridLayout: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'select'),
+	gridLayout: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'gridLayout'),
 
-	absoluteLayout: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'select'),
+	absoluteLayout: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'absoluteLayout'),
 
-	wrapLayout: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'select'),
+	wrapLayout: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'wrapLayout'),
 
 	scrollView: create(
 		(props: ComponentProps['scrollView'], SELF) => ({
 			scrollTo: async (pos: number, easing: EaseLikeFunction) => {
-				// TODO make this ease
+				// TODO make this work
 			},
 			...create$(SELF),
 		}),
-		'select'
+		'scrollView'
 	),
 
-	actionBar: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'select'),
+	actionBar: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'actionBar'),
 
 	// Other
 	webView: create((props: ComponentProps['webView'], SELF) => {
@@ -136,6 +137,6 @@ export const createUI = (): UserInterface => ({
 		return {
 			history,
 		};
-	}, 'select'),
+	}, 'webView'),
 	element: create((_, SELF) => ({ ...createPotential(SELF), ...create$(SELF) }), 'element'),
 });

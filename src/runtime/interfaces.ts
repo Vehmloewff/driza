@@ -290,6 +290,7 @@ export interface PublicComponentBasics {
 	props: ComponentProps[ComponentTypes];
 	children: Store<PublicComponentBasics[]>;
 	hasBeenRendered: Store<boolean>;
+	type: () => ComponentTypes;
 }
 
 export interface ComponentBasics extends PublicComponentBasics {

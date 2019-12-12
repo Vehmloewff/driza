@@ -30,7 +30,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		});
 
 		const renderedChild = getRenderer().component({
-			type,
+			type: child.type(),
 			order,
 			parent: renderedParent,
 			props: child.props,
@@ -72,6 +72,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		reMount: () => removed.set(false),
 		removed,
 		children,
+		type: () => type,
 		hasBeenRendered: simpleStore(false),
 	};
 

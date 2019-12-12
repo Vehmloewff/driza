@@ -4,7 +4,7 @@ import { simpleStore } from 'versatilejs/store';
 
 export const bootstrapComponent = async (component: PublicComponentBasics & AdditionalComponentValues) => {
 	const renderedResult = getRenderer().component({
-		type: `virtual`,
+		type: component.type(),
 		order: simpleStore([null]),
 		parent: getRenderer().root(),
 		props: component.props,

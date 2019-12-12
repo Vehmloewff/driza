@@ -7,6 +7,7 @@ import { setRenderer, createMediator } from './internal';
 describe(`components`, async it => {
 	await it(`should create the component without any errors`, async expect => {
 		let called = 0;
+		let rendererd = 0;
 
 		const App = createComponent((props: { cool: Store<boolean> }, UI, SELF) => {
 			SELF.once(`create`, () => {
@@ -54,20 +55,36 @@ describe(`components`, async it => {
 
 		expect(app.props.cool.get()).toBe(true);
 
+		const calls = [
+			`root`,
+			`root>virtual`,
+			`root>virtual>wrapLayout`,
+			`root>virtual>wrapLayout>stackLayout`,
+			`root>virtual>wrapLayout>stackLayout>virtual`,
+			`root>virtual>wrapLayout>stackLayout>virtual`,
+			`root>virtual>wrapLayout>stackLayout>virtual>element`,
+			`root>virtual>wrapLayout>stackLayout>virtual>label`,
+			`root>virtual>wrapLayout>stackLayout>virtual>label`,
+			`root>virtual>wrapLayout>stackLayout>virtual>label`,
+			`root>virtual>wrapLayout>stackLayout>virtual>element>button`,
+		];
+
 		setRenderer({
 			root: () => {
-				called++;
+				rendererd++;
 				return {
 					data: `root`,
 					mediator: createMediator(),
 				};
 			},
-			component: ({ parent, type, props }) => {
-				called++;
+			component: ({ parent, type }) => {
 				const data = parent.data + `>` + type;
 
-				console.log(type, props);
-				console.log(data, `\n\n`);
+				console.log(rendererd);
+
+				expect(calls[rendererd]).toBe(data);
+
+				rendererd++;
 
 				return {
 					data,
@@ -80,5 +97,8 @@ describe(`components`, async it => {
 		await bootstrapComponent(app);
 
 		expect(called).toBe(1);
+
+		console.log('trying');
+		expect(rendererd).toBe(calls.length);
 	});
 });
