@@ -10,7 +10,5 @@ export const buildApp = (dir?: string, options?: BuildOptions): GoEmitter => {
 	//
 	const emitter = new GoEmitter();
 
-	// TODO create a rollup build
-
 	return emitter;
 };

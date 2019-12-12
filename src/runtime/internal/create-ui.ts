@@ -47,7 +47,8 @@ export const createUI = (): UserInterface => ({
 
 	progress: create((_, SELF) => createPotential(SELF), 'progress'),
 
-	// TODO: name this `dialog`
+	// TODO: Name this `dialog`
+	// BODY: It would be a breaking change though
 	dialogs: create(() => {}, 'dialogs'),
 
 	menu: create((_, SELF) => createPotential(SELF), 'menu'),
@@ -99,7 +100,8 @@ export const createUI = (): UserInterface => ({
 	scrollView: create(
 		(props: ComponentProps['scrollView'], SELF) => ({
 			scrollTo: async (pos: number, easing: EaseLikeFunction) => {
-				// TODO make this work
+				// TODO: `scrollTo` function does not work
+				// BODY: This should be fixed
 			},
 			...create$(SELF),
 		}),
