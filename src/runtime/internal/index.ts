@@ -10,4 +10,5 @@ export * from './create-component';
 export * from './extract-mediator';
 export * from './if';
 export * from './each';
+export * from './manage-delays';
 export { createMediator } from '../../utils';

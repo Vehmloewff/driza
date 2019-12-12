@@ -43,7 +43,7 @@ describe(`components`, async it => {
 							.else()
 							.render(element.$(button)),
 						EACH(thing).as(async item => {
-							await delay(100);
+							await delay(10);
 
 							return UI.label({
 								text: simpleStore(item),

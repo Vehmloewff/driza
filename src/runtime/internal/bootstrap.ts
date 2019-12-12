@@ -1,7 +1,7 @@
 import { PublicComponentBasics, AdditionalComponentValues } from '../interfaces';
 import { getRenderer } from './renderer';
 import { simpleStore } from 'versatilejs/store';
-import { appIsReady } from './app-is-ready';
+import { allDelaysResolved } from './manage-delays';
 
 export const bootstrapComponent = async (component: PublicComponentBasics & AdditionalComponentValues) => {
 	const renderedResult = getRenderer().component({
@@ -17,9 +17,5 @@ export const bootstrapComponent = async (component: PublicComponentBasics & Addi
 
 	await component.dispatch(`create`, renderedResult);
 
-	await new Promise(resolve => {
-		appIsReady.subscribe(ready => {
-			if (ready) resolve();
-		});
-	});
+	await allDelaysResolved();
 };
