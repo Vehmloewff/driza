@@ -94,10 +94,12 @@ describe(`components`, async it => {
 			applyFont: async () => {},
 		});
 
+		// TODO: `bootstrapComponent`'s promise isn't working
+		// BODY: It should wait for the entire app to be rendererd, but it doesn't.
 		await bootstrapComponent(app);
 
 		expect(called).toBe(1);
 
-		//expect(rendererd).toBe(calls.length);
+		// expect(rendererd).toBe(calls.length);
 	});
 });
