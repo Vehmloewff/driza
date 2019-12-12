@@ -2,7 +2,7 @@ import { createComponent } from './create-component';
 import { ComponentBasics, PublicComponentBasics } from '../interfaces';
 import { asyncForeach } from '../../utils';
 import { Store } from 'versatilejs/store';
-import { appIsReady } from './app-is-ready';
+import { createDelay } from './manage-delays';
 
 interface EachResult<Value> {
 	as: (
@@ -13,7 +13,7 @@ interface EachResult<Value> {
 }
 
 const each = <Value>(array: Store<Value[]>, _: any, SELF: ComponentBasics): EachResult<Value> => {
-	appIsReady.set(false);
+	const resolve = createDelay();
 
 	const as: EachResult<Value>['as'] = cb => {
 		array.subscribe(async arr => {
@@ -27,7 +27,7 @@ const each = <Value>(array: Store<Value[]>, _: any, SELF: ComponentBasics): Each
 
 			if (arr.length) await SELF.render(...components);
 
-			appIsReady.set(true);
+			resolve();
 		});
 
 		return {
