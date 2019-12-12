@@ -1,5 +1,5 @@
 import { random } from '../../utils';
-import { renderer } from 'versatilejs/internal';
+import { getRenderer } from 'versatilejs/internal';
 import { Store, simpleStore } from 'versatilejs/store';
 
 export interface FontOptions {
@@ -37,7 +37,7 @@ export class Font {
 			this.svg = options.custom.svg;
 		}
 
-		renderer
+		getRenderer()
 			.applyFont(this)
 			.then(() => this.loaded.set(true))
 			.catch(e => this.error.set(e));

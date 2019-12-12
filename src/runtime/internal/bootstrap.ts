@@ -1,12 +1,12 @@
 import { PublicComponentBasics, AdditionalComponentValues } from '../interfaces';
-import renderer from './renderer';
+import { getRenderer } from './renderer';
 import { simpleStore } from 'versatilejs/store';
 
 export const bootstrapComponent = async (component: PublicComponentBasics & AdditionalComponentValues) => {
-	const renderedResult = renderer.component({
+	const renderedResult = getRenderer().component({
 		type: `virtual`,
 		order: simpleStore([null]),
-		parent: renderer.root(),
+		parent: getRenderer().root(),
 		props: component.props,
 		removed: component.removed,
 		dispatch: component.dispatch,

@@ -1,7 +1,7 @@
 import { createEventDispatcher } from './events';
 import { PublicComponentBasics, ComponentTypes, ComponentBasics } from '../interfaces';
 import { simpleStore, Store } from 'versatilejs/store';
-import renderer, { RendererResult } from './renderer';
+import { RendererResult, getRenderer } from './renderer';
 
 const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/versatilejs/issues/new`;
 
@@ -29,7 +29,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 			return currentOrder;
 		});
 
-		const renderedChild = renderer.component({
+		const renderedChild = getRenderer().component({
 			type,
 			order,
 			parent: renderedParent,
