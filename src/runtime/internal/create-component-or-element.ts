@@ -2,6 +2,7 @@ import { createEventDispatcher } from './events';
 import { PublicComponentBasics, ComponentTypes, ComponentBasics } from '../interfaces';
 import { simpleStore, Store } from 'versatilejs/store';
 import { RendererResult, getRenderer } from './renderer';
+import { asyncForeach } from 'utils';
 
 const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/versatilejs/issues/new`;
 
@@ -21,7 +22,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		else await eventDispatcher.dispatch(`beforemount`);
 	});
 
-	function inisateChild(child: PublicComponentBasics, renderedParent: RendererResult, index: number) {
+	async function inisateChild(child: PublicComponentBasics, renderedParent: RendererResult, index: number) {
 		if (index > order.get().length) throw new Error(unexpectedError);
 
 		order.update(currentOrder => {
@@ -45,14 +46,16 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 
 		child.hasBeenRendered.set(true);
 
-		child.dispatch(`create`, renderedChild);
+		await child.dispatch(`create`, renderedChild);
 	}
 
-	eventDispatcher.once(`create`, (rendererResult: RendererResult) => {
+	eventDispatcher.once(`create`, async (rendererResult: RendererResult) => {
 		// Assume that all children have not been mounted yet
-		children.get().forEach((child, index) => {
-			inisateChild(child, rendererResult, index);
+		await asyncForeach(children.get(), async (child, index) => {
+			await inisateChild(child, rendererResult, index);
 		});
+
+		// TODO: Use `promiseSubscribe` once provided
 		children.subscribe((newChildren, initialCall) => {
 			if (initialCall) return;
 
@@ -77,6 +80,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 	};
 
 	const render = (...newChildren: PublicComponentBasics[]) => {
+		// TODO: Use `promiseSet` once provided and make this func async
 		children.set(newChildren);
 	};
 
