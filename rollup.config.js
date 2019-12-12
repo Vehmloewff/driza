@@ -13,24 +13,25 @@ const watching = process.env.ROLLUP_WATCH;
 const testDir = process.env.VERSATILE_FILTER || ``;
 const testPattern = nodePath.resolve(testDir, `**/*.test.ts`);
 
-const sharedOutputOptions = (dir = null) => ({
-	name: !dir ? undefined : `versatilejs.${dir}`,
-	sourcemap,
-	globals: {
-		versatilejs: 'versatilejs.index',
+const runtimeExports = ['versatilejs', 'versatilejs/easing', 'versatilejs/internal', 'versatilejs/store', 'versatilejs/style'];
 
-		'versatilejs/easing': 'versatilejs.easing',
-		'versatilejs/internal': 'versatilejs.internal',
-		'versatilejs/store': 'versatilejs.store',
-		'versatilejs/style': 'versatilejs.style',
-	},
-});
+const sharedOutputOptions = (dir = null) => {
+	const isUp = dir === `index`;
 
-const external = {
-	workflow: [`events`],
-	runtime: id => id.startsWith(`versatilejs`),
-	compiler: [],
+	const paths = id => runtimeExports.find(e => e === id) && id.replace('versatilejs', isUp ? '.' : '..');
+
+	if (dir === `workflow` || dir === `compiler`) paths = undefined;
+
+	return {
+		paths,
+		sourcemap,
+	};
 };
+
+const nodejsModulesToExclude = [`events`];
+
+const external = (runtime = false, test = false) => id =>
+	((test || !runtime) && nodejsModulesToExclude.find(m => m === id)) || ((test || runtime) && runtimeExports.find(e => e === id));
 
 const globalPlugins = (dir, oldDir, disable) => [
 	resolve({
@@ -44,41 +45,23 @@ const globalPlugins = (dir, oldDir, disable) => [
 	prod && removeMockPlugin,
 	prod &&
 		!disable &&
-		command(
-			[
-				`node scripts/add-package-json.js "${dir}"`,
-				`node scripts/add-ts-definition.js "${dir}" "${oldDir || dir}"`,
-				`node scripts/add-versatile-entry.js "${dir}" "${oldDir || dir}"`,
-			],
-			{
-				exitOnFail: !watching,
-			}
-		),
+		command([`node scripts/add-package-json.js "${dir}"`, `node scripts/add-ts-definition.js "${dir}" "${oldDir || dir}"`], {
+			exitOnFail: !watching,
+		}),
 ];
 
-function generateOutputOptions(options, browser = false) {
-	const result = [
-		{
-			...options,
-			file: options.file + `.js`,
-			format: `cjs`,
-		},
-		{
-			...options,
-			file: options.file + `.mjs`,
-			format: `esm`,
-		},
-	];
-
-	if (browser)
-		result.push({
-			...options,
-			file: options.file + `.browser.js`,
-			format: `iife`,
-		});
-
-	return result;
-}
+const generateOutputOptions = options => [
+	{
+		...options,
+		file: options.file + `.js`,
+		format: `cjs`,
+	},
+	{
+		...options,
+		file: options.file + `.mjs`,
+		format: `esm`,
+	},
+];
 
 const testRound = {
 	input: `globbed-tests.ts`,
@@ -92,7 +75,7 @@ const testRound = {
 		...globalPlugins(),
 		command(`node dist/build.js | zip-tap-reporter`, { exitOnFail: !watching }),
 	],
-	external: external.workflow.concat(external.compiler, external.runtime),
+	external: external(true, true),
 };
 
 const compiler = {
@@ -102,7 +85,7 @@ const compiler = {
 		...sharedOutputOptions(),
 	}),
 	plugins: globalPlugins(`compiler`),
-	external: external.compiler,
+	external: external(),
 };
 
 const workflowManager = {
@@ -111,36 +94,30 @@ const workflowManager = {
 		file: `workflow/index`,
 		...sharedOutputOptions,
 	}),
-	external: external.workflow,
 	plugins: globalPlugins(`workflow`),
+	external: external(),
 };
 
 const index = {
 	input: `src/runtime/index.ts`,
-	output: generateOutputOptions(
-		{
-			file: `dist/index`,
-			...sharedOutputOptions(`index`),
-		},
-		true
-	),
-	external: external.runtime,
+	output: generateOutputOptions({
+		file: `dist/index`,
+		...sharedOutputOptions(`index`),
+	}),
 	plugins: globalPlugins(null, null, true),
+	external: external(true),
 };
 
 const runtimes = readdirSync(`src/runtime`, 'utf-8')
 	.filter(dir => dir.indexOf(`.`) === -1 && dir !== `index`)
 	.map(dir => ({
 		input: `src/runtime/${dir}/index.ts`,
-		output: generateOutputOptions(
-			{
-				file: `${dir}/index`,
-				...sharedOutputOptions(dir),
-			},
-			true
-		),
-		external: external.runtime,
+		output: generateOutputOptions({
+			file: `${dir}/index`,
+			...sharedOutputOptions(dir),
+		}),
 		plugins: globalPlugins(dir, `runtime/${dir}`),
+		external: external(true),
 	}));
 
 export default prod ? [index, compiler, workflowManager, ...runtimes] : testRound;
