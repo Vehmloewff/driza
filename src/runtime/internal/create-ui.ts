@@ -97,10 +97,7 @@ export const createUI = (): UserInterface => ({
 
 	scrollView: create(
 		(props: ComponentProps['scrollView'], SELF) => ({
-			scrollTo: async (pos: number, easing: EaseLikeFunction) => {
-				// TODO: `scrollTo` function does not work
-				// BODY: This should be fixed
-			},
+			scrollTo: async (pos: number, easing: EaseLikeFunction) => {},
 			...create$(SELF),
 		}),
 		'scrollView'

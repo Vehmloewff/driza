@@ -101,8 +101,6 @@ export interface ComponentProps {
 	};
 	checkbox: DefaultPropsOnElement & {
 		checked?: Store<boolean>;
-		// TODO: Add some sort of check svg
-		// BODY: Maybe an icon component?
 		style?: Store<
 			GlobalStyles &
 				GlobalStates<GlobalStyles> & {
