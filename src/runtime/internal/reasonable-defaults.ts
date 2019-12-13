@@ -93,7 +93,7 @@ export const propsDefaults: Omit<ComponentProps, 'virtual'> = {
 		...widelyUsedPropsDefaults,
 		value: simpleStore(0),
 	},
-	dialogs: {
+	dialog: {
 		...globalPropsDefaults,
 		primaryText: simpleStore(``),
 		secondaryText: simpleStore(``),

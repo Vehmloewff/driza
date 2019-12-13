@@ -47,9 +47,7 @@ export const createUI = (): UserInterface => ({
 
 	progress: create((_, SELF) => createPotential(SELF), 'progress'),
 
-	// TODO: Name this `dialog`
-	// BODY: It would be a breaking change though
-	dialogs: create(() => {}, 'dialogs'),
+	dialog: create(() => {}, 'dialog'),
 
 	menu: create((_, SELF) => createPotential(SELF), 'menu'),
 

@@ -30,7 +30,7 @@ export type UITypes =
 	// Moving
 	| 'activityIndicator'
 	| 'progress'
-	| 'dialogs'
+	| 'dialog'
 	| 'menu'
 
 	// Static
@@ -169,7 +169,7 @@ export interface ComponentProps {
 		value: Store<number>;
 		style?: Store<GlobalStyles & { mainColor?: Color } & GlobalStates<GlobalStyles & { mainColor?: Color }>>;
 	};
-	dialogs: DefaultPropsOnElement & {
+	dialog: DefaultPropsOnElement & {
 		primaryText?: Store<string>;
 		secondaryText?: Store<string>;
 		content?: {
@@ -366,7 +366,7 @@ export interface UserInterface {
 		props?: ComponentProps['activityIndicator']
 	) => TransitionApplicableResult<UserInterface['activityIndicator'], ComponentProps['activityIndicator']['style']>;
 	progress: (props?: ComponentProps['progress']) => TransitionApplicableResult<UserInterface['progress'], ComponentProps['progress']['style']>;
-	dialogs: (props?: ComponentProps['dialogs']) => PublicComponentBasics;
+	dialog: (props?: ComponentProps['dialog']) => PublicComponentBasics;
 	menu: (props?: ComponentProps['menu']) => TransitionApplicableResult<UserInterface['menu'], ComponentProps['menu']['style']>;
 
 	// Static
