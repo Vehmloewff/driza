@@ -14,12 +14,9 @@ const testDir = process.env.VERSATILE_FILTER || ``;
 const testPattern = nodePath.resolve(testDir, `**/*.test.ts`);
 
 const runtimeExports = ['versatilejs', 'versatilejs/easing', 'versatilejs/internal', 'versatilejs/store', 'versatilejs/style'];
-const runtimePaths = ['runtime', 'runtime/easing', 'runtime/internal', 'runtime/store', 'runtime/style'];
 
 const sharedOutputOptions = (dir = null) => {
-	const isUp = dir === `index`;
-
-	const paths = id => runtimeExports.find(e => e === id) && id.replace('versatilejs', isUp ? '.' : '..');
+	const paths = id => runtimeExports.find(e => e === id) && id.replace('versatilejs', '..');
 
 	if (dir === `workflow` || dir === `compiler`) paths = undefined;
 
