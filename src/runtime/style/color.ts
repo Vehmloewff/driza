@@ -38,7 +38,7 @@ export class Color {
 
 		if (a === 0) return baseHex + `00`;
 		if (!a || a === 1) return baseHex;
-		return baseHex + this.componentToHex(a * 255);
+		return baseHex + this.componentToHex(Math.round(a * 255));
 	}
 
 	private ensureSixOrEightHex(hex: string): string {
