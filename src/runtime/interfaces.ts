@@ -268,6 +268,7 @@ export interface ComponentProps {
 export interface Renderer<RendererResult> {
 	root: () => RendererResult;
 	component: (values: {
+		render: (...children: PublicComponentBasics[]) => Promise<void>;
 		type: ComponentTypes;
 		order: Store<RendererResult[]>;
 		parent: RendererResult;
