@@ -1,35 +1,4 @@
-# nodejs-template
-
-## Startup
-
-```sh
-npx degit Vehmloewff/nodejs-template#typescript nodejs-app
-# or the javascript branch
-cd nodejs-app
-npm i
-```
-
-## Running the tests
-
-```sh
-npm test
-# or
-npm test -- -w
-```
-
-## Linting
-
-```sh
-npm run lint
-# or
-npm run lint:test
-```
-
-_Delete everything below this line_
-
----
-
-# todo
+# VersatileJS
 
 TODO: Add a description
 
