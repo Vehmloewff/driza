@@ -1,5 +1,5 @@
 import { createEventDispatcher } from './events';
-import { PublicComponentBasics, ComponentTypes, ComponentBasics } from '../interfaces';
+import { PublicComponentBasics, ComponentTypes, ComponentBasics, ComponentProps } from '../interfaces';
 import { simpleStore, Store } from 'versatilejs/store';
 import { RendererResult, getRenderer } from './renderer';
 import { asyncForeach } from 'utils';
@@ -80,7 +80,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 
 	const render = (...newChildren: PublicComponentBasics[]) => children.set(newChildren);
 
-	props = Object.assign(defaultProps || {}, props);
+	props = Object.assign({}, defaultProps || {}, props);
 
 	return {
 		...self,
