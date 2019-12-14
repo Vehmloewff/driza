@@ -3,7 +3,7 @@ import { getRenderer } from 'versatilejs/internal';
 import { Store, simpleStore } from 'versatilejs/store';
 
 export interface FontOptions {
-	default?: 'arial' | 'courier-new' | 'georgia' | 'times-new-roman' | 'trebuchet=ms' | 'verdana';
+	default?: 'serif' | 'sans-serf' | 'monospace';
 	custom?: {
 		eot?: string;
 		woff?: string;
