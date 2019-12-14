@@ -19,7 +19,7 @@ export class Color {
 		} else if (options.rgb) {
 			this.hex = this.rgbToHex(...options.rgb);
 		} else if (options.hex) {
-			this.hex = this.ensureSixOrEightHex(this.ensureHash(options.hex));
+			this.hex = this.ensureAllLowercase(this.ensureSixOrEightHex(this.ensureHash(options.hex)));
 		}
 
 		if (!Array.isArray(options) && options.alpha) {
@@ -52,6 +52,10 @@ export class Color {
 		arr.splice(5, 0, arr[5]);
 
 		return arr.join('');
+	}
+
+	private ensureAllLowercase(hex: string) {
+		return hex.toLowerCase();
 	}
 
 	private ensureHash(hex: string): string {
