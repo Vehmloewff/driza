@@ -1,4 +1,4 @@
-import { describe } from 'zip-tap';
+import { describe, tests } from 'zip-tap';
 import { createComponent, bootstrapComponent, IF, EACH } from 'versatilejs';
 import { Store, simpleStore } from 'versatilejs/store';
 import { Color } from 'versatilejs/style';
@@ -100,5 +100,47 @@ describe(`components`, async it => {
 		expect(called).toBe(1);
 
 		expect(rendered).toBe(calls.length);
+	});
+
+	await it(`each element should be it's own instance`, async expect => {
+		let called = 0;
+
+		const App = createComponent((_, UI, SELF) => {
+			const text = simpleStore(`me`);
+
+			const label1 = UI.label({
+				text,
+			});
+
+			const label2 = UI.label({
+				text: simpleStore(`you`),
+			});
+
+			SELF.render(label1, label2);
+		});
+
+		setRenderer({
+			root: () => ({
+				data: `root`,
+				mediator: createMediator(),
+			}),
+			component: ({ type, props: anyProps }) => {
+				const props: any = anyProps;
+
+				if (type === 'label') {
+					if (called === 0) expect(props.text.get()).toBe(`me`);
+					else if (called === 1) expect(props.text.get()).toBe(`you`);
+					called++;
+				}
+
+				return {
+					data: `in`,
+					mediator: createMediator(),
+				};
+			},
+			applyFont: async () => {},
+		});
+
+		await bootstrapComponent(App());
 	});
 });
