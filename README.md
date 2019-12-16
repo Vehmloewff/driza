@@ -1,45 +1,67 @@
-# VersatileJS
+# Halyard
 
-TODO: Add a description
+Raising the bar for cross-platform applications
 
-## Installation
+TODO: What this framework does
 
-```sh
-npm i todo
+[Documentation](/docs) • [Discord Server](https://discord.gg/EzctDxj)
+
+<p>
+  <a href="https://www.npmjs.com/package/halyard">
+    <img src="https://img.shields.io/npm/v/halyard.svg?color=blue" alt="npm version">
+  </a>
+
+  <a href="https://packagephobia.now.sh/result?p=svelte">
+    <img src="https://packagephobia.now.sh/badge?p=halyard" alt="install size">
+  </a>
+
+  <a href="https://npmjs.com/package/versatilejs">
+	<img src="https://img.shields.io/npm/dw/halyard?color=blue" alt="installs per week">
+  </a>
+
+  <a href="https://github.com/Vehmloewff/halyard/actions">
+    <img src="https://img.shields.io/github/workflow/status/Vehmloewff/halyard/Node CI?color=blue&logo=github"
+         alt="build status">
+  </a>
+
+  <a href="https://github.com/sveltejs/svelte/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/Vehmloewff/halyard?color=blue" alt="license">
+  </a>
+</p>
+
+## Development
+
+Pull Requests are encouraged and always welcome. [Pick an issue](https://github.com/Vehmloewff/halyard/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) and help us out!
+
+To install Halyard locally:
+
+```bash
+git clone https://github.com/Vehmloewff/halyard
+cd halyard
+npm install
 ```
 
-## Usage
+To build the runtime framework:
 
-```js
-const todo = require('todo');
-
-todo(options);
+```bash
+npm run build
 ```
 
-## API
+The runtime framework is located in the [`/src/runtime`](/src/runtime) directory.
 
-### todo(options: object) => void
+### Running the tests
 
-Valid options are:
+The tests can be run with the following command:
 
--   `todoCreate: boolean` Marks the ne project as a `todo`. Deafult is `false`
--   `delay: number` The amount of time to delay the cone. Default is `0`
+```bash
+npm test
+```
 
-## Contributing?
+To watch the file system and re-run the tests on changes:
 
-**Sure!**
-
-```sh
-# fork repo
-git clone https://github.com/[your_username]/todo
-cd todo
-npm i
+```bash
 npm test -- -w
 ```
-
-Pull Requests are always welcome!
-
-_PS: Don't forget to `npm run lint`!_ :wink:
 
 ## License
 
