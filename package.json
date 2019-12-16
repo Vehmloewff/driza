@@ -1,7 +1,7 @@
 {
 	"name": "halyard",
 	"version": "0.0.0",
-	"description": "Still in development... Check back soon!",
+	"description": "Raising the bar for cross-platform applications",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
 	"typings": "typings/runtime/index.d.ts",
