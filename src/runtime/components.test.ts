@@ -1,7 +1,7 @@
 import { describe, tests } from 'zip-tap';
-import { createComponent, bootstrapComponent, IF, EACH } from 'versatilejs';
-import { Store, simpleStore } from 'versatilejs/store';
-import { Color } from 'versatilejs/style';
+import { createComponent, bootstrapComponent, IF, EACH } from 'halyard';
+import { Store, simpleStore } from 'halyard/store';
+import { Color } from 'halyard/style';
 import { setRenderer, createMediator } from './internal';
 import delay from 'delay';
 

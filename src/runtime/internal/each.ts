@@ -1,7 +1,7 @@
 import { createComponent } from './create-component';
 import { ComponentBasics, PublicComponentBasics } from '../interfaces';
 import { asyncForeach } from '../../utils';
-import { Store } from 'versatilejs/store';
+import { Store } from 'halyard/store';
 import { createDelay } from './manage-delays';
 
 interface EachResult<Value> {

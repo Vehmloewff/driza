@@ -8,5 +8,5 @@ export {
 	setRenderer,
 	createDelay,
 	allDelaysResolved,
-} from 'versatilejs/internal';
+} from 'halyard/internal';
 export * from './interfaces';

@@ -1,6 +1,6 @@
 import { random } from '../../utils';
-import { getRenderer } from 'versatilejs/internal';
-import { Store, simpleStore } from 'versatilejs/store';
+import { getRenderer } from 'halyard/internal';
+import { Store, simpleStore } from 'halyard/store';
 
 export interface FontOptions {
 	default?: 'serif' | 'sans-serf' | 'monospace';

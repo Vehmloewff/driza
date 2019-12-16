@@ -1,10 +1,10 @@
 import { createEventDispatcher } from './events';
 import { PublicComponentBasics, ComponentTypes, ComponentBasics, ComponentProps } from '../interfaces';
-import { simpleStore, Store } from 'versatilejs/store';
+import { simpleStore, Store } from 'halyard/store';
 import { RendererResult, getRenderer } from './renderer';
 import { asyncForeach } from 'utils';
 
-const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/versatilejs/issues/new`;
+const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/halyard/issues/new`;
 
 export const createComponentOrElement = <UserDefinedProps extends {}, UserImpliedProps extends UserDefinedProps, UserReturnedResult>(
 	fn: (props: UserImpliedProps, self: Omit<ComponentBasics, 'props'> & { props: UserImpliedProps }) => UserReturnedResult,

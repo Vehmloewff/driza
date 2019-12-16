@@ -12,12 +12,12 @@
 		"lib": ["es5", "es6", "dom"],
 		"baseUrl": "src",
 		"paths": {
-			"versatilejs": ["runtime"],
+			"halyard": ["runtime"],
 
-			"versatilejs/easing": ["runtime/easing"],
-			"versatilejs/internal": ["runtime/internal"],
-			"versatilejs/store": ["runtime/store"],
-			"versatilejs/style": ["runtime/style"]
+			"halyard/easing": ["runtime/easing"],
+			"halyard/internal": ["runtime/internal"],
+			"halyard/store": ["runtime/store"],
+			"halyard/style": ["runtime/style"]
 		}
 	},
 	"target": "ESNext",

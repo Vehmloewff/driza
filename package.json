@@ -1,5 +1,5 @@
 {
-	"name": "versatilejs",
+	"name": "halyard",
 	"version": "0.2.0-next.14",
 	"description": "Still in development... Check back soon!",
 	"main": "dist/index.js",
@@ -52,10 +52,10 @@
 		"zip-tap": "^1.0.4",
 		"zip-tap-reporter": "^1.0.4"
 	},
-	"homepage": "https://github.com/Vehmloewff/versatilejs",
+	"homepage": "https://github.com/Vehmloewff/halyard",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Vehmloewff/versatilejs"
+		"url": "https://github.com/Vehmloewff/halyard"
 	},
 	"dependencies": {
 		"rollup": "^1.27.9"

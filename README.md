@@ -15,7 +15,7 @@ TODO: What this framework does
     <img src="https://packagephobia.now.sh/badge?p=halyard" alt="install size">
   </a>
 
-  <a href="https://npmjs.com/package/versatilejs">
+  <a href="https://npmjs.com/package/halyard">
 	<img src="https://img.shields.io/npm/dw/halyard?color=blue" alt="installs per week">
   </a>
 
