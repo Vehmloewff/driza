@@ -11,7 +11,7 @@ TODO: What this framework does
     <img src="https://img.shields.io/npm/v/halyard.svg?color=blue" alt="npm version">
   </a>
 
-  <a href="https://packagephobia.now.sh/result?p=svelte">
+  <a href="https://packagephobia.now.sh/result?p=halyard">
     <img src="https://packagephobia.now.sh/badge?p=halyard" alt="install size">
   </a>
 
@@ -24,7 +24,7 @@ TODO: What this framework does
          alt="build status">
   </a>
 
-  <a href="https://github.com/sveltejs/svelte/blob/master/LICENSE">
+  <a href="https://github.com/Vehmloewff/halyard/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/Vehmloewff/halyard?color=blue" alt="license">
   </a>
 </p>
