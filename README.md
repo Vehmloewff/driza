@@ -2,9 +2,9 @@
 
 Raising the bar for cross-platform applications
 
-TODO: What this framework does
+TODO: A paragraph on what this framework does
 
-[Documentation](/docs) • [Discord Server](https://discord.gg/EzctDxj)
+[Documentation](/docs/README.md) • [Discord Server](https://discord.gg/EzctDxj)
 
 <p>
   <a href="https://www.npmjs.com/package/halyard">

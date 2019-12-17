@@ -22,7 +22,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		else await eventDispatcher.dispatch(`beforemount`);
 	});
 
-	async function inisateChild(child: PublicComponentBasics, renderedParent: RendererResult, index: number) {
+	async function initiateChild(child: PublicComponentBasics, renderedParent: RendererResult, index: number) {
 		if (index > order.get().length) throw new Error(unexpectedError);
 
 		order.update(currentOrder => {
@@ -52,16 +52,16 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 	eventDispatcher.once(`create`, async (rendererResult: RendererResult) => {
 		// Assume that all children have not been mounted yet
 		await asyncForeach(children.get(), async (child, index) => {
-			await inisateChild(child, rendererResult, index);
+			await initiateChild(child, rendererResult, index);
 		});
 
 		children.subscribe(async (newChildren, initialCall) => {
 			if (initialCall) return;
 
-			// What changed?  Figure it out, then call inisateChild for each child
-			// that is not already inisiated
+			// What changed?  Figure it out, then call initiateChild for each child
+			// that is not already initiate
 			await asyncForeach(newChildren, async (child, index) => {
-				if (!child.hasBeenRendered.get()) await inisateChild(child, rendererResult, index);
+				if (!child.hasBeenRendered.get()) await initiateChild(child, rendererResult, index);
 			});
 		});
 	});

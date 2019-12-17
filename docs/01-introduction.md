@@ -1,12 +1,12 @@
 # Introduction
 
-> Halyard very early in development, and some major things may change before we hit version `1.0.0`.
+> NOTICE: Halyard very early in development, and some major things may change before we hit version `1.0.0`.
 
-> This document is a work-in-progress. If you get stuck or experience any trouble, you can get help via the [Discord Chatroom](https://discord.gg/EzctDxj).
+> NOTICE: This document is a work-in-progress. If you get stuck or experience any trouble, you can get help via the [Discord Chatroom](https://discord.gg/EzctDxj).
 
 Ready to get started? There is a [starter template](https://github.com/Vehmloewff/halyard-template) for the ambitious.
 
-TODO: That repo doesn't exist. It needs to be created
+TODO: Template repo doesn't exist. It needs to be created.
 
 ## Components
 
@@ -30,7 +30,7 @@ A component instance looks like this:
 	reMount: () => void;
 	removed: Store<boolean>;
 
-	// The props that this component was inisated with
+	// The props that this component was initiated with
 	props: any;
 
 	// Other
@@ -44,9 +44,9 @@ A component instance looks like this:
 
 The [`createComponent`](02-halyard.md) function returns a [component](#components). The only paramater is a function that is called on each instance of that component.
 
-The args passed in by [`createComponent`](02-halyard.md) are:
+The args that [`createComponent`](02-halyard.md) passes into that function are:
 
--   `props`: The props passed into the component when it is inisiated.
+-   `props`: The props passed into the component when it is initiated.
 -   `UI`: An object that contains all of the [built-in elements](07-built-in-elements.md).
 -   `SELF`: The component instance itself plus a [`render`](#selfrendercomponents-componentbasics) function.
 
@@ -68,7 +68,7 @@ const SomeComponent = createComponent((props, UI, SELF) => {
 
 This function sets all the component instances in the `components` array as children of that component.
 
-> Each call to `SELF.render` replaces the current children with the contents of the `components` array.
+> WARNING: Each call to `SELF.render` replaces the current children with the contents of the `components` array.
 
 ```ts
 function componentConstructor(props, UI, SELF) {
@@ -80,6 +80,7 @@ function componentConstructor(props, UI, SELF) {
 		text: props.text,
 	});
 
+	// SElF.render works with both
 	SELF.render(navbar, body);
 }
 ```
@@ -146,7 +147,7 @@ createComponent((_, UI, SELF) => {
 
 Wondererd how Halyard works cross platform? The answer is renderers. You can switch out different renderers for use on different platforms.
 
-> `setRenderer` must be called before [`bootstrapComponent`](#bootstraping-a-component]).
+> NOTICE: `setRenderer` must be called before [`bootstrapComponent`](#bootstraping-a-component]).
 
 For a list of renderers [click here](renderers.md). For instructions on building a renderer [check out these docs](08-creating-a-renderer.md).
 
