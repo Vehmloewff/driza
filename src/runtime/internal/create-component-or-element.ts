@@ -1,10 +1,10 @@
 import { createEventDispatcher } from './events';
 import { PublicComponentBasics, ComponentTypes, ComponentBasics, ComponentProps } from '../interfaces';
-import { simpleStore, Store } from 'versatilejs/store';
+import { simpleStore, Store } from 'halyard/store';
 import { RendererResult, getRenderer } from './renderer';
 import { asyncForeach } from 'utils';
 
-const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/versatilejs/issues/new`;
+const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/halyard/issues/new`;
 
 export const createComponentOrElement = <UserDefinedProps extends {}, UserImpliedProps extends UserDefinedProps, UserReturnedResult>(
 	fn: (props: UserImpliedProps, self: Omit<ComponentBasics, 'props'> & { props: UserImpliedProps }) => UserReturnedResult,
@@ -22,7 +22,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		else await eventDispatcher.dispatch(`beforemount`);
 	});
 
-	async function inisateChild(child: PublicComponentBasics, renderedParent: RendererResult, index: number) {
+	async function initiateChild(child: PublicComponentBasics, renderedParent: RendererResult, index: number) {
 		if (index > order.get().length) throw new Error(unexpectedError);
 
 		order.update(currentOrder => {
@@ -52,16 +52,16 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 	eventDispatcher.once(`create`, async (rendererResult: RendererResult) => {
 		// Assume that all children have not been mounted yet
 		await asyncForeach(children.get(), async (child, index) => {
-			await inisateChild(child, rendererResult, index);
+			await initiateChild(child, rendererResult, index);
 		});
 
 		children.subscribe(async (newChildren, initialCall) => {
 			if (initialCall) return;
 
-			// What changed?  Figure it out, then call inisateChild for each child
-			// that is not already inisiated
+			// What changed?  Figure it out, then call initiateChild for each child
+			// that is not already initiate
 			await asyncForeach(newChildren, async (child, index) => {
-				if (!child.hasBeenRendered.get()) await inisateChild(child, rendererResult, index);
+				if (!child.hasBeenRendered.get()) await initiateChild(child, rendererResult, index);
 			});
 		});
 	});

@@ -9,7 +9,7 @@ export default {
 	transform: (code, id) => {
 		if (!pathTest.test(id)) return;
 
-		code = code.replace(rendererTest, `return versatilejs.renderer;`);
+		code = code.replace(rendererTest, `return halyard.renderer;`);
 
 		return code;
 	},

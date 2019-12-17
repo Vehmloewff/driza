@@ -1,4 +1,4 @@
-import { simpleStore, Store } from 'versatilejs/store';
+import { simpleStore, Store } from 'halyard/store';
 
 const delays: Store<boolean[]> = simpleStore([]);
 
