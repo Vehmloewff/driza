@@ -143,6 +143,22 @@ createComponent((_, UI, SELF) => {
 });
 ```
 
+## Styles
+
+Almost all of the [built-in elements](07-built-in-elements.md) allow styling through a `style` prop.
+
+See the [Styles](04-styles.md) section for more info.
+
+```ts
+createComponent((_, UI) => {
+	UI.button({
+		style: {
+			padding: 10,
+		},
+	});
+});
+```
+
 ## Setting a Renderer
 
 Wondererd how Halyard works cross platform? The answer is renderers. You can switch out different renderers for use on different platforms.
