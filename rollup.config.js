@@ -4,7 +4,7 @@ import command from 'rollup-plugin-command';
 import typescript from 'rollup-plugin-typescript';
 import globFiles from 'rollup-plugin-glob-files';
 import nodePath from 'path';
-import { readdirSync, readFileSync } from 'fs';
+import { readdirSync } from 'fs';
 import removeMockPlugin from './scripts/remove-mock-plugin';
 
 const sourcemap = false;
