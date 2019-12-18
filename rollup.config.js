@@ -13,10 +13,10 @@ const watching = process.env.ROLLUP_WATCH;
 const testDir = process.env.VERSATILE_FILTER || ``;
 const testPattern = nodePath.resolve(testDir, `**/*.test.ts`);
 
-const runtimeExports = ['versatilejs', 'versatilejs/easing', 'versatilejs/internal', 'versatilejs/store', 'versatilejs/style'];
+const runtimeExports = ['halyard', 'halyard/easing', 'halyard/internal', 'halyard/store', 'halyard/style'];
 
 const sharedOutputOptions = (dir = null) => {
-	const paths = id => runtimeExports.find(e => e === id) && id.replace('versatilejs', '..');
+	const paths = id => runtimeExports.find(e => e === id) && id.replace('halyard', '..');
 
 	if (dir === `workflow` || dir === `compiler`) paths = undefined;
 

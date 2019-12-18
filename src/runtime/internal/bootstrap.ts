@@ -1,6 +1,6 @@
 import { PublicComponentBasics, AdditionalComponentValues } from '../interfaces';
 import { getRenderer } from './renderer';
-import { simpleStore } from 'versatilejs/store';
+import { simpleStore } from 'halyard/store';
 import { allDelaysResolved } from './manage-delays';
 
 export const bootstrapComponent = async (component: PublicComponentBasics & AdditionalComponentValues) => {

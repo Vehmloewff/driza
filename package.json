@@ -1,13 +1,13 @@
 {
-	"name": "versatilejs",
-	"version": "0.2.0-next.14",
-	"description": "Still in development... Check back soon!",
+	"name": "halyard",
+	"version": "0.0.0",
+	"description": "Raising the bar for cross-platform applications",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
 	"typings": "typings/runtime/index.d.ts",
 	"scripts": {
 		"build": "cross-env NODE_ENV=production rollup -c && tsc",
-		"test": "cross-env NODE_ENV=development cross-env rollup -c",
+		"test": "cross-env NODE_ENV=development rollup -c",
 		"test:runtime": "cross-env VERSATILE_FILTER='src/runtime' npm run test --",
 		"test:workflow": "cross-env VERSATILE_FILTER='src/workflow-manager' npm run test --",
 		"test:compiler": "cross-env VERSATILE_FILTER='src/compiler' npm run test --",
@@ -18,9 +18,20 @@
 		"postversion": "git push && git push --tags && rm -rf build/temp && npm publish"
 	},
 	"keywords": [
-		"todo",
-		"todo",
-		"todo"
+		"framework",
+		"cross-platform",
+		"single-codebase",
+		"web",
+		"browser",
+		"mobile",
+		"ios",
+		"android",
+		"windows",
+		"desktop",
+		"osx",
+		"mac",
+		"windows",
+		"linux"
 	],
 	"author": {
 		"name": "Vehmloewff",
@@ -28,14 +39,13 @@
 	},
 	"files": [
 		"compiler",
+		"dist",
+		"easing",
 		"internal",
 		"store",
-		"workflow",
 		"style",
-		"dist",
 		"typings",
-		"easing",
-		"src"
+		"workflow"
 	],
 	"license": "MIT",
 	"devDependencies": {
@@ -50,14 +60,12 @@
 		"tslib": "^1.10.0",
 		"typescript": "^3.7.3",
 		"zip-tap": "^1.0.4",
-		"zip-tap-reporter": "^1.0.4"
+		"zip-tap-reporter": "^1.0.4",
+		"rollup": "^1.27.9"
 	},
-	"homepage": "https://github.com/Vehmloewff/versatilejs",
+	"homepage": "https://github.com/Vehmloewff/halyard",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Vehmloewff/versatilejs"
-	},
-	"dependencies": {
-		"rollup": "^1.27.9"
+		"url": "https://github.com/Vehmloewff/halyard"
 	}
 }
