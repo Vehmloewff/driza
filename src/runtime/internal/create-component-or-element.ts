@@ -22,8 +22,6 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		else await eventDispatcher.dispatch(`beforemount`);
 	});
 
-	const render = (...newChildren: PublicComponentBasics[]) => children.set(newChildren);
-
 	async function initiateChild(child: PublicComponentBasics, renderedParent: RendererResult, index: number) {
 		if (index > order.get().length) throw new Error(unexpectedError);
 
@@ -33,7 +31,6 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		});
 
 		const renderedChild = getRenderer().component({
-			render,
 			type: child.type(),
 			order,
 			parent: renderedParent,
@@ -80,6 +77,8 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		type: () => type,
 		hasBeenRendered: simpleStore(false),
 	};
+
+	const render = (...newChildren: PublicComponentBasics[]) => children.set(newChildren);
 
 	props = Object.assign({}, defaultProps || {}, props);
 
