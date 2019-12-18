@@ -80,10 +80,12 @@ export interface ComponentProps {
 	// Text inputs
 	textField: DefaultPropsOnElement & {
 		value?: Store<string>;
+		placeholder?: Store<string>;
 		style?: Store<GlobalStyles & InputStyles & GlobalStates<GlobalStyles & InputStyles>>;
 	};
 	textView: DefaultPropsOnElement & {
 		value?: Store<string>;
+		placeholder?: Store<string>;
 		style?: Store<GlobalStyles & InputStyles & GlobalStates<GlobalStyles & InputStyles>>;
 	};
 
