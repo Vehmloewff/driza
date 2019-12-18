@@ -3,6 +3,7 @@ import { PublicComponentBasics, ComponentTypes, ComponentBasics, ComponentProps 
 import { simpleStore, Store } from 'halyard/store';
 import { RendererResult, getRenderer } from './renderer';
 import { asyncForeach } from 'utils';
+import { genericElements } from './generic-elements';
 
 const unexpectedError = `An unexpected error occured.  Please open an issue to report this. https://github.com/Vehmloewff/halyard/issues/new`;
 
@@ -89,10 +90,14 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		destroy: () => removed.set(true),
 		reMount: () => removed.set(false),
 		removed,
-		children,
 		type: () => type,
 		hasBeenRendered: simpleStore(false),
 	};
+
+	if (genericElements.find(e => e === type)) {
+		// @ts-ignore
+		self.children = children;
+	}
 
 	props = Object.assign({}, defaultProps || {}, props);
 
