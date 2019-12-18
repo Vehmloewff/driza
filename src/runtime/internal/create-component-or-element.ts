@@ -49,7 +49,12 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		await child.dispatch(`create`, renderedChild);
 	}
 
+	const render = (...newChildren: PublicComponentBasics[]) => children.set(newChildren);
+
 	eventDispatcher.once(`create`, async (rendererResult: RendererResult) => {
+		// Provide the render function
+		rendererResult.mediator.provide(`__render_children`, (arr: PublicComponentBasics[]) => render(...arr));
+
 		// Assume that all children have not been mounted yet
 		await asyncForeach(children.get(), async (child, index) => {
 			await initiateChild(child, rendererResult, index);
@@ -77,8 +82,6 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		type: () => type,
 		hasBeenRendered: simpleStore(false),
 	};
-
-	const render = (...newChildren: PublicComponentBasics[]) => children.set(newChildren);
 
 	props = Object.assign({}, defaultProps || {}, props);
 
