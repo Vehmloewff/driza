@@ -290,7 +290,6 @@ export interface PublicComponentBasics {
 	removed: Store<boolean>;
 	dispatch: (event: string, data?: any) => Promise<number>;
 	props: ComponentProps[ComponentTypes];
-	children: Store<PublicComponentBasics[]>;
 	hasBeenRendered: Store<boolean>;
 	type: () => ComponentTypes;
 }
@@ -312,8 +311,9 @@ export interface TransitionApplicableResult<Element, Style> extends PublicCompon
 	};
 }
 
-export interface PublicRenderShortcut<Element> {
+export interface PublicChildren<Element> {
 	$: (...children: PublicComponentBasics[]) => Element;
+	children: Store<PublicComponentBasics[]>;
 }
 
 export type Animation<Element, Styles> = (
@@ -382,36 +382,36 @@ export interface UserInterface {
 	page: (
 		props?: ComponentProps['page']
 	) => PublicComponentBasics &
-		PublicRenderShortcut<PublicComponentBasics & { go: (route: string, params: { [key: string]: any }) => Promise<void> }> & {
+		PublicChildren<PublicComponentBasics & { go: (route: string, params: { [key: string]: any }) => Promise<void> }> & {
 			go: (route: string, params: { [key: string]: any }) => Promise<void>;
 		};
 	childPageSlot: (props?: ComponentProps['childPageSlot']) => PublicComponentBasics;
 	stackLayout: (
 		props?: ComponentProps['stackLayout']
 	) => TransitionApplicableResult<UserInterface['stackLayout'], ComponentProps['stackLayout']['style']> &
-		PublicRenderShortcut<TransitionApplicableResult<UserInterface['stackLayout'], ComponentProps['stackLayout']['style']>>;
+		PublicChildren<TransitionApplicableResult<UserInterface['stackLayout'], ComponentProps['stackLayout']['style']>>;
 	gridLayout: (
 		props?: ComponentProps['gridLayout']
 	) => TransitionApplicableResult<UserInterface['gridLayout'], ComponentProps['gridLayout']['style']> &
-		PublicRenderShortcut<TransitionApplicableResult<UserInterface['gridLayout'], ComponentProps['gridLayout']['style']>>;
+		PublicChildren<TransitionApplicableResult<UserInterface['gridLayout'], ComponentProps['gridLayout']['style']>>;
 	absoluteLayout: (
 		props?: ComponentProps['absoluteLayout']
 	) => TransitionApplicableResult<UserInterface['absoluteLayout'], ComponentProps['absoluteLayout']['style']> &
-		PublicRenderShortcut<TransitionApplicableResult<UserInterface['absoluteLayout'], ComponentProps['absoluteLayout']['style']>>;
+		PublicChildren<TransitionApplicableResult<UserInterface['absoluteLayout'], ComponentProps['absoluteLayout']['style']>>;
 	wrapLayout: (
 		props?: ComponentProps['wrapLayout']
 	) => TransitionApplicableResult<UserInterface['wrapLayout'], ComponentProps['wrapLayout']['style']> &
-		PublicRenderShortcut<TransitionApplicableResult<UserInterface['wrapLayout'], ComponentProps['wrapLayout']['style']>>;
+		PublicChildren<TransitionApplicableResult<UserInterface['wrapLayout'], ComponentProps['wrapLayout']['style']>>;
 	scrollView: (
 		props?: ComponentProps['scrollView']
 	) => TransitionApplicableResult<UserInterface['button'], ComponentProps['button']['style']> &
-		PublicRenderShortcut<TransitionApplicableResult<UserInterface['button'], ComponentProps['button']['style']>> & {
+		PublicChildren<TransitionApplicableResult<UserInterface['button'], ComponentProps['button']['style']>> & {
 			scrollTo: (pos: number, easing: EaseLikeFunction) => Promise<void>;
 		};
 	actionBar: (
 		props?: ComponentProps['actionBar']
 	) => TransitionApplicableResult<UserInterface['actionBar'], ComponentProps['actionBar']['style']> &
-		PublicRenderShortcut<TransitionApplicableResult<UserInterface['actionBar'], ComponentProps['actionBar']['style']>>;
+		PublicChildren<TransitionApplicableResult<UserInterface['actionBar'], ComponentProps['actionBar']['style']>>;
 
 	// Other
 	webView: (
@@ -425,7 +425,7 @@ export interface UserInterface {
 	element: (
 		props?: ComponentProps['element']
 	) => TransitionApplicableResult<UserInterface['element'], ComponentProps['element']['style']> &
-		PublicRenderShortcut<TransitionApplicableResult<UserInterface['element'], ComponentProps['element']['style']>>;
+		PublicChildren<TransitionApplicableResult<UserInterface['element'], ComponentProps['element']['style']>>;
 }
 
 export type EaseLikeFunction = (t: number) => number;
