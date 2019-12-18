@@ -20,7 +20,7 @@ TODO: A paragraph on what this framework does
   </a>
 
   <a href="https://github.com/Vehmloewff/halyard/actions">
-    <img src="https://img.shields.io/github/workflow/status/Vehmloewff/halyard/Node CI?color=blue&logo=github"
+    <img src="https://img.shields.io/github/workflow/status/Vehmloewff/halyard/Node CI?logo=github"
          alt="build status">
   </a>
 
