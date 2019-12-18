@@ -111,6 +111,7 @@ export const propsDefaults: Omit<ComponentProps, 'virtual'> = {
 	// Static
 	label: {
 		...widelyUsedPropsDefaults,
+		type: simpleStore(`regular`),
 		text: simpleStore(``),
 	},
 	image: {
