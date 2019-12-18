@@ -22,10 +22,12 @@ export const propsDefaults: Omit<ComponentProps, 'virtual'> = {
 	// Text inputs
 	textField: {
 		...widelyUsedPropsDefaults,
+		placeholder: simpleStore(``),
 		value: simpleStore(``),
 	},
 	textView: {
 		...widelyUsedPropsDefaults,
+		placeholder: simpleStore(``),
 		value: simpleStore(``),
 	},
 
