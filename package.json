@@ -52,16 +52,16 @@
 		"cross-env": "^6.0.3",
 		"delay": "^4.3.0",
 		"prettier": "^1.19.1",
+		"rollup": "^1.27.13",
 		"rollup-plugin-command": "^1.0.7",
 		"rollup-plugin-commonjs": "^10.1.0",
-		"rollup-plugin-glob-files": "^1.0.2",
+		"rollup-plugin-glob-files": "^1.0.3",
 		"rollup-plugin-node-resolve": "^5.2.0",
 		"rollup-plugin-typescript": "^1.0.1",
 		"tslib": "^1.10.0",
 		"typescript": "^3.7.3",
 		"zip-tap": "^1.0.4",
-		"zip-tap-reporter": "^1.0.4",
-		"rollup": "^1.27.9"
+		"zip-tap-reporter": "^1.0.4"
 	},
 	"homepage": "https://github.com/Vehmloewff/halyard",
 	"repository": {
