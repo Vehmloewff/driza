@@ -71,17 +71,6 @@ const testRound = {
 			justImport: true,
 		}),
 		...globalPlugins(),
-		{
-			writeBundle(_, bundle) {
-				console.log(
-					readFileSync('dist/build.js', 'utf-8')
-						.slice(0, 9000)
-						.split(/\n/)
-						.map((str, i) => `${i + 1}  ${str}`)
-						.join('\n')
-				);
-			},
-		},
 		command(`node dist/build.js | zip-tap-reporter`, { exitOnFail: !watching }),
 	],
 	external: external(),
