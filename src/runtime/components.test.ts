@@ -143,4 +143,30 @@ describe(`components`, async it => {
 
 		await bootstrapComponent(App());
 	});
+
+	await it(`should get the SELF.render`, async expect => {
+		const App = createComponent((_, UI, SELF) => {
+			SELF.render(UI.button({ text: simpleStore('string') }));
+		});
+		let called = 0;
+		setRenderer({
+			root: () => ({ mediator: createMediator(), data: 'asd' }),
+			component: ({ render }) => {
+				// Erase the button
+				render();
+
+				called++;
+
+				return {
+					mediator: createMediator(),
+					data: `string`,
+				};
+			},
+			applyFont: async () => {},
+		});
+
+		await bootstrapComponent(App());
+
+		expect(called).toBe(1);
+	});
 });
