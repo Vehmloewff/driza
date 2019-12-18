@@ -186,6 +186,7 @@ export interface ComponentProps {
 	// Static
 	label: DefaultPropsOnElement & {
 		text?: Store<string>;
+		type?: Store<string>;
 		style?: Store<GlobalStyles & TextStyles & GlobalStates<GlobalStyles & TextStyles>>;
 	};
 	image: DefaultPropsOnElement & {
