@@ -23,6 +23,14 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 	});
 
 	async function initiateChild(child: PublicComponentBasics, renderedParent: RendererResult, index: number) {
+		let render: ComponentBasics['render'];
+
+		child.once('before-create', (_, args) => {
+			render = args[0];
+		});
+
+		await child.dispatch('before-create');
+
 		if (index > order.get().length) throw new Error(unexpectedError);
 
 		order.update(currentOrder => {
@@ -31,6 +39,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		});
 
 		const renderedChild = getRenderer().component({
+			render,
 			type: child.type(),
 			order,
 			parent: renderedParent,
@@ -50,6 +59,8 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 	}
 
 	const render = (...newChildren: PublicComponentBasics[]) => children.set(newChildren);
+
+	eventDispatcher.once(`before-create`, (_, __, addArg) => addArg(render));
 
 	eventDispatcher.once(`create`, async (rendererResult: RendererResult) => {
 		// Provide the render function
