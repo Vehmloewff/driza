@@ -108,6 +108,7 @@ export interface GlobalStyles {
 	right?: number;
 	bottom?: number;
 	left?: number;
+	zIndex?: number;
 
 	// Other
 	boxShadow?: BoxShadow[] | BoxShadow;
