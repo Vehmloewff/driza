@@ -43,3 +43,5 @@ export class Font {
 			.catch(e => this.error.set(e));
 	}
 }
+
+export const defaultFont = simpleStore(new Font({ default: 'sans-serf' }));
