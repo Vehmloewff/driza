@@ -38,15 +38,15 @@ describe(`animationMapper.live`, async it => {
 			});
 
 		await animationMapper.live(
-			() => mapper(4),
-			100,
-			async _ => {
+			() => mapper(1),
+			400,
+			async () => {
 				await mapper(1);
 
 				count++;
 			}
 		);
 
-		expect(count).custom(`inbetween`, 15, 21);
+		expect(count).custom(`inbetween`, 5, 200);
 	});
 });

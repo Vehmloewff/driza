@@ -2,6 +2,37 @@ import { Store } from './store';
 import { GlobalStyles, GlobalStates, TextStyles, InputStyles } from './style/interfaces';
 import { Color } from './style/color';
 import { Font } from './style/font';
+import {
+	ButtonStyles,
+	TextFieldStyles,
+	TextViewStyles,
+	SwitchStyles,
+	CheckboxStyles,
+	SliderStyles,
+	SelectStyles,
+	SegmentedBarStyles,
+	RadioStyles,
+	DatePickerStyles,
+	TimePickerStyles,
+	ListPickerStyles,
+	ActivityIndicatorStyles,
+	ProgressStyles,
+	MenuStyles,
+	LabelStyles,
+	ImageStyles,
+	ListViewStyles,
+	TabViewStyles,
+	TabItemStyles,
+	StackLayoutStyles,
+	GridLayoutStyles,
+	GridItemStyles,
+	AbsoluteLayoutStyles,
+	WrapLayoutStyles,
+	DockLayoutStyles,
+	ScrollViewStyles,
+	ActionBarStyles,
+	ElementStyles,
+} from './style/element-styles';
 
 export type UITypes =
 	// Inputs
@@ -63,58 +94,35 @@ export interface DefaultPropsOnElement {
 	draggable?: Store<boolean>;
 }
 
-interface SliderStyles extends GlobalStyles {
-	thumb?: GlobalStyles & GlobalStates<GlobalStyles>;
-	showCrosscuts?: boolean;
-	crossCutWidth?: number;
-	crossCutColor?: Color;
-}
-
 export interface ComponentProps {
 	// Inputs
 	button: DefaultPropsOnElement & {
 		text?: Store<string>;
-		style?: Store<GlobalStyles & TextStyles & GlobalStates<GlobalStyles & TextStyles>>;
+		style?: Store<ButtonStyles>;
 	};
 
 	// Text inputs
 	textField: DefaultPropsOnElement & {
 		value?: Store<string>;
 		placeholder?: Store<string>;
-		style?: Store<GlobalStyles & InputStyles & GlobalStates<GlobalStyles & InputStyles>>;
+		style?: Store<TextFieldStyles>;
 	};
 	textView: DefaultPropsOnElement & {
 		value?: Store<string>;
 		placeholder?: Store<string>;
-		style?: Store<GlobalStyles & InputStyles & GlobalStates<GlobalStyles & InputStyles>>;
+		style?: Store<TextViewStyles>;
 	};
 
 	// Options Inputs
 	switch: DefaultPropsOnElement & {
 		checked?: Store<boolean>;
-		style?: Store<
-			GlobalStyles &
-				GlobalStates<GlobalStyles> & {
-					checked?: GlobalStyles;
-					checkedAndHover?: GlobalStyles;
-					thumb?: Omit<ComponentProps['switch']['style'], 'thumb'>;
-				}
-		>;
+		style?: Store<SwitchStyles>;
 	};
 	checkbox: DefaultPropsOnElement & {
 		checked?: Store<boolean>;
 		// TODO: Add some sort of check svg
 		// BODY: Maybe an icon component?
-		style?: Store<
-			GlobalStyles &
-				GlobalStates<GlobalStyles> & {
-					checked?: GlobalStyles;
-					checkedAndHover?: GlobalStyles;
-					inner?: Omit<ComponentProps['checkbox']['style'], 'inner'> & {
-						checkColor?: Color;
-					};
-				}
-		>;
+		style?: Store<CheckboxStyles>;
 	};
 	//
 	slider: DefaultPropsOnElement & {
@@ -123,7 +131,7 @@ export interface ComponentProps {
 		minValue?: Store<number>;
 		snap?: Store<boolean>;
 		snapIncrement?: Store<number>;
-		style?: Store<SliderStyles & GlobalStates<SliderStyles>>;
+		style?: Store<SliderStyles>;
 	};
 	//
 	select: DefaultPropsOnElement & {
@@ -131,45 +139,45 @@ export interface ComponentProps {
 		// Some sort of toggle icon controller
 		displayToggleIcon?: Store<boolean>;
 		selected?: Store<PublicComponentBasics>;
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<SelectStyles>;
 	};
 	//
 	segmentedBar: DefaultPropsOnElement & {
 		items?: Store<PublicComponentBasics[]>;
 		selected?: Store<PublicComponentBasics>;
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<SegmentedBarStyles>;
 	};
 	radio: DefaultPropsOnElement & {
 		items?: Store<PublicComponentBasics[]>;
 		selected?: Store<PublicComponentBasics>;
 		radioPosition?: Store<'top' | 'right' | 'bottom' | 'left'>;
 		listenForComponentClick?: Store<boolean>;
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<RadioStyles>;
 	};
 
 	// Complex options inputs
 	datePicker: DefaultPropsOnElement & {
 		value?: Store<Date>;
-		style?: Store<GlobalStyles>;
+		style?: Store<DatePickerStyles>;
 	};
 	timePicker: DefaultPropsOnElement & {
 		value?: Store<Date>;
-		style?: Store<GlobalStyles>;
+		style?: Store<TimePickerStyles>;
 	};
 	listPicker: DefaultPropsOnElement & {
 		values?: Store<string[]>;
 		value?: Store<string>;
-		style?: Store<GlobalStyles>;
+		style?: Store<ListPickerStyles>;
 	};
 
 	// Moving
 	activityIndicator: DefaultPropsOnElement & {
 		spin?: Store<boolean>;
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<ActivityIndicatorStyles>;
 	};
 	progress: DefaultPropsOnElement & {
 		value: Store<number>;
-		style?: Store<GlobalStyles & { mainColor?: Color } & GlobalStates<GlobalStyles & { mainColor?: Color }>>;
+		style?: Store<ProgressStyles>;
 	};
 	dialog: DefaultPropsOnElement & {
 		primaryText?: Store<string>;
@@ -182,35 +190,35 @@ export interface ComponentProps {
 	menu: DefaultPropsOnElement & {
 		items?: Store<{ groupName: string; items: PublicComponentBasics[] }[]>;
 		selected?: Store<PublicComponentBasics>;
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<MenuStyles>;
 	};
 
 	// Static
 	label: DefaultPropsOnElement & {
 		text?: Store<string>;
 		type?: Store<string>;
-		style?: Store<GlobalStyles & TextStyles & GlobalStates<GlobalStyles & TextStyles>>;
+		style?: Store<LabelStyles>;
 	};
 	image: DefaultPropsOnElement & {
 		src?: Store<string>;
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<ImageStyles>;
 	};
 	htmlView: DefaultPropsOnElement & {
 		html?: Store<string>;
 	};
 	listView: DefaultPropsOnElement & {
 		items?: Store<PublicComponentBasics[]>;
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<ListViewStyles>;
 	};
 	tabView: DefaultPropsOnElement & {
 		items?: Store<PublicComponentBasics[]>;
 		selected?: Store<PublicComponentBasics>;
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<TabViewStyles>;
 	};
 	tabItem: DefaultPropsOnElement & {
 		text?: Store<string>;
 		// Some sort of icon
-		style?: Store<GlobalStyles & TextStyles & GlobalStates<GlobalStyles & TextStyles>>;
+		style?: Store<TabItemStyles>;
 	};
 
 	// Layout
@@ -225,35 +233,35 @@ export interface ComponentProps {
 		currentChild: Store<string>;
 	};
 	stackLayout: DefaultPropsOnElement & {
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<StackLayoutStyles>;
 		orientation?: Store<'horizantal' | 'vertical'>;
 	};
 	gridLayout: DefaultPropsOnElement & {
 		columns?: Store<number>;
 		rows?: Store<number>;
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<GridLayoutStyles>;
 	};
 	gridItem: DefaultPropsOnElement & {
 		columnSpan?: Store<number>;
 		rowSpan?: Store<number>;
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<GridItemStyles>;
 	};
 	absoluteLayout: DefaultPropsOnElement & {
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<AbsoluteLayoutStyles>;
 	};
 	wrapLayout: DefaultPropsOnElement & {
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<WrapLayoutStyles>;
 	};
 	dockLayout: DefaultPropsOnElement & {
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<DockLayoutStyles>;
 		stretchLastChild?: Store<boolean>;
 	};
 	scrollView: DefaultPropsOnElement & {
 		scrollPos?: Store<number>;
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<ScrollViewStyles>;
 	};
 	actionBar: DefaultPropsOnElement & {
-		style?: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style?: Store<ActionBarStyles>;
 	};
 
 	// Other
@@ -263,7 +271,7 @@ export interface ComponentProps {
 		history: Store<string[]>;
 	};
 	element: DefaultPropsOnElement & {
-		style: Store<GlobalStyles & GlobalStates<GlobalStyles>>;
+		style: Store<ElementStyles>;
 	};
 	virtual: { [key: string]: any };
 }
