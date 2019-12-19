@@ -1,7 +1,7 @@
-import { colorDefaults } from './color-defaults';
+import { colorDefaults, ColorStrings } from './color-defaults';
 
 export type ColorOptions =
-	| string
+	| ColorStrings
 	| [number, number, number, number?]
 	| {
 			rgb?: [number, number, number, number?];
