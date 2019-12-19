@@ -60,8 +60,8 @@
 		"rollup-plugin-typescript": "^1.0.1",
 		"tslib": "^1.10.0",
 		"typescript": "^3.7.3",
-		"zip-tap": "^1.0.4",
-		"zip-tap-reporter": "^1.0.5"
+		"zip-tap": "^1.0.5",
+		"zip-tap-reporter": "^2.0.0"
 	},
 	"homepage": "https://github.com/Vehmloewff/halyard",
 	"repository": {

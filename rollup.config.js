@@ -71,7 +71,7 @@ const testRound = {
 			justImport: true,
 		}),
 		...globalPlugins(),
-		command(`node dist/build.js | zip-tap-reporter`, { exitOnFail: !watching }),
+		command(`zip-tap-reporter node dist/build.js`, { exitOnFail: !watching }),
 	],
 	external: external(),
 };
