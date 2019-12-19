@@ -13,6 +13,8 @@ export const setRenderer = (renderer: Renderer<RendererResult>) => {
 	callOnSet.forEach(fn => fn(renderer));
 };
 
+export const rendererIsSet = () => !!currentRenderer;
+
 export const onRendererSet = (fn: Callee) => {
 	callOnSet.push(fn);
 };
