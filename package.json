@@ -61,7 +61,7 @@
 		"tslib": "^1.10.0",
 		"typescript": "^3.7.3",
 		"zip-tap": "^1.0.4",
-		"zip-tap-reporter": "^1.0.4"
+		"zip-tap-reporter": "^1.0.5"
 	},
 	"homepage": "https://github.com/Vehmloewff/halyard",
 	"repository": {
