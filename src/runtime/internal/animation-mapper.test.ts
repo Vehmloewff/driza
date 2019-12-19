@@ -3,7 +3,7 @@ import { animationMapper } from './animation-mapper';
 
 addAssertion((actual, ...expected) => {
 	const ok = actual >= expected[0] && actual <= expected[1];
-	console.log(actual);
+
 	return {
 		ok,
 		actual,
@@ -47,6 +47,6 @@ describe(`animationMapper.live`, async it => {
 			}
 		);
 
-		expect(count).custom(`inbetween`, 15, 200);
+		expect(count).custom(`inbetween`, 5, 200);
 	});
 });

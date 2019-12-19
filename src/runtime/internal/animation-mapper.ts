@@ -8,10 +8,8 @@ export const animationMapper = {
 		while (true) {
 			const startTime = Date.now();
 
-			const test = Date.now();
 			await mapper();
 			await cb(soFar / duration);
-			console.log(Date.now() - test);
 
 			soFar += Date.now() - startTime;
 			waits++;
