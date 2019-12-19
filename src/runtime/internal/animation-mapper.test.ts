@@ -3,7 +3,7 @@ import { animationMapper } from './animation-mapper';
 
 addAssertion((actual, ...expected) => {
 	const ok = actual >= expected[0] && actual <= expected[1];
-
+	console.log(actual);
 	return {
 		ok,
 		actual,

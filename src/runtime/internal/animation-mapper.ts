@@ -6,6 +6,7 @@ export const animationMapper = {
 		const average = () => (waits === 0 ? 0 : soFar / waits);
 
 		while (true) {
+			console.log(soFar);
 			const startTime = Date.now();
 
 			await mapper();
