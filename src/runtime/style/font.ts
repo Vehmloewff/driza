@@ -1,5 +1,5 @@
 import { random } from '../../utils';
-import { getRenderer } from 'halyard/internal';
+import { getRenderer, rendererIsSet, Renderer, RendererResult, onRendererSet } from 'halyard/internal';
 import { Store, simpleStore } from 'halyard/store';
 
 export interface FontOptions {
@@ -37,10 +37,14 @@ export class Font {
 			this.svg = options.custom.svg;
 		}
 
-		getRenderer()
-			.applyFont(this)
-			.then(() => this.loaded.set(true))
-			.catch(e => this.error.set(e));
+		const callApplyFont = (renderer: Renderer<RendererResult>) => {
+			renderer
+				.applyFont(this)
+				.then(() => this.loaded.set(true))
+				.catch(e => this.error.set(e));
+		};
+
+		rendererIsSet() ? callApplyFont(getRenderer()) : onRendererSet(callApplyFont);
 	}
 }
 
