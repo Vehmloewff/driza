@@ -1,4 +1,7 @@
+import { colorDefaults, ColorStrings } from './color-defaults';
+
 export type ColorOptions =
+	| ColorStrings
 	| [number, number, number, number?]
 	| {
 			rgb?: [number, number, number, number?];
@@ -16,13 +19,18 @@ export class Color {
 	public recreate(options: ColorOptions) {
 		if (Array.isArray(options)) {
 			this.hex = this.rgbToHex(...options);
+		} else if (typeof options === 'string') {
+			// @ts-ignore
+			const hex = colorDefaults[options];
+			if (!hex) throw new Error(`Expected a valid color, but got "${options}".`);
+			this.hex = hex;
 		} else if (options.rgb) {
 			this.hex = this.rgbToHex(...options.rgb);
 		} else if (options.hex) {
 			this.hex = this.ensureAllLowercase(this.ensureSixOrEightHex(this.ensureHash(options.hex)));
 		}
 
-		if (!Array.isArray(options) && options.alpha) {
+		if (!Array.isArray(options) && typeof options !== 'string' && options.alpha) {
 			if (this.hex.length === 7) this.hex = this.hex + this.componentToHex(options.alpha * 225);
 			else throw new Error(`The 'alpha' option is illegal when the alpha value is set with rgb or hex.`);
 		}

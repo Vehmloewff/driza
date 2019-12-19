@@ -26,4 +26,9 @@ describe(`Color`, it => {
 		expect(new Color({ hex: `14fDe32a` }).hex).toBe(`#14fde32a`);
 		expect(new Color({ rgb: [45, 134, 181, 0.7] }).hex).toBe(`#2d86b5b3`);
 	});
+
+	it(`should give values for default colors`, expect => {
+		expect(new Color('blue').hex).toBe(`#2196f3`);
+		expect(new Color('grey').hex).toBe(`#f1f1f1`);
+	});
 });
