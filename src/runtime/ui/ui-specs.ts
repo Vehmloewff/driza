@@ -71,6 +71,7 @@ export interface ChoiceResult {}
 
 export interface AnonymousChoiceProps {
 	inner?: Store<Component> | Component;
+	data?: any | Store<any>;
 	value?: Store<any> | any;
 }
 export interface AnonymousChoiceResult {}
