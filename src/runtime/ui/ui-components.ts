@@ -32,32 +32,32 @@ import {
 	ScrollViewResult,
 } from './ui-specs';
 
-export type WebView = (props: WebViewProps) => ComponentBasics & WebViewResult;
+export type WebViewComponent = (props: WebViewProps) => ComponentBasics & WebViewResult;
 
-export type HtmlView = (props: HtmlViewProps) => ComponentBasics & HtmlViewResult;
+export type HtmlViewComponent = (props: HtmlViewProps) => ComponentBasics & HtmlViewResult;
 
-export type Image = (props: ImageProps) => ComponentBasics & ImageResult;
+export type ImageComponent = (props: ImageProps) => ComponentBasics & ImageResult;
 
-export type Video = (props: VideoProps) => ComponentBasics & VideoResult;
+export type VideoComponent = (props: VideoProps) => ComponentBasics & VideoResult;
 
-export type Audio = (props: AudioProps) => ComponentBasics & AudioResult;
+export type AudioComponent = (props: AudioProps) => ComponentBasics & AudioResult;
 
-export type Label = (props: LabelProps) => ComponentBasics & LabelResult;
+export type LabelComponent = (props: LabelProps) => ComponentBasics & LabelResult;
 
-export type Element = (props: ElementProps) => ComponentBasics & ElementResult;
+export type ElementComponent = (props: ElementProps) => ComponentBasics & ElementResult;
 
-export type TextView = (props: TextViewProps) => ComponentBasics & TextViewResult;
+export type TextViewComponent = (props: TextViewProps) => ComponentBasics & TextViewResult;
 
-export type Toggle = (props: ToggleProps) => ComponentBasics & ToggleResult;
+export type ToggleComponent = (props: ToggleProps) => ComponentBasics & ToggleResult;
 
-export type Choice = (props: ChoiceProps) => ComponentBasics & ChoiceResult;
+export type ChoiceComponent = (props: ChoiceProps) => ComponentBasics & ChoiceResult;
 
-export type AnonymousChoice = (props: AnonymousChoiceProps) => ComponentBasics & AnonymousChoiceResult;
+export type AnonymousChoiceComponent = (props: AnonymousChoiceProps) => ComponentBasics & AnonymousChoiceResult;
 
-export type Dialog = (props: DialogProps) => ComponentBasics & DialogResult;
+export type DialogComponent = (props: DialogProps) => ComponentBasics & DialogResult;
 
-export type AbsoluteLayout = (props: AbsoluteLayoutProps) => ComponentBasics & AbsoluteLayoutResult;
+export type AbsoluteLayoutComponent = (props: AbsoluteLayoutProps) => ComponentBasics & AbsoluteLayoutResult;
 
-export type StackLayout = (props: StackLayoutProps) => ComponentBasics & StackLayoutResult;
+export type StackLayoutComponent = (props: StackLayoutProps) => ComponentBasics & StackLayoutResult;
 
-export type ScrollView = (props: ScrollViewProps) => ComponentBasics & ScrollViewResult;
+export type ScrollViewComponent = (props: ScrollViewProps) => ComponentBasics & ScrollViewResult;
