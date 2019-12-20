@@ -40,8 +40,7 @@ export const createComponentOrElement = <UserDefinedProps extends {}, UserImplie
 		});
 
 		const renderedChild = getRenderer().component({
-			render,
-			type: child.type(),
+			rendererCreated: true,
 			order,
 			parent: renderedParent,
 			props: child.props,

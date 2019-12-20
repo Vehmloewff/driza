@@ -279,8 +279,7 @@ export interface ComponentProps {
 export interface Renderer<RendererResult> {
 	root: () => RendererResult;
 	component: (values: {
-		render: ComponentBasics['render'];
-		type: ComponentTypes;
+		rendererCreated: boolean;
 		order: Store<RendererResult[]>;
 		parent: RendererResult;
 		props: ComponentProps[ComponentTypes];
@@ -468,7 +467,7 @@ export interface ComponentInstance {
 	dispatch: (event: string, data?: any) => Promise<number>;
 	props: { [key: string]: any };
 	hasBeenRendered: Store<boolean>;
-	type: () => ComponentTypes;
+	rendererCreated: boolean;
 	[key: string]: any;
 }
 

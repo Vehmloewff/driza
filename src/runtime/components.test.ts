@@ -80,8 +80,8 @@ describe(`components`, async it => {
 					mediator: createMediator(),
 				};
 			},
-			component: ({ parent, type }) => {
-				const data = parent.data + `>` + type;
+			component: ({ parent }) => {
+				const data = parent.data + `>` + 'd';
 
 				expect(calls[rendered]).toBe(data);
 
@@ -124,14 +124,14 @@ describe(`components`, async it => {
 				data: `root`,
 				mediator: createMediator(),
 			}),
-			component: ({ type, props: anyProps }) => {
+			component: ({ props: anyProps }) => {
 				const props: any = anyProps;
 
-				if (type === 'label') {
-					if (called === 0) expect(props.text.get()).toBe(`me`);
-					else if (called === 1) expect(props.text.get()).toBe(`you`);
-					called++;
-				}
+				// if (type === 'label') {
+				if (called === 0) expect(props.text.get()).toBe(`me`);
+				else if (called === 1) expect(props.text.get()).toBe(`you`);
+				called++;
+				// }
 
 				return {
 					data: `in`,
@@ -151,9 +151,9 @@ describe(`components`, async it => {
 		let called = 0;
 		setRenderer({
 			root: () => ({ mediator: createMediator(), data: 'asd' }),
-			component: ({ render }) => {
+			component: ({}) => {
 				// Erase the button
-				render();
+				// render();
 
 				called++;
 
