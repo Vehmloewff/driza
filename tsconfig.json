@@ -17,7 +17,8 @@
 			"halyard/easing": ["runtime/easing"],
 			"halyard/internal": ["runtime/internal"],
 			"halyard/store": ["runtime/store"],
-			"halyard/style": ["runtime/style"]
+			"halyard/style": ["runtime/style"],
+			"halyard/ui": ["runtime/ui"]
 		}
 	},
 	"target": "ESNext",
