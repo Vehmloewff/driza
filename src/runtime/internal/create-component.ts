@@ -1,7 +1,16 @@
-import { createComponentOrElement } from './create-component-or-element';
-import { UserInterface, ComponentBasics } from '../interfaces';
-import { createUI } from './create-ui';
+import { createElement } from './create-element';
+import { ComponentConstructor, SpecificComponent, ComponentSELF } from '../interfaces';
+import { createUI } from 'halyard/ui';
+import { getRenderer, rendererIsSet, onRendererSet } from './renderer';
 
-export const createComponent = <UserImpliedProps, UserReturnedResult>(
-	fn: (props: UserImpliedProps, UI: UserInterface, self: Omit<ComponentBasics, 'props'> & { props: UserImpliedProps }) => UserReturnedResult
-) => createComponentOrElement((props: UserImpliedProps, SELF) => fn(props, createUI(), SELF), {}, `virtual`);
+export const createComponent = <P, R>(fn: ComponentConstructor<P, R>): SpecificComponent<P, R> => {
+	const componentConstructor = (props: P, SELF: ComponentSELF): R => {
+		rendererIsSet() ? getRenderer().component({ SELF }) : onRendererSet(renderer => renderer.component({ SELF }));
+
+		const UI = createUI();
+
+		return fn(props, UI, SELF);
+	};
+
+	return createElement(componentConstructor);
+};

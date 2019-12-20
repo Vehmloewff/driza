@@ -1,5 +1,5 @@
 import { UserInterface, ComponentProps, EaseLikeFunction, PublicComponentBasics, UITypes } from '../interfaces';
-import { createComponentOrElement } from './create-component-or-element';
+import { createComponentOrElement } from './create-element';
 import { RendererResult } from './renderer';
 import { simpleStore, Store } from 'halyard/store';
 import { Mediator } from '../../utils';

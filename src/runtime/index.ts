@@ -1,7 +1,7 @@
 export {
 	bootstrapComponent,
 	createComponent,
-	extractMediator,
+	// extractMediator,
 	EACH,
 	IF,
 	createEventDispatcher,
