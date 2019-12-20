@@ -138,3 +138,6 @@ export interface GlobalStates<Styles> {
 	blurred?: Styles;
 	disabled?: Styles;
 }
+
+export interface ElementStyles {}
+export interface ScrollBarStyles {}

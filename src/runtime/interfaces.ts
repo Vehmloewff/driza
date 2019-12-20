@@ -438,7 +438,6 @@ export interface UserInterface {
 	) => TransitionApplicableResult<UserInterface['element'], ComponentProps['element']['style']> &
 		PublicChildren<TransitionApplicableResult<UserInterface['element'], ComponentProps['element']['style']>>;
 }
-
 export type EaseLikeFunction = (t: number) => number;
 
 export type ComponentConstructor<Props> = (props: Props, UI: UserInterface, SELF: ComponentBasics) => any;
@@ -447,3 +446,30 @@ export interface Mediator {
 	provide: <Arg, ReturnType>(name: string, fn: (arg: Arg) => ReturnType) => () => void;
 	call: <Arg, ReturnType>(name: string, arg: Arg) => ReturnType;
 }
+
+export interface ComponentBasics {
+	on: (event: string, cb: EventListener) => void;
+	once: (event: string, cb: EventListener) => void;
+	destroy: () => void;
+	reMount: () => void;
+	removed: Store<boolean>;
+	dispatch: (event: string, data?: any) => Promise<number>;
+	props: { [key: string]: any };
+	hasBeenRendered: Store<boolean>;
+	type: () => ComponentTypes;
+}
+
+export interface ComponentInstance {
+	on: (event: string, cb: EventListener) => void;
+	once: (event: string, cb: EventListener) => void;
+	destroy: () => void;
+	reMount: () => void;
+	removed: Store<boolean>;
+	dispatch: (event: string, data?: any) => Promise<number>;
+	props: { [key: string]: any };
+	hasBeenRendered: Store<boolean>;
+	type: () => ComponentTypes;
+	[key: string]: any;
+}
+
+export type Component = (props: { [key: string]: any }) => ComponentInstance;
