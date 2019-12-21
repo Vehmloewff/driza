@@ -127,6 +127,8 @@ export interface TextViewProps {
 	textComponent?: Store<Component> | Component;
 	caretPosition?: Store<{ before: number; after: number }> | { before: number; after: number };
 	caret?: Store<Component> | Component;
+	caretOptions?: Store<{ [key: string]: any }> | { [key: string]: any };
+	pulseSpeed?: Store<number> | number;
 	options?: Store<{ [key: string]: any }> | { [key: string]: any };
 	lines?: Store<{ num: number; max: number; min: number }> | { num: number; max: number; min: number };
 	rows?: Store<{ num: number; max: number; min: number }> | { num: number; max: number; min: number };
@@ -135,7 +137,9 @@ export const TextViewPropsDefaults: TextViewPropsProcessed = {
 	value: simpleStore([]),
 	textComponent: simpleStore(TextViewInner),
 	caretPosition: simpleStore({ before: null, after: null }),
-	caret: simpleStore(null), // Write a `caret` component
+	caret: simpleStore(null),
+	caretOptions: simpleStore({}),
+	pulseSpeed: simpleStore(500),
 	options: simpleStore({}),
 	lines: simpleStore({ num: null, max: null, min: null }),
 	rows: simpleStore({ num: null, max: null, min: null }),
@@ -145,6 +149,8 @@ export interface TextViewPropsProcessed {
 	textComponent: Store<Component>;
 	caretPosition: Store<{ before: number; after: number }>;
 	caret: Store<Component>;
+	caretOptions: Store<{ [key: string]: any }>;
+	pulseSpeed: Store<number>;
 	options: Store<{ [key: string]: any }>;
 	lines: Store<{ num: number; max: number; min: number }>;
 	rows: Store<{ num: number; max: number; min: number }>;
@@ -153,7 +159,13 @@ export interface TextViewResult {}
 export interface TextViewComponentProps {
 	value: Store<string>;
 	index: Store<number>;
-	caretPosition: Store<TextViewProps['caretPosition']>;
+	caretPosition: Store<TextViewPropsProcessed['caretPosition']>;
+	options: Store<{ [key: string]: any }>;
+}
+export interface TextViewCaretComponentProps {
+	active: Store<boolean>;
+	position: Store<TextViewPropsProcessed['caretPosition']>;
+	pulse: Store<boolean>;
 	options: Store<{ [key: string]: any }>;
 }
 
