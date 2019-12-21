@@ -1,7 +1,7 @@
 export {
 	bootstrapComponent,
 	createComponent,
-	extractMediator,
+	// extractMediator,
 	EACH,
 	IF,
 	createEventDispatcher,
@@ -9,4 +9,5 @@ export {
 	createDelay,
 	allDelaysResolved,
 } from 'halyard/internal';
+
 export * from './interfaces';

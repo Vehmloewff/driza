@@ -12,6 +12,7 @@ globbed-*
 /style
 /internal
 /easing
+/ui
 
 **/*.png
 **/*.ico

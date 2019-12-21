@@ -1,23 +1,23 @@
 import { createComponent } from './create-component';
-import { ComponentBasics, PublicComponentBasics } from '../interfaces';
+import { ComponentBasics, ComponentInstance, ComponentSELF } from '../interfaces';
 import { asyncForeach } from '../../utils';
 import { Store } from 'halyard/store';
 import { createDelay } from './manage-delays';
 
 interface EachResult<Value> {
 	as: (
-		cb: (item: Value, index: number, originalArray: Store<Value[]>) => Promise<PublicComponentBasics> | PublicComponentBasics
-	) => PublicComponentBasics & {
-		else: (component: PublicComponentBasics | (() => PublicComponentBasics)) => PublicComponentBasics;
+		cb: (item: Value, index: number, originalArray: Store<Value[]>) => Promise<ComponentInstance> | ComponentInstance
+	) => ComponentInstance & {
+		else: (component: ComponentInstance | (() => ComponentInstance)) => ComponentInstance;
 	};
 }
 
-const each = <Value>(array: Store<Value[]>, _: any, SELF: ComponentBasics): EachResult<Value> => {
+const each = <Value>(array: Store<Value[]>, _: any, SELF: ComponentSELF): EachResult<Value> => {
 	const resolve = createDelay();
 
 	const as: EachResult<Value>['as'] = cb => {
 		array.subscribe(async arr => {
-			const components: PublicComponentBasics[] = [];
+			const components: ComponentInstance[] = [];
 
 			await asyncForeach(arr, async (item, index) => {
 				const userResult = await cb(item, index, array);
@@ -33,7 +33,7 @@ const each = <Value>(array: Store<Value[]>, _: any, SELF: ComponentBasics): Each
 		return {
 			...SELF,
 			else: toRender => {
-				let component: PublicComponentBasics;
+				let component: ComponentInstance;
 
 				if (typeof toRender === 'function') component = toRender();
 				else component = toRender;

@@ -1,4 +1,4 @@
-import { PublicComponentBasics, ComponentBasics } from '../interfaces';
+import { ComponentInstance } from '../interfaces';
 import { Store, simpleStore } from 'halyard/store';
 import { createComponent } from './create-component';
 
@@ -9,14 +9,14 @@ type Logic = {
 	shouldShow: Store<boolean>;
 	type: Types;
 };
-type Component = (() => PublicComponentBasics) | PublicComponentBasics;
+type Component = (() => ComponentInstance) | ComponentInstance;
 type ElseResult = {
-	render: (...components: Component[]) => ComponentBasics;
+	render: (...components: Component[]) => ComponentInstance;
 };
 type IfResult = {
 	render: (
 		...components: Component[]
-	) => PublicComponentBasics & {
+	) => ComponentInstance & {
 		elseif: (expression: Expression) => IfResult;
 		else: () => ElseResult;
 	};
@@ -75,10 +75,10 @@ export const IF = createComponent(
 		};
 
 		const renderIfOk = (store: Store<boolean>, ...components: Component[]) => {
-			const sureComponents: PublicComponentBasics[] = [];
+			const sureComponents: ComponentInstance[] = [];
 
 			components.forEach(c => {
-				let component: PublicComponentBasics = null;
+				let component: ComponentInstance = null;
 
 				if (typeof c === 'function') {
 					component = c();
