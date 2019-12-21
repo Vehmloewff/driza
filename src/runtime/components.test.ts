@@ -13,7 +13,7 @@ describe(`components`, async it => {
 			`root>Virtual>StackLayout`,
 			`root>Virtual>StackLayout>Element`,
 			`root>Virtual>StackLayout>Element>Element`,
-			`root>Virtual>StackLayout>Element>Element>Label`,
+			`root>Virtual>StackLayout>Element>Element>Toggle`,
 			`root>Virtual>StackLayout>AbsoluteLayout`,
 			`root>Virtual>StackLayout>AbsoluteLayout>Label`,
 		];
@@ -46,7 +46,7 @@ describe(`components`, async it => {
 				text: ``,
 			});
 
-			SELF.render(layout.$(element.$(UI.Element().$(UI.Label({ text: `` }))), UI.AbsoluteLayout().$(label)));
+			SELF.render(layout.$(element.$(UI.Element().$(UI.Toggle())), UI.AbsoluteLayout().$(label)));
 		});
 
 		const app = App({ cool: simpleStore(true) });
