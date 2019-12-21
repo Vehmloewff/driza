@@ -43,8 +43,8 @@ export interface ComponentInstance extends ComponentBasics {
 export type Component = (props: { [key: string]: any }) => ComponentInstance;
 export type SpecificComponent<Props, Result> = (props: Props) => ComponentBasics & Result;
 
-export interface Renderer<RendererResult> {
-	root: () => RendererResult;
+export interface Renderer {
+	root: Component;
 	component: (values: { SELF: ComponentSELF }) => void;
 	UI: UserInterface;
 	render: () => void;

@@ -1,14 +1,14 @@
 import { Store } from 'halyard/store';
 import { Font, TextShadow, Color, ScrollbarStyles, TextStyles } from 'halyard/style';
 import { ElementStyles } from 'runtime/style/element-styles';
-import { Component, EaseLikeFunction } from 'halyard/internal';
+import { Component, EaseLikeFunction, ComponentInstance } from 'halyard/internal';
 
 export interface WebViewProps {
 	src?: Store<string> | string;
 	data?: Store<string> | string;
 }
 export interface WebViewResult {
-	history: Store<string[]> | string[];
+	history: Store<string[]>;
 }
 
 export interface HtmlViewProps {
@@ -42,7 +42,10 @@ export interface ElementProps {
 	draggable?: Store<boolean> | boolean;
 	disabled?: Store<boolean> | boolean;
 }
-export interface ElementResult {}
+export interface ElementResult {
+	children: Store<ComponentInstance[]>;
+	$: (...components: ComponentInstance[]) => ComponentInstance & { props: ElementProps };
+}
 
 export interface TextViewProps {
 	value?: Store<string[]> | string[];
@@ -110,10 +113,16 @@ export interface DialogResult {
 }
 
 export interface AbsoluteLayoutProps {}
-export interface AbsoluteLayoutResult {}
+export interface AbsoluteLayoutResult {
+	children: Store<ComponentInstance[]>;
+	$: (...components: ComponentInstance[]) => ComponentInstance & { props: StackLayoutProps };
+}
 
 export interface StackLayoutProps {}
-export interface StackLayoutResult {}
+export interface StackLayoutResult {
+	children: Store<ComponentInstance[]>;
+	$: (...components: ComponentInstance[]) => ComponentInstance & { props: AbsoluteLayoutProps };
+}
 
 export interface ScrollViewProps {
 	scrollPos?: Store<number> | number;
@@ -121,4 +130,6 @@ export interface ScrollViewProps {
 }
 export interface ScrollViewResult {
 	scrollTo: (pos: number, easing: EaseLikeFunction) => Promise<void>;
+	children: Store<ComponentInstance[]>;
+	$: (...components: ComponentInstance[]) => ComponentInstance & { props: ScrollViewProps };
 }
