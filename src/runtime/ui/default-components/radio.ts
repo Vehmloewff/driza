@@ -11,10 +11,14 @@ export interface RadioOptions {}
 export type RadioData = string;
 
 function constructor(props: ChoiceComponentProps, UI: UserInterface, SELF: ComponentSELF) {
-	const indicator = UI.Label({ text: dependantStore(() => (props.selected.get() ? 'on' : 'off'), props.data) });
+	const indicator = UI.Label({ text: dependantStore(() => (props.selected.get() ? '• ' : ''), props.data) });
 	const label = UI.Label({ text: props.data });
 
-	SELF.render(indicator, UI.Label({ text: ` ` }), label);
+	const wrapper = UI.Element();
+
+	// TODO: Wrap things
+
+	SELF.render(indicator, label);
 }
 
 export const Radio = createComponent(constructor);
