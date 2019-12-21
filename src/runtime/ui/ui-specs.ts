@@ -65,9 +65,16 @@ export interface ToggleResult {}
 export interface ChoiceProps {
 	component?: Store<Component> | Component;
 	choices?: Store<any[]> | any[];
+	options?: Store<{ [key: string]: any }> | { [key: string]: any };
 	currentChoice?: Store<any> | any;
 }
 export interface ChoiceResult {}
+export interface ChoiceComponentProps {
+	selected: Store<boolean>;
+	data: Store<any>;
+	options: Store<{ [key: string]: any }>;
+}
+// Component should dispatch a `select` event when the user selects this option
 
 export interface AnonymousChoiceProps {
 	inner?: Store<Component> | Component;
