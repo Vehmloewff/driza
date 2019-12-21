@@ -1,11 +1,15 @@
 import { Store } from 'halyard/store';
-import { Font, TextShadow, Color, ScrollbarStyles, TextStyles } from 'halyard/style';
+import { ScrollbarStyles, TextStyles } from 'halyard/style';
 import { ElementStyles } from 'runtime/style/element-styles';
 import { Component, EaseLikeFunction, ComponentInstance } from 'halyard/internal';
 
 export interface WebViewProps {
 	src?: Store<string> | string;
 	data?: Store<string> | string;
+}
+export interface WebViewPropsProcessed {
+	src: Store<string>;
+	data: Store<string>;
 }
 export interface WebViewResult {
 	history: Store<string[]>;
@@ -14,26 +18,42 @@ export interface WebViewResult {
 export interface HtmlViewProps {
 	html: Store<string> | string;
 }
+export interface HtmlViewPropsProcessed {
+	html: Store<string>;
+}
 export interface HtmlViewResult {}
 
 export interface ImageProps {
 	src: Store<string> | string;
 }
+export interface ImagePropsProcessed {
+	src: Store<string>;
+}
 export interface ImageResult {}
 
 export interface VideoProps {
-	src: Store<string> | string;
+	src: Store<string>;
+}
+export interface VideoPropsProcessed {
+	src: Store<string>;
 }
 export interface VideoResult {}
 
 export interface AudioProps {
 	src: Store<string> | string;
 }
+export interface AudioPropsProcessed {
+	src: Store<string>;
+}
 export interface AudioResult {}
 
 export interface LabelProps {
 	text: Store<string> | string;
 	style?: Store<TextStyles> | TextStyles;
+}
+export interface LabelPropsProcessed {
+	text: Store<string>;
+	style?: Store<TextStyles>;
 }
 export interface LabelResult {}
 
@@ -42,9 +62,14 @@ export interface ElementProps {
 	draggable?: Store<boolean> | boolean;
 	disabled?: Store<boolean> | boolean;
 }
+export interface ElementPropsProcessed {
+	style: Store<ElementStyles> | ElementStyles;
+	draggable: Store<boolean> | boolean;
+	disabled: Store<boolean> | boolean;
+}
 export interface ElementResult {
 	children: Store<ComponentInstance[]>;
-	$: (...components: ComponentInstance[]) => ComponentInstance & { props: ElementProps };
+	$: (...components: ComponentInstance[]) => ComponentInstance & { props: ElementPropsProcessed };
 }
 
 export interface TextViewProps {
@@ -55,6 +80,15 @@ export interface TextViewProps {
 	options?: Store<{ [key: string]: any }> | { [key: string]: any };
 	lines?: Store<{ num: number; max: number; min: number }> | { num: number; max: number; min: number };
 	rows?: Store<{ num: number; max: number; min: number }> | { num: number; max: number; min: number };
+}
+export interface TextViewPropsProcessed {
+	value: Store<string[]>;
+	textComponent: Store<Component>;
+	caretPosition: Store<{ before: number; after: number }>;
+	caret: Store<Component>;
+	options: Store<{ [key: string]: any }>;
+	lines: Store<{ num: number; max: number; min: number }>;
+	rows: Store<{ num: number; max: number; min: number }>;
 }
 export interface TextViewResult {}
 export interface TextViewComponentProps {
@@ -67,6 +101,10 @@ export interface TextViewComponentProps {
 export interface ToggleProps {
 	inner?: Store<Component> | Component;
 	isOn?: Store<boolean> | boolean;
+}
+export interface TogglePropsProcessed {
+	inner: Store<Component>;
+	isOn: Store<boolean>;
 }
 export interface ToggleResult {}
 export interface ToggleComponentProps {
@@ -81,6 +119,12 @@ export interface ChoiceProps {
 	options?: Store<{ [key: string]: any }> | { [key: string]: any };
 	currentChoice?: Store<any> | any;
 }
+export interface ChoicePropsProcessed {
+	component: Store<Component>;
+	choices: Store<any[]>;
+	options: Store<{ [key: string]: any }>;
+	currentChoice: Store<any>;
+}
 export interface ChoiceResult {}
 export interface ChoiceComponentProps {
 	selected: Store<boolean>;
@@ -93,6 +137,11 @@ export interface AnonymousChoiceProps {
 	inner?: Store<Component> | Component;
 	options?: Store<{ [key: string]: any }> | { [key: string]: any };
 	value?: Store<any> | any;
+}
+export interface AnonymousChoicePropsProcessed {
+	inner: Store<Component>;
+	options: Store<{ [key: string]: any }>;
+	value: Store<any>;
 }
 export interface AnonymousChoiceResult {}
 export interface AnonymousChoiceComponentProps {
@@ -107,29 +156,41 @@ export interface DialogProps {
 	header?: Store<string> | string;
 	body: Store<string> | string;
 }
+export interface DialogPropsProcessed {
+	primaryText: Store<string>;
+	secondaryText: Store<string>;
+	header: Store<string>;
+	body: Store<string>;
+}
 export interface DialogResult {
 	open: () => void;
 	close: () => void;
 }
 
 export interface AbsoluteLayoutProps {}
+export interface AbsoluteLayoutPropsProcessed {}
 export interface AbsoluteLayoutResult {
 	children: Store<ComponentInstance[]>;
-	$: (...components: ComponentInstance[]) => ComponentInstance & { props: StackLayoutProps };
+	$: (...components: ComponentInstance[]) => ComponentInstance & { props: StackLayoutPropsProcessed };
 }
 
 export interface StackLayoutProps {}
+export interface StackLayoutPropsProcessed {}
 export interface StackLayoutResult {
 	children: Store<ComponentInstance[]>;
-	$: (...components: ComponentInstance[]) => ComponentInstance & { props: AbsoluteLayoutProps };
+	$: (...components: ComponentInstance[]) => ComponentInstance & { props: AbsoluteLayoutPropsProcessed };
 }
 
 export interface ScrollViewProps {
 	scrollPos?: Store<number> | number;
 	style?: Store<ScrollbarStyles> | ScrollbarStyles;
 }
+export interface ScrollViewPropsProcessed {
+	scrollPos: Store<number>;
+	style: Store<ScrollbarStyles>;
+}
 export interface ScrollViewResult {
 	scrollTo: (pos: number, easing: EaseLikeFunction) => Promise<void>;
 	children: Store<ComponentInstance[]>;
-	$: (...components: ComponentInstance[]) => ComponentInstance & { props: ScrollViewProps };
+	$: (...components: ComponentInstance[]) => ComponentInstance & { props: ScrollViewPropsProcessed };
 }
