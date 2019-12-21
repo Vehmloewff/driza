@@ -61,6 +61,11 @@ export interface ToggleProps {
 	isOn?: Store<boolean> | boolean;
 }
 export interface ToggleResult {}
+export interface ToggleComponentProps {
+	isOn: Store<boolean>;
+	options: Store<{ [key: string]: any }>;
+}
+// Component should dispatch a `toggle` event when the user toggles this option
 
 export interface ChoiceProps {
 	component?: Store<Component> | Component;
