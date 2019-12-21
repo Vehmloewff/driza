@@ -38,7 +38,7 @@ describe(`components`, async it => {
 
 		setRenderer(createMockRenderer(component, createMockUI(callOnEachUI)));
 
-		const App = createComponent((props: { cool: Store<boolean> }, UI, SELF) => {
+		const App = createComponent((_, UI, SELF) => {
 			const layout = UI.StackLayout();
 			const element = UI.Element({ style: {} });
 
