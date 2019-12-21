@@ -3,6 +3,9 @@ import { ScrollbarStyles, TextStyles } from 'halyard/style';
 import { ElementStyles } from 'runtime/style/element-styles';
 import { Component, EaseLikeFunction, ComponentInstance } from 'halyard/internal';
 
+/*
+	WebView
+*/
 export interface WebViewProps {
 	src?: Store<string> | string;
 	data?: Store<string> | string;
@@ -15,6 +18,9 @@ export interface WebViewResult {
 	history: Store<string[]>;
 }
 
+/*
+	HtmlView
+*/
 export interface HtmlViewProps {
 	html: Store<string> | string;
 }
@@ -23,6 +29,9 @@ export interface HtmlViewPropsProcessed {
 }
 export interface HtmlViewResult {}
 
+/*
+	Image
+*/
 export interface ImageProps {
 	src: Store<string> | string;
 }
@@ -31,6 +40,9 @@ export interface ImagePropsProcessed {
 }
 export interface ImageResult {}
 
+/*
+	Video
+*/
 export interface VideoProps {
 	src: Store<string>;
 }
@@ -39,6 +51,9 @@ export interface VideoPropsProcessed {
 }
 export interface VideoResult {}
 
+/*
+	Audio
+*/
 export interface AudioProps {
 	src: Store<string> | string;
 }
@@ -47,6 +62,9 @@ export interface AudioPropsProcessed {
 }
 export interface AudioResult {}
 
+/*
+	Label
+*/
 export interface LabelProps {
 	text: Store<string> | string;
 	style?: Store<TextStyles> | TextStyles;
@@ -57,6 +75,9 @@ export interface LabelPropsProcessed {
 }
 export interface LabelResult {}
 
+/*
+	Element
+*/
 export interface ElementProps {
 	style?: Store<ElementStyles> | ElementStyles;
 	draggable?: Store<boolean> | boolean;
@@ -72,6 +93,9 @@ export interface ElementResult {
 	$: (...components: ComponentInstance[]) => ComponentInstance & { props: ElementPropsProcessed };
 }
 
+/*
+	TextView
+*/
 export interface TextViewProps {
 	value?: Store<string[]> | string[];
 	textComponent?: Store<Component> | Component;
@@ -98,6 +122,9 @@ export interface TextViewComponentProps {
 	options: Store<{ [key: string]: any }>;
 }
 
+/*
+	Toggle
+*/
 export interface ToggleProps {
 	inner?: Store<Component> | Component;
 	isOn?: Store<boolean> | boolean;
@@ -113,6 +140,9 @@ export interface ToggleComponentProps {
 }
 // Component should dispatch a `toggle` event when the user toggles this option
 
+/*
+	Choice
+*/
 export interface ChoiceProps {
 	component?: Store<Component> | Component;
 	choices?: Store<any[]> | any[];
@@ -133,6 +163,9 @@ export interface ChoiceComponentProps {
 }
 // Component should dispatch a `select` event when the user selects this option
 
+/*
+	AnonymousChoice
+*/
 export interface AnonymousChoiceProps {
 	inner?: Store<Component> | Component;
 	options?: Store<{ [key: string]: any }> | { [key: string]: any };
@@ -150,6 +183,9 @@ export interface AnonymousChoiceComponentProps {
 }
 // Component should dispatch a `valueset` event when the user sets a new value
 
+/*
+	Dialog
+*/
 export interface DialogProps {
 	primaryText?: Store<string> | string;
 	secondaryText?: Store<string> | string;
@@ -167,6 +203,9 @@ export interface DialogResult {
 	close: () => void;
 }
 
+/*
+	AbsoluteLayout
+*/
 export interface AbsoluteLayoutProps {}
 export interface AbsoluteLayoutPropsProcessed {}
 export interface AbsoluteLayoutResult {
@@ -174,6 +213,9 @@ export interface AbsoluteLayoutResult {
 	$: (...components: ComponentInstance[]) => ComponentInstance & { props: StackLayoutPropsProcessed };
 }
 
+/*
+	StackLayout
+*/
 export interface StackLayoutProps {}
 export interface StackLayoutPropsProcessed {}
 export interface StackLayoutResult {
@@ -181,6 +223,9 @@ export interface StackLayoutResult {
 	$: (...components: ComponentInstance[]) => ComponentInstance & { props: AbsoluteLayoutPropsProcessed };
 }
 
+/*
+	ScrollView
+*/
 export interface ScrollViewProps {
 	scrollPos?: Store<number> | number;
 	style?: Store<ScrollbarStyles> | ScrollbarStyles;
