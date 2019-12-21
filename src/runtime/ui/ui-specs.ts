@@ -1,5 +1,5 @@
 import { Store } from 'halyard/store';
-import { Font, TextShadow, Color, ScrollbarStyles } from 'halyard/style';
+import { Font, TextShadow, Color, ScrollbarStyles, TextStyles } from 'halyard/style';
 import { ElementStyles } from 'runtime/style/element-styles';
 import { Component, EaseLikeFunction } from 'halyard/internal';
 
@@ -33,9 +33,7 @@ export interface AudioResult {}
 
 export interface LabelProps {
 	text: Store<string> | string;
-	font?: Store<Font> | Font;
-	textShadow?: Store<TextShadow> | TextShadow;
-	color?: Store<Color> | Color;
+	style?: Store<TextStyles> | TextStyles;
 }
 export interface LabelResult {}
 
@@ -90,10 +88,15 @@ export interface ChoiceComponentProps {
 
 export interface AnonymousChoiceProps {
 	inner?: Store<Component> | Component;
-	data?: any | Store<any>;
+	options?: Store<{ [key: string]: any }> | { [key: string]: any };
 	value?: Store<any> | any;
 }
 export interface AnonymousChoiceResult {}
+export interface AnonymousChoiceComponentProps {
+	options: Store<{ [key: string]: any }>;
+	value: Store<any>;
+}
+// Component should dispatch a `valueset` event when the user sets a new value
 
 export interface DialogProps {
 	primaryText?: Store<string> | string;
