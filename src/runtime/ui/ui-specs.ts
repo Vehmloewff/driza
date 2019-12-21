@@ -51,10 +51,17 @@ export interface TextViewProps {
 	textComponent?: Store<Component> | Component;
 	caretPosition?: Store<{ before: number; after: number }> | { before: number; after: number };
 	caret?: Store<Component> | Component;
+	options?: Store<{ [key: string]: any }> | { [key: string]: any };
 	lines?: Store<{ num: number; max: number; min: number }> | { num: number; max: number; min: number };
 	rows?: Store<{ num: number; max: number; min: number }> | { num: number; max: number; min: number };
 }
 export interface TextViewResult {}
+export interface TextViewComponentProps {
+	value: Store<string>;
+	index: Store<number>;
+	caretPosition: Store<TextViewProps['caretPosition']>;
+	options: Store<{ [key: string]: any }>;
+}
 
 export interface ToggleProps {
 	inner?: Store<Component> | Component;
