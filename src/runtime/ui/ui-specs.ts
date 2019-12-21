@@ -1,7 +1,8 @@
-import { Store } from 'halyard/store';
+import { Store, simpleStore } from 'halyard/store';
 import { ScrollbarStyles, TextStyles } from 'halyard/style';
 import { ElementStyles } from 'runtime/style/element-styles';
 import { Component, EaseLikeFunction, ComponentInstance } from 'halyard/internal';
+import { TextViewInner, Switch, Radio, Slider } from './default-components';
 
 /*
 	WebView
@@ -10,6 +11,10 @@ export interface WebViewProps {
 	src?: Store<string> | string;
 	data?: Store<string> | string;
 }
+export const WebViewPropsDefaults: WebViewPropsProcessed = {
+	src: simpleStore(null),
+	data: simpleStore(``),
+};
 export interface WebViewPropsProcessed {
 	src: Store<string>;
 	data: Store<string>;
@@ -24,6 +29,9 @@ export interface WebViewResult {
 export interface HtmlViewProps {
 	html: Store<string> | string;
 }
+export const HtmlViewPropsDefaults: HtmlViewProps = {
+	html: null,
+};
 export interface HtmlViewPropsProcessed {
 	html: Store<string>;
 }
@@ -35,6 +43,9 @@ export interface HtmlViewResult {}
 export interface ImageProps {
 	src: Store<string> | string;
 }
+export const ImagePropsDefaults: ImagePropsProcessed = {
+	src: null,
+};
 export interface ImagePropsProcessed {
 	src: Store<string>;
 }
@@ -44,8 +55,11 @@ export interface ImageResult {}
 	Video
 */
 export interface VideoProps {
-	src: Store<string>;
+	src: Store<string> | string;
 }
+export const VideoPropsDefaults: VideoPropsProcessed = {
+	src: null,
+};
 export interface VideoPropsProcessed {
 	src: Store<string>;
 }
@@ -57,6 +71,9 @@ export interface VideoResult {}
 export interface AudioProps {
 	src: Store<string> | string;
 }
+export const AudioPropsDefaults: AudioPropsProcessed = {
+	src: null,
+};
 export interface AudioPropsProcessed {
 	src: Store<string>;
 }
@@ -69,6 +86,10 @@ export interface LabelProps {
 	text: Store<string> | string;
 	style?: Store<TextStyles> | TextStyles;
 }
+export const LabelPropsDefaults: LabelPropsProcessed = {
+	text: null,
+	style: simpleStore({}),
+};
 export interface LabelPropsProcessed {
 	text: Store<string>;
 	style?: Store<TextStyles>;
@@ -83,6 +104,11 @@ export interface ElementProps {
 	draggable?: Store<boolean> | boolean;
 	disabled?: Store<boolean> | boolean;
 }
+export const ElementPropsDefaults: ElementPropsProcessed = {
+	style: simpleStore({}),
+	draggable: simpleStore(false),
+	disabled: simpleStore(false),
+};
 export interface ElementPropsProcessed {
 	style: Store<ElementStyles> | ElementStyles;
 	draggable: Store<boolean> | boolean;
@@ -105,6 +131,15 @@ export interface TextViewProps {
 	lines?: Store<{ num: number; max: number; min: number }> | { num: number; max: number; min: number };
 	rows?: Store<{ num: number; max: number; min: number }> | { num: number; max: number; min: number };
 }
+export const TextViewPropsDefaults: TextViewPropsProcessed = {
+	value: simpleStore([]),
+	textComponent: simpleStore(TextViewInner),
+	caretPosition: simpleStore({ before: null, after: null }),
+	caret: simpleStore(null), // Write a `caret` component
+	options: simpleStore({}),
+	lines: simpleStore({ num: null, max: null, min: null }),
+	rows: simpleStore({ num: null, max: null, min: null }),
+};
 export interface TextViewPropsProcessed {
 	value: Store<string[]>;
 	textComponent: Store<Component>;
@@ -129,6 +164,10 @@ export interface ToggleProps {
 	inner?: Store<Component> | Component;
 	isOn?: Store<boolean> | boolean;
 }
+export const TogglePropsDefaults: TogglePropsProcessed = {
+	inner: simpleStore(Switch),
+	isOn: simpleStore(false),
+};
 export interface TogglePropsProcessed {
 	inner: Store<Component>;
 	isOn: Store<boolean>;
@@ -149,6 +188,12 @@ export interface ChoiceProps {
 	options?: Store<{ [key: string]: any }> | { [key: string]: any };
 	currentChoice?: Store<any> | any;
 }
+export const ChoicePropsDefaults: ChoicePropsProcessed = {
+	component: simpleStore(Radio),
+	choices: simpleStore([]),
+	options: simpleStore({}),
+	currentChoice: simpleStore(null),
+};
 export interface ChoicePropsProcessed {
 	component: Store<Component>;
 	choices: Store<any[]>;
@@ -171,6 +216,11 @@ export interface AnonymousChoiceProps {
 	options?: Store<{ [key: string]: any }> | { [key: string]: any };
 	value?: Store<any> | any;
 }
+export const AnonymousChoicePropsDefaults: AnonymousChoicePropsProcessed = {
+	inner: simpleStore(Slider),
+	options: simpleStore({}),
+	value: simpleStore(null),
+};
 export interface AnonymousChoicePropsProcessed {
 	inner: Store<Component>;
 	options: Store<{ [key: string]: any }>;
@@ -192,6 +242,12 @@ export interface DialogProps {
 	header?: Store<string> | string;
 	body: Store<string> | string;
 }
+export const DialogPropsDefaults: DialogPropsProcessed = {
+	primaryText: simpleStore(`OK`),
+	secondaryText: simpleStore(`Cancel`),
+	header: simpleStore(null),
+	body: simpleStore(``),
+};
 export interface DialogPropsProcessed {
 	primaryText: Store<string>;
 	secondaryText: Store<string>;
@@ -207,6 +263,7 @@ export interface DialogResult {
 	AbsoluteLayout
 */
 export interface AbsoluteLayoutProps {}
+export const AbsoluteLayoutPropsDefaults: AbsoluteLayoutPropsProcessed = {};
 export interface AbsoluteLayoutPropsProcessed {}
 export interface AbsoluteLayoutResult {
 	children: Store<ComponentInstance[]>;
@@ -217,6 +274,7 @@ export interface AbsoluteLayoutResult {
 	StackLayout
 */
 export interface StackLayoutProps {}
+export const StackLayoutPropsDefaults: StackLayoutPropsProcessed = {};
 export interface StackLayoutPropsProcessed {}
 export interface StackLayoutResult {
 	children: Store<ComponentInstance[]>;
@@ -230,6 +288,10 @@ export interface ScrollViewProps {
 	scrollPos?: Store<number> | number;
 	style?: Store<ScrollbarStyles> | ScrollbarStyles;
 }
+export const ScrollViewPropsDefaults: ScrollViewPropsProcessed = {
+	scrollPos: simpleStore(0),
+	style: simpleStore({}),
+};
 export interface ScrollViewPropsProcessed {
 	scrollPos: Store<number>;
 	style: Store<ScrollbarStyles>;

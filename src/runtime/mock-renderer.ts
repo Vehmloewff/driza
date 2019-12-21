@@ -22,18 +22,29 @@ export function createMockUI(callOnEachInstance: (type: string, props: any, SELF
 	};
 
 	return {
+		// @ts-ignore
 		WebView: createElement(mocker({ history: simpleStore([``]) }, 'WebView')),
+		// @ts-ignore
 		HtmlView: createElement(mocker({}, 'HtmlView')),
+		// @ts-ignore
 		Image: createElement(mocker({}, 'Image')),
+		// @ts-ignore
 		Video: createElement(mocker({}, 'Video')),
+		// @ts-ignore
 		Audio: createElement(mocker({}, 'Audio')),
+		// @ts-ignore
 		Label: createElement(mocker({}, 'Label')),
 		// @ts-ignore
 		Element: createElement(mocker({}, 'Element', true)),
+		// @ts-ignore
 		TextView: createElement(mocker({}, 'TextView')),
+		// @ts-ignore
 		Toggle: createElement(mocker({}, 'Toggle')),
+		// @ts-ignore
 		Choice: createElement(mocker({}, 'Choice')),
+		// @ts-ignore
 		AnonymousChoice: createElement(mocker({}, 'AnonymousChoice')),
+		// @ts-ignore
 		Dialog: createElement(mocker({ open: () => {}, close: () => {} }, 'Dialog')),
 		// @ts-ignore
 		AbsoluteLayout: createElement(mocker({}, 'AbsoluteLayout', true)),

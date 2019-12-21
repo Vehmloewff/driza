@@ -148,6 +148,6 @@ export interface ScrollbarStylesPerScrollbar {
 	behavior: 'auto' | 'always' | 'never';
 }
 export interface ScrollbarStyles {
-	x: ScrollbarStylesPerScrollbar;
-	y: ScrollbarStylesPerScrollbar;
+	x?: ScrollbarStylesPerScrollbar;
+	y?: ScrollbarStylesPerScrollbar;
 }
