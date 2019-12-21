@@ -44,8 +44,8 @@ export type Component = (props: { [key: string]: any }) => ComponentInstance;
 export type SpecificComponent<Props, Result> = (props: Props) => ComponentBasics & Result;
 
 export interface Renderer {
-	root: Component;
-	component: (values: { SELF: ComponentSELF }) => void;
+	root: () => any;
+	component: (params: { SELF: ComponentSELF; parentResult: any }) => any;
 	UI: UserInterface;
 	render: () => void;
 	applyFont: (params: Font) => Promise<void>;

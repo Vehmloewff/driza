@@ -1,5 +1,5 @@
 import { UserInterface } from 'halyard/ui';
-import { ComponentSELF, createElement, RendererResult, Renderer, ComponentInstance } from './internal';
+import { ComponentSELF, createElement, Renderer, ComponentInstance, createDelay } from './internal';
 import { simpleStore } from './store';
 
 export function createMockUI(callOnEachInstance: (type: string, props: any, SELF: ComponentSELF) => void): UserInterface {
@@ -10,7 +10,9 @@ export function createMockUI(callOnEachInstance: (type: string, props: any, SELF
 			return {
 				...toReturn,
 				$: (...components: ComponentInstance[]) => {
-					SELF.render(...components);
+					const resolve = createDelay();
+					SELF.render(...components).then(resolve);
+
 					return SELF;
 				},
 				children: SELF.children,
@@ -44,7 +46,7 @@ export function createMockUI(callOnEachInstance: (type: string, props: any, SELF
 
 export function createMockRenderer(component: Renderer['component'], UI: UserInterface): Renderer {
 	return {
-		root: createElement(() => ({})),
+		root: () => 'root',
 		UI,
 		component,
 		render: () => {},

@@ -1,15 +1,14 @@
 import { createElement } from './create-element';
 import { ComponentConstructor, SpecificComponent, ComponentSELF } from '../interfaces';
-import { createUI } from 'halyard/ui';
-import { getRenderer, rendererIsSet, onRendererSet } from './renderer';
+import { getRenderer } from './renderer';
 
 export const createComponent = <P, R>(fn: ComponentConstructor<P, R>): SpecificComponent<P, R> => {
 	const componentConstructor = (props: P, SELF: ComponentSELF): R => {
-		rendererIsSet() ? getRenderer().component({ SELF }) : onRendererSet(renderer => renderer.component({ SELF }));
+		SELF.once('prerender', data => {
+			data.set(getRenderer().component({ SELF, parentResult: data.get() }));
+		});
 
-		const UI = createUI();
-
-		return fn(props, UI, SELF);
+		return fn(props, getRenderer().UI, SELF);
 	};
 
 	return createElement(componentConstructor);
