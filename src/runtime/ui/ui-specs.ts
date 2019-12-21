@@ -1,5 +1,5 @@
 import { Store } from 'halyard/store';
-import { Font, TextShadow, Color, ScrollBarStyles } from 'halyard/style';
+import { Font, TextShadow, Color, ScrollbarStyles } from 'halyard/style';
 import { ElementStyles } from 'runtime/style/element-styles';
 import { Component, EaseLikeFunction } from 'halyard/internal';
 
@@ -95,10 +95,7 @@ export interface StackLayoutResult {}
 
 export interface ScrollViewProps {
 	scrollPos?: Store<number> | number;
-	scrollBehavior?:
-		| Store<{ x?: 'auto' | 'always' | 'never'; y?: 'auto' | 'always' | 'never' }>
-		| { x?: 'auto' | 'always' | 'never'; y?: 'auto' | 'always' | 'never' };
-	style?: Store<ScrollBarStyles> | ScrollBarStyles;
+	style?: Store<ScrollbarStyles> | ScrollbarStyles;
 }
 export interface ScrollViewResult {
 	scrollTo: (pos: number, easing: EaseLikeFunction) => Promise<void>;

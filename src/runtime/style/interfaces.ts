@@ -100,8 +100,8 @@ export interface GlobalStyles {
 	display?: boolean;
 
 	// Position - these effects will vary depending upon layout
-	// * In `stack-layout`, `wrap-layout`, and `grid-layout` these values
-	//   will move the element in relation to it's current position
+	// * In `stack-layout` these values will move the element in
+	// relation to it's current position
 	// * In `absolute-layout`, these values position the element in
 	//   respect to the borders of the parent
 	top?: number;
@@ -139,5 +139,15 @@ export interface GlobalStates<Styles> {
 	disabled?: Styles;
 }
 
-export interface ElementStyles {}
-export interface ScrollBarStyles {}
+export interface ElementStyles extends GlobalStates<GlobalStyles>, GlobalStyles {}
+
+export interface ScrollbarStylesPerScrollbar {
+	thumbColor: Color;
+	trackColor: Color;
+	width: number;
+	behavior: 'auto' | 'always' | 'never';
+}
+export interface ScrollbarStyles {
+	x: ScrollbarStylesPerScrollbar;
+	y: ScrollbarStylesPerScrollbar;
+}
