@@ -9,4 +9,5 @@ export {
 	createDelay,
 	allDelaysResolved,
 } from 'halyard/internal';
+
 export * from './interfaces';

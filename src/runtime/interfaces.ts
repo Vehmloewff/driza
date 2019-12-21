@@ -4,8 +4,10 @@ import { UserInterface } from './ui';
 
 export type EaseLikeFunction = (t: number) => number;
 
-export type ComponentConstructor<Props, Result> = (props: Props, UI: UserInterface, SELF: ComponentBasics) => Result;
-export type ElementConstructor<Props, Result> = (props: Props, SELF: ComponentBasics) => Result;
+export type EventListener = (data: any | undefined, args: any[], addArg: (data: any) => void) => Promise<void> | void;
+
+export type ComponentConstructor<Props, Result> = (props: Props, UI: UserInterface, SELF: ComponentSELF) => Result;
+export type ElementConstructor<Props, Result> = (props: Props, SELF: ComponentSELF) => Result;
 
 export interface Mediator {
 	provide: <Arg, ReturnType>(name: string, fn: (arg: Arg) => ReturnType) => () => void;
