@@ -1,6 +1,6 @@
 import { describe } from 'zip-tap';
-import { createComponent, bootstrapComponent } from 'halyard';
-import { Store, simpleStore } from 'halyard/store';
+import { createComponent, bootstrapComponent } from 'driza';
+import { Store, simpleStore } from 'driza/store';
 import { setRenderer, ComponentSELF } from './internal';
 import { createMockRenderer, createMockUI } from './mock-renderer';
 

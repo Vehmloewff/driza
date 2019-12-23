@@ -1,7 +1,7 @@
 import { createComponent } from './create-component';
 import { ComponentBasics, ComponentInstance, ComponentSELF } from '../interfaces';
 import { asyncForeach } from '../../utils';
-import { Store } from 'halyard/store';
+import { Store } from 'driza/store';
 import { createDelay } from './manage-delays';
 
 interface EachResult<Value> {

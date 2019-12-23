@@ -12,13 +12,13 @@
 		"lib": ["es5", "es6", "dom"],
 		"baseUrl": "src",
 		"paths": {
-			"halyard": ["runtime"],
+			"driza": ["runtime"],
 
-			"halyard/easing": ["runtime/easing"],
-			"halyard/internal": ["runtime/internal"],
-			"halyard/store": ["runtime/store"],
-			"halyard/style": ["runtime/style"],
-			"halyard/ui": ["runtime/ui"]
+			"driza/easing": ["runtime/easing"],
+			"driza/internal": ["runtime/internal"],
+			"driza/store": ["runtime/store"],
+			"driza/style": ["runtime/style"],
+			"driza/ui": ["runtime/ui"]
 		}
 	},
 	"target": "ESNext",

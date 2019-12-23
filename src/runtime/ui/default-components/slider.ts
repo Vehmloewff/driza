@@ -4,8 +4,8 @@
 
 import { AnonymousChoiceComponentProps } from '../ui-specs';
 import { UserInterface } from '../ui-object-specs';
-import { ComponentSELF, createComponent, EACH } from 'halyard/internal';
-import { simpleStore } from 'halyard/store';
+import { ComponentSELF, createComponent, EACH } from 'driza/internal';
+import { simpleStore } from 'driza/store';
 
 export interface SliderOptions {}
 

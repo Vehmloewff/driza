@@ -1,6 +1,6 @@
 import { random } from '../../utils';
-import { getRenderer, rendererIsSet, Renderer, onRendererSet } from 'halyard/internal';
-import { Store, simpleStore } from 'halyard/store';
+import { getRenderer, rendererIsSet, Renderer, onRendererSet } from 'driza/internal';
+import { Store, simpleStore } from 'driza/store';
 
 export interface FontOptions {
 	default?: 'serif' | 'sans-serf' | 'monospace';

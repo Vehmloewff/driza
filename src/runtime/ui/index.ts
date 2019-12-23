@@ -1,4 +1,4 @@
-import { getRenderer } from 'halyard/internal';
+import { getRenderer } from 'driza/internal';
 
 export * from './ui-specs';
 export * from './ui-components';

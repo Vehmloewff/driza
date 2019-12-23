@@ -4,7 +4,7 @@
 
 import { TextViewComponentProps } from '../ui-specs';
 import { UserInterface } from '../ui-object-specs';
-import { ComponentSELF, createComponent } from 'halyard/internal';
+import { ComponentSELF, createComponent } from 'driza/internal';
 
 export interface TextViewInnerOptions {}
 

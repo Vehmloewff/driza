@@ -1,5 +1,5 @@
 import { ComponentInstance } from '../interfaces';
-import { Store, simpleStore } from 'halyard/store';
+import { Store, simpleStore } from 'driza/store';
 import { createComponent } from './create-component';
 
 type Expression = Store<any | (() => Promise<any> | any)>;

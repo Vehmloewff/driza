@@ -1,4 +1,4 @@
-import { SpecificComponentBasics } from 'halyard/internal';
+import { SpecificComponentBasics } from 'driza/internal';
 import {
 	WebViewProps,
 	WebViewResult,

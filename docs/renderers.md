@@ -1,3 +1,3 @@
-# Halyard Renderers
+# Driza Renderers
 
--   [dom](https://github.com/Vehmloewff/halyard-dom-renderer) - :hammer_and_wrench: Still in development.
+-   [dom](https://github.com/Vehmloewff/driza-dom-renderer) - :hammer_and_wrench: Still in development.

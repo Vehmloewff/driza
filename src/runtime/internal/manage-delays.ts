@@ -1,4 +1,4 @@
-import { simpleStore, Store } from 'halyard/store';
+import { simpleStore, Store } from 'driza/store';
 
 const delays: Store<boolean[]> = simpleStore([]);
 

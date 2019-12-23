@@ -1,6 +1,6 @@
 import { ElementConstructor, SpecificComponent, ComponentBasics, ComponentInstance, SpecificComponentBasics, ComponentSELF } from '../interfaces';
 import { createEventDispatcher } from './events';
-import { simpleStore, Store } from 'halyard/store';
+import { simpleStore, Store } from 'driza/store';
 import { RendererResult } from './renderer';
 import { asyncForeach } from 'utils';
 

@@ -1,16 +1,16 @@
 # Introduction
 
-> NOTICE: Halyard very early in development, and some major things may change before we hit version `1.0.0`.
+> NOTICE: Driza very early in development, and some major things may change before we hit version `1.0.0`.
 
 > NOTICE: This document is a work-in-progress. If you get stuck or experience any trouble, you can get help via the [Discord Chatroom](https://discord.gg/EzctDxj).
 
-Ready to get started? There is a [starter template](https://github.com/Vehmloewff/halyard-template) for the ambitious.
+Ready to get started? There is a [starter template](https://github.com/Vehmloewff/driza-template) for the ambitious.
 
 TODO: Template repo doesn't exist. It needs to be created.
 
 ## Components
 
-A Halyard component is really just a function. When the function is called, it returns an instance of the component.
+A Driza component is really just a function. When the function is called, it returns an instance of the component.
 
 ```ts
 const instance = SomeComponent(props);
@@ -42,16 +42,16 @@ A component instance looks like this:
 
 ### Creating a Component
 
-The [`createComponent`](02-halyard.md) function returns a [component](#components). The only paramater is a function that is called on each instance of that component.
+The [`createComponent`](02-driza.md) function returns a [component](#components). The only paramater is a function that is called on each instance of that component.
 
-The args that [`createComponent`](02-halyard.md) passes into that function are:
+The args that [`createComponent`](02-driza.md) passes into that function are:
 
 -   `props`: The props passed into the component when it is initiated.
 -   `UI`: An object that contains all of the [built-in elements](07-built-in-elements.md).
 -   `SELF`: The component instance itself plus a [`render`](#selfrendercomponents-componentbasics) function.
 
 ```ts
-import { createComponent } from 'halyard';
+import { createComponent } from 'driza';
 
 const SomeComponent = createComponent((props, UI, SELF) => {
 	const label = UI.label({
@@ -87,7 +87,7 @@ function componentConstructor(props, UI, SELF) {
 
 ## Stores
 
-As they make Halyard reactive, [stores](03-halyard-store.md) could well be considered the backbone of halyard.
+As they make Driza reactive, [stores](03-driza-store.md) could well be considered the backbone of driza.
 
 A store is just an object that has a few methods: `get`, `subscribe`, `set`, and `update`.
 
@@ -107,7 +107,7 @@ A store is just an object that has a few methods: `get`, `subscribe`, `set`, and
 Creating a store is easy.
 
 ```ts
-import { simpleStore } from 'halyard';
+import { simpleStore } from 'driza';
 
 const store = simpleStore(true);
 
@@ -126,10 +126,10 @@ store.update(val => !val);
 console.log(store.get()); // -> true
 ```
 
-Stores are so integrated into halyard, that all props passed into elements are allowed to be a store instance.
+Stores are so integrated into driza, that all props passed into elements are allowed to be a store instance.
 
 ```ts
-import { createComponent, simpleStore } from 'halyard';
+import { createComponent, simpleStore } from 'driza';
 
 createComponent((_, UI, SELF) => {
 	const value = simpleStore(`type here`);
@@ -161,24 +161,24 @@ createComponent((_, UI) => {
 
 ## Setting a Renderer
 
-Wondererd how Halyard works cross platform? The answer is renderers. You can switch out different renderers for use on different platforms.
+Wondererd how Driza works cross platform? The answer is renderers. You can switch out different renderers for use on different platforms.
 
 > NOTICE: `setRenderer` must be called before [`bootstrapComponent`](#bootstraping-a-component]).
 
 For a list of renderers [click here](renderers.md). For instructions on building a renderer [check out these docs](08-creating-a-renderer.md).
 
 ```ts
-import { setRenderer } from 'halyard';
+import { setRenderer } from 'driza';
 
 setRenderer(renderer);
 ```
 
 ## Bootstraping A Component
 
-At some point, you will want to tell Halyard to start your app by rendering a particular component.
+At some point, you will want to tell Driza to start your app by rendering a particular component.
 
 ```ts
-import { bootstrapComponent } from 'halyard';
+import { bootstrapComponent } from 'driza';
 
 async function startApp() {
 	await bootstrapComponent(RootComponent());
@@ -189,12 +189,12 @@ async function startApp() {
 
 ## Review
 
-Congrats! Now you know the basics of halyard.
+Congrats! Now you know the basics of driza.
 
-For more information, and a explanation of the ins and outs of Halyard, check out the [API docs](README.md#api).
+For more information, and a explanation of the ins and outs of Driza, check out the [API docs](README.md#api).
 
 ```ts
-import { createComponent, bootstrapComponent, simpleStore, setRenderer } from 'halyard';
+import { createComponent, bootstrapComponent, simpleStore, setRenderer } from 'driza';
 import delay from 'delay';
 
 const App = createComponent((_, UI, SELF) => {

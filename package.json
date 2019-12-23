@@ -1,5 +1,5 @@
 {
-	"name": "halyard",
+	"name": "driza",
 	"version": "0.0.0",
 	"description": "Raising the bar for cross-platform applications",
 	"main": "dist/index.js",
@@ -63,9 +63,9 @@
 		"zip-tap": "^1.0.5",
 		"zip-tap-reporter": "^2.0.0"
 	},
-	"homepage": "https://github.com/Vehmloewff/halyard",
+	"homepage": "https://github.com/Vehmloewff/driza",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Vehmloewff/halyard"
+		"url": "https://github.com/Vehmloewff/driza"
 	}
 }

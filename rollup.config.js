@@ -13,10 +13,10 @@ const watching = process.env.ROLLUP_WATCH;
 const testDir = process.env.VERSATILE_FILTER || ``;
 const testPattern = nodePath.resolve(testDir, `**/*.test.ts`);
 
-const runtimeExports = ['halyard', 'halyard/easing', 'halyard/internal', 'halyard/store', 'halyard/style', 'halyard/ui'];
+const runtimeExports = ['driza', 'driza/easing', 'driza/internal', 'driza/store', 'driza/style', 'driza/ui'];
 
 const sharedOutputOptions = (dir = null) => {
-	const paths = id => id.startsWith(`halyard`) && id.replace('halyard', '..');
+	const paths = id => id.startsWith(`driza`) && id.replace('driza', '..');
 
 	if (dir === `workflow` || dir === `compiler`) paths = undefined;
 
@@ -28,7 +28,7 @@ const sharedOutputOptions = (dir = null) => {
 
 const nodejsModulesToExclude = [`events`];
 
-const external = (runtime = false) => id => (!runtime && nodejsModulesToExclude.find(m => m === id)) || (runtime && id.startsWith('halyard'));
+const external = (runtime = false) => id => (!runtime && nodejsModulesToExclude.find(m => m === id)) || (runtime && id.startsWith('driza'));
 
 const globalPlugins = (dir, oldDir, disable) => [
 	resolve({

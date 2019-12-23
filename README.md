@@ -1,4 +1,4 @@
-# Halyard
+# Driza
 
 Raising the bar for cross-platform applications
 
@@ -7,37 +7,37 @@ TODO: A paragraph on what this framework does
 [Documentation](/docs/README.md) • [Discord Server](https://discord.gg/EzctDxj)
 
 <p>
-  <a href="https://www.npmjs.com/package/halyard">
-    <img src="https://img.shields.io/npm/v/halyard.svg?color=blue" alt="npm version">
+  <a href="https://www.npmjs.com/package/driza">
+    <img src="https://img.shields.io/npm/v/driza.svg?color=blue" alt="npm version">
   </a>
 
-  <a href="https://packagephobia.now.sh/result?p=halyard">
-    <img src="https://packagephobia.now.sh/badge?p=halyard" alt="install size">
+  <a href="https://packagephobia.now.sh/result?p=driza">
+    <img src="https://packagephobia.now.sh/badge?p=driza" alt="install size">
   </a>
 
-  <a href="https://npmjs.com/package/halyard">
-	<img src="https://img.shields.io/npm/dw/halyard?color=blue" alt="installs per week">
+  <a href="https://npmjs.com/package/driza">
+	<img src="https://img.shields.io/npm/dw/driza?color=blue" alt="installs per week">
   </a>
 
-  <a href="https://github.com/Vehmloewff/halyard/actions">
-    <img src="https://img.shields.io/github/workflow/status/Vehmloewff/halyard/CI?logo=github"
+  <a href="https://github.com/Vehmloewff/driza/actions">
+    <img src="https://img.shields.io/github/workflow/status/Vehmloewff/driza/CI?logo=github"
          alt="build status">
   </a>
 
-  <a href="https://github.com/Vehmloewff/halyard/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/Vehmloewff/halyard?color=blue" alt="license">
+  <a href="https://github.com/Vehmloewff/driza/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/Vehmloewff/driza?color=blue" alt="license">
   </a>
 </p>
 
 ## Development
 
-Pull Requests are encouraged and always welcome. [Pick an issue](https://github.com/Vehmloewff/halyard/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) and help us out!
+Pull Requests are encouraged and always welcome. [Pick an issue](https://github.com/Vehmloewff/driza/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc) and help us out!
 
-To install Halyard locally:
+To install Driza locally:
 
 ```bash
-git clone https://github.com/Vehmloewff/halyard
-cd halyard
+git clone https://github.com/Vehmloewff/driza
+cd driza
 npm install
 ```
 

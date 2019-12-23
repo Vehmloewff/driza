@@ -4,8 +4,8 @@
 
 import { ToggleComponentProps } from '../ui-specs';
 import { UserInterface } from '../ui-object-specs';
-import { ComponentSELF, createComponent } from 'halyard/internal';
-import { dependantStore } from 'halyard/store';
+import { ComponentSELF, createComponent } from 'driza/internal';
+import { dependantStore } from 'driza/store';
 
 export interface SwitchOptions {}
 

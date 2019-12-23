@@ -1,4 +1,4 @@
-import { UserInterface } from 'halyard/ui';
+import { UserInterface } from 'driza/ui';
 import { ComponentSELF, createElement, Renderer, ComponentInstance, createDelay } from './internal';
 import { simpleStore } from './store';
 

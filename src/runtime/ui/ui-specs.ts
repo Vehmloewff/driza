@@ -1,7 +1,7 @@
-import { Store, simpleStore } from 'halyard/store';
-import { ScrollbarStyles, TextStyles } from 'halyard/style';
+import { Store, simpleStore } from 'driza/store';
+import { ScrollbarStyles, TextStyles } from 'driza/style';
 import { ElementStyles } from 'runtime/style/element-styles';
-import { Component, EaseLikeFunction, ComponentInstance } from 'halyard/internal';
+import { Component, EaseLikeFunction, ComponentInstance } from 'driza/internal';
 import { TextViewInner, Switch, Radio, Slider } from './default-components';
 
 /*

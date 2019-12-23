@@ -8,6 +8,6 @@ export {
 	setRenderer,
 	createDelay,
 	allDelaysResolved,
-} from 'halyard/internal';
+} from 'driza/internal';
 
 export * from './interfaces';
