@@ -47,6 +47,12 @@ To build the runtime framework:
 npm run build
 ```
 
+To watch the file system and rebuild on changes:
+
+```bash
+npm run build -- -w
+```
+
 The runtime framework is located in the [`/src/runtime`](/src/runtime) directory.
 
 ### Running the tests

@@ -6,8 +6,8 @@
 	"module": "dist/index.mjs",
 	"typings": "typings/runtime/index.d.ts",
 	"scripts": {
-		"build": "cross-env NODE_ENV=production rollup -c && tsc",
-		"test": "cross-env NODE_ENV=development rollup -c",
+		"build": "tsc && rollup -c --environment NODE_ENV:production",
+		"test": "rollup -c --environment NODE_ENV:development --silent",
 		"test:runtime": "cross-env VERSATILE_FILTER='src/runtime' npm run test --",
 		"test:workflow": "cross-env VERSATILE_FILTER='src/workflow-manager' npm run test --",
 		"test:compiler": "cross-env VERSATILE_FILTER='src/compiler' npm run test --",
@@ -31,7 +31,8 @@
 		"osx",
 		"mac",
 		"windows",
-		"linux"
+		"linux",
+		"driz"
 	],
 	"author": {
 		"name": "Vehmloewff",
