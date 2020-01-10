@@ -1,4 +1,4 @@
-> Still in development. This package is not even published on npm yet.
+> Still in development.
 
 # Driza
 
