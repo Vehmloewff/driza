@@ -1,3 +1,5 @@
+> Still in development.  This package is not even published on npm yet.
+
 # Driza
 
 Raising the bar for cross-platform applications
