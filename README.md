@@ -57,7 +57,7 @@ Usage: sova [options] [arguments...]
 
 Options:
   -v, --version  output the current version
-  --config       Path to the config file.  By default sveltronova will look for a `sveltronova.config.js`
+  --config       Path to the config file.  By default driza will look for a `driza.config.js`
   --verbose      display lots of logs (good for debugging)
   --silent       only errors will show
   -h, --help     output usage information

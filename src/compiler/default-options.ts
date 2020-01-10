@@ -46,7 +46,7 @@ export const defaultBuildOptions = async (options: BuildOptions): Promise<BuildO
 		sourceMap: options.sourceMap || true,
 		object: options.object || 'run',
 		dir,
-		name: options.name || pkg.displayName || `Sveltronova App`,
+		name: options.name || pkg.displayName || `Driza App`,
 		description: options.description || pkg.description || ``,
 		version: options.version || pkg.version || `1.0.0-beta.3`,
 		// id will be set later
@@ -75,7 +75,7 @@ export const defaultBuildOptions = async (options: BuildOptions): Promise<BuildO
 			include: options.watch.include || [],
 			exclude: options.watch.exclude || [],
 		},
-		sveltronova: options.sveltronova || `sveltronova`,
+		driza: options.driza || `driza`,
 	};
 
 	// Make sure that the version is a positive semver string

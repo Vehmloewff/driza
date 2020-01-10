@@ -1,17 +1,10 @@
 import { BuildOptions } from './interfaces';
 import { watch, rollup, RollupOptions } from 'rollup';
 import debug from '../../debug';
-import nodePath from 'path';
-import { writeSveltronovaRuntime } from './utils/plugin-common';
-import { getPlatformResult } from './utils/platform-keeper';
 
 const log = debug('bundle');
 
 export const build = async (options: BuildOptions, rollupOptions: RollupOptions[]) => {
-	// Write the runtime before we run the build.
-	// If we do not, rollup will error out.
-	await writeSveltronovaRuntime(nodePath.join(options.outDir, getPlatformResult().tag, getPlatformResult().runtimePath()), options);
-
 	const params = rollupOptions.map(opt => ({
 		...opt,
 		watch: options.watch.enable ? opt.watch : {},

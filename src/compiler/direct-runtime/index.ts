@@ -12,9 +12,9 @@ export default (options: BuildOptions): Plugin => {
 	const uniqueId = `driza?runtime`;
 
 	return {
-		name: `direct-sveltronova-runtime`,
+		name: `direct-driza-runtime`,
 		resolveId: source => {
-			if (source !== `${options.sveltronova}`) return null;
+			if (source !== `${options.driza}`) return null;
 
 			return uniqueId;
 		},

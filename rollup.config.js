@@ -39,7 +39,7 @@ const globalPlugins = (dir, oldDir, disable) => [
 	}),
 	image(),
 	json(),
-	string({ include: [`**/*txt`, `**/*.xml`, `**/*.html`] }),
+	string({ include: [`**/*txt`, `**/*.xml`, `**/*.html`, `./dist/index.js`] }),
 	prod &&
 		!disable &&
 		command([`node scripts/add-package-json.js "${dir}"`, `node scripts/add-ts-definition.js "${dir}" "${oldDir || dir}"`], {

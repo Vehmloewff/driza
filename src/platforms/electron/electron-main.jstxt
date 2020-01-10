@@ -1,5 +1,5 @@
 import { app } from 'electron';
-import { createBrowserWindow } from 'sveltronova/runtime';
+import { createBrowserWindow } from 'driza';
 import { is } from 'electron-util';
 
 try {

@@ -19,17 +19,14 @@ program
 	.action((cliArgs: string[]) => {
 		if (cliArgs) args = cliArgs;
 	})
-	.option(
-		'--config',
-		'Path to the config file.  By default sveltronova will look for a `sveltronova.config.js` or `sveltronova.config.ts`'
-	)
+	.option('--config', 'Path to the config file.  By default driza will look for a `driza.config.js` or `driza.config.ts`')
 	.option('--verbose', 'display lots of logs (good for debugging)')
 	.option('--silent', 'only errors will show');
 
 program.parse(process.argv);
 
-const jsTry = `sveltronova.config.js`;
-// const tsTry = `sveltronova.config.ts`;
+const jsTry = `driza.config.js`;
+// const tsTry = `driza.config.ts`;
 
 let configFile: string = program.config || jsTry;
 

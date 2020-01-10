@@ -55,7 +55,7 @@
 		"url": "https://github.com/Vehmloewff/todo"
 	},
 	"bugs": {
-		"url": "https://github.com/Vehmloewff/sveltronova/issues/new"
+		"url": "https://github.com/Vehmloewff/driza/issues/new"
 	},
 	"dependencies": {
 		"@rollup/plugin-commonjs": "^11.0.0",

@@ -67,7 +67,7 @@ export interface BuildOptions {
 		include?: string[] | string;
 		exclude?: string[] | string;
 	};
-	sveltronova?: string;
+	driza?: string;
 }
 
 export type Platform = (buildOptions: BuildOptions, logger: CreateLogger) => Promise<PlatformResult> | PlatformResult;

@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import { Logger } from './src/compiler/interfaces';
-const appName = `sveltronova`;
+const appName = `driza`;
 
 const levels = [`info`, `notice`, `warn`, `error`, `fatal`];
 
