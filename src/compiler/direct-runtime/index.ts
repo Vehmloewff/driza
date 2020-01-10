@@ -14,7 +14,7 @@ export default (options: BuildOptions): Plugin => {
 	return {
 		name: `direct-driza-runtime`,
 		resolveId: source => {
-			if (source !== `${options.driza}`) return null;
+			if (source !== options.driza) return null;
 
 			return uniqueId;
 		},
@@ -23,16 +23,9 @@ export default (options: BuildOptions): Plugin => {
 
 			let code = runtime;
 			if (getPlatformResult().data === `electron`) {
-				const browserWindow = `const win = new BrowserWindow({ icon: buildOptions.icon.path, ...options });
-			win.loadURL(\`file://\${__dirname}/index.html\`);
-			win.webContents.on('did-finish-load', () => {
-				win.webContents.send('window-id', win.id);
-			});
-			return win;`;
-
 				const importStatement = `import { BrowserWindow } from 'electron';\n`;
 
-				code = importStatement + code.replace(`/*BROWSER_WINDOW*/`, browserWindow);
+				code = importStatement + code;
 			}
 
 			code = code.replace(`%PLATFORM%`, getPlatformResult().tag).replace(`%BUILD_OPTIONS%`, JSON.stringify(options));

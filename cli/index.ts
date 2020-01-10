@@ -78,7 +78,7 @@ setLevel(logLevel);
 	if (!result) return log.fatal(invalidTypeMessage);
 	if (typeof result === 'object') options = result as BuildOptions;
 	else if (typeof result === 'function') {
-		const funcResult = result(logLevel, ...args);
+		const funcResult = result(...args);
 
 		if (typeof funcResult === 'object') options = funcResult as BuildOptions;
 		else return log.fatal(invalidTypeMessage);

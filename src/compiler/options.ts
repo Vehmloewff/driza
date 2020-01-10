@@ -6,8 +6,12 @@ import debug from '../../debug';
 
 const log = debug('prepare-rollup');
 
-function addPlugins(rollupOptions: RollupOptions, ...plugins: Plugin[]) {
+function addPlugins(rollupOptions: RollupOptions, plugins: Plugin[], before?: Plugin[]) {
 	rollupOptions.plugins.push(...plugins);
+
+	if (before) {
+		rollupOptions.plugins.unshift(...before);
+	}
 
 	return rollupOptions;
 }
@@ -20,12 +24,12 @@ export const createOptions = async (options: BuildOptions): Promise<RollupOption
 		if (typeof extraBuilds === 'function') {
 			const result = extraBuilds();
 			result.forEach(build => {
-				toReturn.push(addPlugins(build, directRuntime(options)));
+				toReturn.push(addPlugins(build, [], [directRuntime(options)]));
 			});
 		} else log.error(`Expected platform.extraBuilds to be a function.  Recieved type ${typeof extraBuilds}`);
 	}
 
-	toReturn.push(addPlugins(options.rollupOptions, getPlatformResult().plugin(), directRuntime(options)));
+	toReturn.push(addPlugins(options.rollupOptions, [getPlatformResult().plugin()], [directRuntime(options)]));
 
 	return toReturn;
 };
