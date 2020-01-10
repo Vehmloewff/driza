@@ -1,16 +1,18 @@
 {
-	"name": "driza",
+	"name": "todo",
 	"version": "0.0.0",
-	"description": "Raising the bar for cross-platform applications",
-	"main": "dist/index.js",
-	"module": "dist/index.mjs",
-	"typings": "typings/runtime/index.d.ts",
+	"description": "TODO: Add description",
+	"main": "dist/build.cjs.js",
+	"module": "dist/build.esm.js",
+	"typings": "typings/index.d.ts",
 	"scripts": {
-		"build": "tsc && rollup -c --environment NODE_ENV:production",
-		"test": "rollup -c --environment NODE_ENV:development --silent",
-		"test:runtime": "cross-env VERSATILE_FILTER='src/runtime' npm run test --",
-		"test:workflow": "cross-env VERSATILE_FILTER='src/workflow-manager' npm run test --",
-		"test:compiler": "cross-env VERSATILE_FILTER='src/compiler' npm run test --",
+		"build": "npm run typings && npm run prebuild && cross-env NODE_ENV=production rollup -c",
+		"build:all": "npm run prebuild && rollup -c",
+		"build:runtime": "cross-env BUILD_OBJECT=runtime rollup -c",
+		"build:cli": "cross-env BUILD_OBJECT=cli rollup -c",
+		"prebuild": "npm run build:runtime && npm run build:cli",
+		"typings": "tsc",
+		"test": "npm run prebuild && cross-env BUILD_OBJECT=test rollup -c",
 		"lint": "prettier --write \"./**\"",
 		"lint:test": "prettier --check \"./**\"",
 		"preversion": "npm run test && npm run lint:test && npm run build",
@@ -18,55 +20,68 @@
 		"postversion": "git push && git push --tags && rm -rf build/temp && npm publish"
 	},
 	"keywords": [
-		"framework",
-		"cross-platform",
-		"single-codebase",
-		"web",
-		"browser",
-		"mobile",
-		"ios",
-		"android",
-		"windows",
-		"desktop",
-		"osx",
-		"mac",
-		"windows",
-		"linux",
-		"driz"
+		"todo",
+		"todo",
+		"todo"
 	],
 	"author": {
 		"name": "Vehmloewff",
 		"url": "https://github.com/Vehmloewff"
 	},
 	"files": [
-		"compiler",
 		"dist",
-		"easing",
-		"internal",
-		"store",
-		"style",
-		"typings",
-		"workflow"
+		"typings"
 	],
 	"license": "MIT",
 	"devDependencies": {
+		"@rollup/plugin-image": "^2.0.0",
+		"@rollup/plugin-json": "^4.0.1",
+		"@types/cross-spawn": "^6.0.1",
+		"@types/debug": "^4.1.5",
+		"@types/write": "^2.0.0",
+		"acorn": "^7.1.0",
 		"cross-env": "^6.0.3",
-		"delay": "^4.3.0",
 		"prettier": "^1.19.1",
-		"rollup": "^1.27.13",
-		"rollup-plugin-command": "^1.0.7",
-		"rollup-plugin-commonjs": "^10.1.0",
+		"rollup-plugin-command": "^1.1.2",
 		"rollup-plugin-glob-files": "^1.0.3",
-		"rollup-plugin-node-resolve": "^5.2.0",
+		"rollup-plugin-string": "^3.0.0",
 		"rollup-plugin-typescript": "^1.0.1",
 		"tslib": "^1.10.0",
-		"typescript": "^3.7.3",
+		"typescript": "^3.7.4",
 		"zip-tap": "^1.0.5",
 		"zip-tap-reporter": "^2.0.0"
 	},
-	"homepage": "https://github.com/Vehmloewff/driza",
+	"homepage": "https://github.com/Vehmloewff/todo",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Vehmloewff/driza"
+		"url": "https://github.com/Vehmloewff/todo"
+	},
+	"bugs": {
+		"url": "https://github.com/Vehmloewff/sveltronova/issues/new"
+	},
+	"dependencies": {
+		"@rollup/plugin-commonjs": "^11.0.0",
+		"@rollup/plugin-node-resolve": "^6.0.0",
+		"base64-img": "^1.0.4",
+		"commander": "^4.0.1",
+		"cordova": "^9.0.0",
+		"cross-spawn": "^7.0.1",
+		"debug": "^4.1.1",
+		"electron": "^7.1.7",
+		"electron-reloader": "^0.3.0",
+		"electron-util": "^0.13.1",
+		"find-up": "^4.1.0",
+		"make-dir": "^3.0.0",
+		"make-module": "^3.0.0",
+		"pupa": "^2.0.1",
+		"rollup": "^1.27.14",
+		"rollup-plugin-node-builtins": "^2.1.2",
+		"rollup-plugin-node-globals": "^1.4.0",
+		"rollup-plugin-svelte": "^5.1.1",
+		"svelte": "^3.16.7",
+		"write": "^2.0.0"
+	},
+	"bin": {
+		"sova": "bin/sova.js"
 	}
 }

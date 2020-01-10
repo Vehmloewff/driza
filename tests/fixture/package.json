@@ -1,0 +1,13 @@
+{
+	"main": "src/index.js",
+	"dependencies": {
+		"electron": "^7.1.7",
+		"i": "^0.3.6"
+	},
+	"scripts": {
+		"test": "sova --verbose"
+	},
+	"devDependencies": {
+		"electron-reloader": "^0.3.0"
+	}
+}

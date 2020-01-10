@@ -1,11 +1,4 @@
 node_modules
-/dist
+dist
 typings
 globbed-*
-/compiler
-/workflow
-/store
-/style
-/internal
-/easing
-/ui

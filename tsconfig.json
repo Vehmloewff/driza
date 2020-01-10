@@ -10,19 +10,13 @@
 		"declarationDir": "typings",
 		"emitDeclarationOnly": true,
 		"lib": ["es5", "es6", "dom"],
-		"baseUrl": "src",
+		"baseUrl": ".",
 		"paths": {
-			"driza": ["runtime"],
-
-			"driza/easing": ["runtime/easing"],
-			"driza/internal": ["runtime/internal"],
-			"driza/store": ["runtime/store"],
-			"driza/style": ["runtime/style"],
-			"driza/ui": ["runtime/ui"]
+			"sveltronova/runtime": ["runtime"]
 		}
 	},
 	"target": "ESNext",
 	"module": "ES6",
-	"include": ["src", "untyped.d.ts"],
+	"include": ["src", "runtime", "cli"],
 	"exclude": ["node_modules"]
 }

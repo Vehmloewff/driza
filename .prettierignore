@@ -1,20 +1,15 @@
+node_modules
 .eslintignore
 .gitignore
 .prettierignore
+.gitattributes
 LICENSE
-node_modules
-/dist
-typings
-globbed-*
-/compiler
-/workflow
-/store
-/style
-/internal
-/easing
-/ui
+dist
+/typings
 
 **/*.png
 **/*.ico
 **/*.map
 **/*.jpg
+**/*.xml
+**/*.jstxt

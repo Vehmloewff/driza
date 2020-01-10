@@ -1,120 +1,86 @@
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import pkg from './package.json';
 import command from 'rollup-plugin-command';
 import typescript from 'rollup-plugin-typescript';
 import globFiles from 'rollup-plugin-glob-files';
+import { string } from 'rollup-plugin-string';
+import image from '@rollup/plugin-image';
 import nodePath from 'path';
-import { readdirSync } from 'fs';
-import removeMockPlugin from './scripts/remove-mock-plugin';
+import json from '@rollup/plugin-json';
 
-const sourcemap = false;
+const name = 'todo';
+const sourcemap = true;
 const prod = process.env.NODE_ENV === 'production';
 const watching = process.env.ROLLUP_WATCH;
-const testDir = process.env.VERSATILE_FILTER || ``;
-const testPattern = nodePath.resolve(testDir, `**/*.test.ts`);
+const runtime = process.env.BUILD_OBJECT === 'runtime';
+const cli = process.env.BUILD_OBJECT === 'cli';
+const test = process.env.BUILD_OBJECT === 'test';
 
-const runtimeExports = ['driza', 'driza/easing', 'driza/internal', 'driza/store', 'driza/style', 'driza/ui'];
-
-const sharedOutputOptions = (dir = null) => {
-	const paths = id => id.startsWith(`driza`) && id.replace('driza', '..');
-
-	if (dir === `workflow` || dir === `compiler`) paths = undefined;
-
-	return {
-		paths,
-		sourcemap,
-	};
+const sharedOutputOptions = {
+	name,
+	sourcemap,
 };
 
-const nodejsModulesToExclude = [`events`];
+const output = [{ file: pkg.main, format: 'cjs', ...sharedOutputOptions }];
 
-const external = (runtime = false) => id => (!runtime && nodejsModulesToExclude.find(m => m === id)) || (runtime && id.startsWith('driza'));
+output.push({ file: pkg.module, format: 'es', ...sharedOutputOptions });
 
-const globalPlugins = (dir, oldDir, disable) => [
+const plugins = [
+	!prod &&
+		globFiles({
+			file: `globbed-tests.ts`,
+			include: `./tests/**/*.ts`,
+			justImport: true,
+		}),
+	image(),
+	json(),
+	string({ include: [`./src/defaults/**/*txt`, `./src/defaults/**/*.xml`, `./src/defaults/**/*.html`, `./dist/runtime.jstxt`] }),
 	resolve({
 		preferBuiltins: true,
-		browser: dir !== `compiler` && dir !== `workflow`,
 	}),
 	commonjs(),
 	typescript({
 		typescript: require('typescript'),
 	}),
-	prod && removeMockPlugin,
-	prod &&
-		!disable &&
-		command([`node scripts/add-package-json.js "${dir}"`, `node scripts/add-ts-definition.js "${dir}" "${oldDir || dir}"`], {
-			exitOnFail: !watching,
-		}),
 ];
 
-const generateOutputOptions = options => [
-	{
-		...options,
-		file: options.file + `.js`,
-		format: `cjs`,
-	},
-	{
-		...options,
-		file: options.file + `.mjs`,
-		format: `esm`,
-	},
-];
+const external = id => id[0] !== '.' && !nodePath.isAbsolute(id);
 
-const testRound = {
-	input: `globbed-tests.ts`,
-	output: { file: `dist/build.js`, format: 'cjs' },
-	plugins: [
-		globFiles({
-			file: `globbed-tests.ts`,
-			include: testPattern,
-			justImport: true,
-		}),
-		...globalPlugins(),
-		command(`zip-tap-reporter node dist/build.js`, { exitOnFail: !watching }),
-	],
-	external: external(),
+const runtimeConfig = {
+	input: 'runtime/index.ts',
+	output: { file: 'dist/runtime.jstxt', format: 'esm' },
+	external,
+	plugins,
 };
 
-const compiler = {
-	input: `src/compiler/index.ts`,
-	output: generateOutputOptions({
-		file: `compiler/index`,
-		...sharedOutputOptions(),
-	}),
-	plugins: globalPlugins(`compiler`),
-	external: external(),
+const cliConfig = {
+	input: 'cli/index.ts',
+	output: { file: 'dist/cli.js', format: 'cjs' },
+	external,
+	plugins,
 };
 
-const workflowManager = {
-	input: `src/workflow/index.ts`,
-	output: generateOutputOptions({
-		file: `workflow/index`,
-		...sharedOutputOptions,
-	}),
-	plugins: globalPlugins(`workflow`),
-	external: external(),
+const libConfig = {
+	input: 'src/index.ts',
+	output,
+	external,
+	plugins,
 };
 
-const index = {
-	input: `src/runtime/index.ts`,
-	output: generateOutputOptions({
-		file: `dist/index`,
-		...sharedOutputOptions(`index`),
-	}),
-	plugins: globalPlugins(null, null, true),
-	external: external(true),
+const testConfig = {
+	input: 'globbed-tests.ts',
+	output: { file: 'dist/tests.js', format: 'cjs' },
+	external,
+	plugins: [...plugins, command(`zip-tap-reporter node dist/tests.js`, { exitOnFail: !watching })],
 };
 
-const runtimes = readdirSync(`src/runtime`, 'utf-8')
-	.filter(dir => dir.indexOf(`.`) === -1 && dir !== `index`)
-	.map(dir => ({
-		input: `src/runtime/${dir}/index.ts`,
-		output: generateOutputOptions({
-			file: `${dir}/index`,
-			...sharedOutputOptions(dir),
-		}),
-		plugins: globalPlugins(dir, `runtime/${dir}`),
-		external: external(true),
-	}));
+const configs = [];
 
-export default prod ? [index, compiler, workflowManager, ...runtimes] : testRound;
+if (runtime) configs.push(runtimeConfig);
+else if (cli) configs.push(cliConfig);
+else configs.push(runtimeConfig, cliConfig, libConfig);
+
+if (test) configs.push(testConfig);
+
+export default configs;
