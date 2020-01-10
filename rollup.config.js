@@ -1,11 +1,13 @@
-import commonjs from 'rollup-plugin-commonjs';
-import resolve from 'rollup-plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
 import command from 'rollup-plugin-command';
 import typescript from 'rollup-plugin-typescript';
 import globFiles from 'rollup-plugin-glob-files';
 import nodePath from 'path';
 import { readdirSync } from 'fs';
-import removeMockPlugin from './scripts/remove-mock-plugin';
+import { string } from 'rollup-plugin-string';
+import image from '@rollup/plugin-image';
+import json from '@rollup/plugin-json';
 
 const sourcemap = false;
 const prod = process.env.NODE_ENV === 'production';
@@ -13,12 +15,10 @@ const watching = process.env.ROLLUP_WATCH;
 const testDir = process.env.VERSATILE_FILTER || ``;
 const testPattern = nodePath.resolve(testDir, `**/*.test.ts`);
 
-const runtimeExports = ['driza', 'driza/easing', 'driza/internal', 'driza/store', 'driza/style', 'driza/ui'];
-
 const sharedOutputOptions = (dir = null) => {
 	const paths = id => id.startsWith(`driza`) && id.replace('driza', '..');
 
-	if (dir === `workflow` || dir === `compiler`) paths = undefined;
+	if (dir === `compiler`) paths = undefined;
 
 	return {
 		paths,
@@ -26,20 +26,20 @@ const sharedOutputOptions = (dir = null) => {
 	};
 };
 
-const nodejsModulesToExclude = [`events`];
-
-const external = (runtime = false) => id => (!runtime && nodejsModulesToExclude.find(m => m === id)) || (runtime && id.startsWith('driza'));
+const external = (runtime = false) => id => (runtime ? false : id[0] !== '.' && !nodePath.isAbsolute(id));
 
 const globalPlugins = (dir, oldDir, disable) => [
 	resolve({
 		preferBuiltins: true,
-		browser: dir !== `compiler` && dir !== `workflow`,
+		browser: dir !== `compiler`,
 	}),
 	commonjs(),
 	typescript({
 		typescript: require('typescript'),
 	}),
-	prod && removeMockPlugin,
+	image(),
+	json(),
+	string({ include: [`**/*txt`, `**/*.xml`, `**/*.html`, `./dist/index.js`] }),
 	prod &&
 		!disable &&
 		command([`node scripts/add-package-json.js "${dir}"`, `node scripts/add-ts-definition.js "${dir}" "${oldDir || dir}"`], {
@@ -85,13 +85,23 @@ const compiler = {
 	external: external(),
 };
 
-const workflowManager = {
-	input: `src/workflow/index.ts`,
+const platforms = {
+	input: `src/platforms/index.ts`,
 	output: generateOutputOptions({
-		file: `workflow/index`,
-		...sharedOutputOptions,
+		file: `platforms/index`,
+		...sharedOutputOptions(),
 	}),
-	plugins: globalPlugins(`workflow`),
+	plugins: globalPlugins(`platforms`),
+	external: external(),
+};
+
+const cli = {
+	input: `cli/index.ts`,
+	output: generateOutputOptions({
+		file: `dist/cli`,
+		...sharedOutputOptions(),
+	}),
+	plugins: globalPlugins(null, null, true),
 	external: external(),
 };
 
@@ -117,4 +127,4 @@ const runtimes = readdirSync(`src/runtime`, 'utf-8')
 		external: external(true),
 	}));
 
-export default prod ? [index, compiler, workflowManager, ...runtimes] : testRound;
+export default prod ? [index, compiler, cli, platforms, ...runtimes] : [index, cli, platforms, testRound];

@@ -13,12 +13,7 @@
 		"baseUrl": "src",
 		"paths": {
 			"driza": ["runtime"],
-
-			"driza/easing": ["runtime/easing"],
-			"driza/internal": ["runtime/internal"],
-			"driza/store": ["runtime/store"],
-			"driza/style": ["runtime/style"],
-			"driza/ui": ["runtime/ui"]
+			"driza/platforms": ["runtime/platforms"]
 		}
 	},
 	"target": "ESNext",
