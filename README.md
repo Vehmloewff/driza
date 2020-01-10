@@ -37,6 +37,9 @@ This library does not just limit the platform options to `electron`, `cordova`, 
 
 ## Current platform implementations
 
+-   [Electron](src/platforms/electron/index.ts)
+-   [Android](src/platforms/android/index.ts)
+
 ## Installation
 
 ```bash
@@ -83,7 +86,7 @@ It is required that the config file `export default`/`module.exports` an object 
 
 ### BuildOptions
 
-Please refer to [`src/interfaces.ts#L39`](/src/interfaces.ts#L39).
+Please refer to [`src/interfaces.ts#L39`](/src/compiler/interfaces.ts#L39).
 
 ## Development
 
@@ -109,7 +112,7 @@ To watch the file system and rebuild on changes:
 npm run build -- -w
 ```
 
-The runtime framework is located in the [`/runtime`](/runtime) directory.
+The compiler is located in the [`src/compiler`](src/compiler) directory.
 
 ### Running the tests
 
