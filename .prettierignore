@@ -5,7 +5,11 @@ node_modules
 .gitattributes
 LICENSE
 dist
+
 /typings
+/compiler
+/platforms
+/bin
 
 **/*.png
 **/*.ico
