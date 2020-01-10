@@ -13,13 +13,12 @@ export const build = async (options: BuildOptions, rollupOptions: RollupOptions[
 	if (options.watch.enable) {
 		const watcher = watch(params);
 
-		watcher.on('event', (event: { code: string; error: Error }) => {
+		watcher.on('event', event => {
 			if (event.code === 'START') log.notice('Starting bundle generation...');
 			else if (event.code === 'BUNDLE_START') log.notice('Starting a new section in the bundle...');
-			else if (event.code === 'BUDNLE_END') log.notice('Finished bundle section.');
+			else if (event.code === 'BUNDLE_END') log.notice('Finished bundle section.');
 			else if (event.code === 'END') log.notice('Finished generating the bundle.  Waiting for changes...');
 			else if (event.code === 'ERROR') log.error('Recieved an error while bundling!', event.error.message);
-			else if (event.code === 'FATAL') log.error('Recieved a fatal error while bundling!', event.error.message);
 		});
 	} else {
 		log.notice('Starting bundle generation...');
