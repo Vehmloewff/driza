@@ -51,17 +51,7 @@
 		"tslib": "^1.10.0",
 		"typescript": "^3.7.4",
 		"zip-tap": "^1.0.5",
-		"zip-tap-reporter": "^2.0.0"
-	},
-	"homepage": "https://github.com/Vehmloewff/driza",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/Vehmloewff/driza"
-	},
-	"bugs": {
-		"url": "https://github.com/Vehmloewff/driza/issues/new"
-	},
-	"dependencies": {
+		"zip-tap-reporter": "^2.0.0",
 		"@rollup/plugin-commonjs": "^11.0.0",
 		"@rollup/plugin-node-resolve": "^6.0.0",
 		"commander": "^4.0.1",
@@ -77,6 +67,15 @@
 		"rollup": "^1.27.14",
 		"write": "^2.0.0"
 	},
+	"homepage": "https://github.com/Vehmloewff/driza",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Vehmloewff/driza"
+	},
+	"bugs": {
+		"url": "https://github.com/Vehmloewff/driza/issues/new"
+	},
+	"dependencies": {},
 	"bin": {
 		"driza": "bin/driza.js"
 	}
