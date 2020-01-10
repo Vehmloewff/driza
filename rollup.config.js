@@ -127,4 +127,4 @@ const runtimes = readdirSync(`src/runtime`, 'utf-8')
 		external: external(true),
 	}));
 
-export default prod ? [index, compiler, cli, platforms, ...runtimes] : [cli, platforms, testRound];
+export default prod ? [index, compiler, cli, platforms, ...runtimes] : [index, cli, platforms, testRound];
