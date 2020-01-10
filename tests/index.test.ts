@@ -5,7 +5,7 @@ import nodePath from 'path';
 describe(`cli`, async it => {
 	await it(`should build the electron app`, async expect => {
 		await new Promise(resolve => {
-			const child = exec(`${nodePath.resolve('bin/sova.js')} nowatch compile --verbose`, {
+			const child = exec(`${nodePath.resolve('bin/driza.js')} nowatch compile --verbose`, {
 				cwd: nodePath.resolve('tests/fixture'),
 			});
 
@@ -18,7 +18,6 @@ describe(`cli`, async it => {
 			});
 
 			child.on('close', code => {
-				console.log(code);
 				if (code) expect(1).toBe(2);
 
 				resolve();
@@ -27,7 +26,7 @@ describe(`cli`, async it => {
 	});
 	await it(`should build the android app`, async expect => {
 		await new Promise(resolve => {
-			const child = exec(`${nodePath.resolve('bin/sova.js')} nowatch android compile --verbose`, {
+			const child = exec(`${nodePath.resolve('bin/driza.js')} nowatch android compile --verbose`, {
 				cwd: nodePath.resolve('tests/fixture'),
 			});
 

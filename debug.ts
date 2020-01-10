@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { Logger } from 'src';
+import { Logger } from './src/compiler/interfaces';
 const appName = `sveltronova`;
 
 const levels = [`info`, `notice`, `warn`, `error`, `fatal`];

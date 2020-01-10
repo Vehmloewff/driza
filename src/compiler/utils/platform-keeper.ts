@@ -1,8 +1,8 @@
-import { PlatformResult } from 'src/interfaces';
-import debug from '../../debug';
+import { PlatformResult } from '../interfaces';
+import debug from '../../../debug';
 
 // @ts-ignore
-import { bugs } from '../../package.json';
+import { bugs } from '../../../package.json';
 
 const log = debug('platform-keeper');
 

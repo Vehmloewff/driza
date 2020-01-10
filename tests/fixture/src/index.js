@@ -1,4 +1,4 @@
-import { platform } from 'sveltronova/runtime';
+import { platform } from 'driza';
 
 const div = document.createElement('div');
 const input = document.createElement('input');

@@ -1,6 +1,6 @@
 import fs from 'fs';
 import nodePath from 'path';
-import debug from '../../debug';
+import debug from '../../../debug';
 
 const log = debug('read-files');
 

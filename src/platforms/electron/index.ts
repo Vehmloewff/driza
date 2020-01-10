@@ -1,16 +1,16 @@
-import { Platform, ElectronOptions } from '../../interfaces';
+import { Platform, ElectronOptions } from '../../compiler/interfaces';
 import plugin from './plugin';
 import runElectron from './run-electron';
-import fileExists from '../../utils/file-exists';
+import fileExists from '../../compiler/utils/file-exists';
 import findUp from 'find-up';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import nodePath from 'path';
-import nativeNodeModules from '../../utils/native-node-modules';
+import nativeNodeModules from '../../compiler/utils/native-node-modules';
 import write from 'write';
 
 // @ts-ignore
-import defaultElectronMain from '../../defaults/electron-main.jstxt';
+import defaultElectronMain from './electron-main.jstxt';
 
 const platform = (options: ElectronOptions = {}): Platform => async (buildOptions, debug) => {
 	const log = debug('electron');

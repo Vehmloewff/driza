@@ -7,13 +7,13 @@ import { readJSON } from '../utils/read';
 import spawn from 'cross-spawn';
 import write from 'write';
 import { logChild } from '../utils/log-child';
-import debug from '../../debug';
+import debug from '../../../debug';
+import pupa from 'pupa';
 
 // @ts-ignore
-import { bugs } from '../../package.json';
+import { bugs } from '../../../package.json';
 // @ts-ignore
 import configXml from '../defaults/cordova-config.xml';
-import pupa from 'pupa';
 
 const log = debug('prepare:cordova');
 

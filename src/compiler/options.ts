@@ -2,7 +2,7 @@ import { BuildOptions } from './interfaces';
 import { RollupOptions, Plugin } from 'rollup';
 import directRuntime from './direct-runtime';
 import { getPlatformResult } from './utils/platform-keeper';
-import debug from '../debug';
+import debug from '../../debug';
 
 const log = debug('prepare-rollup');
 

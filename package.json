@@ -1,18 +1,16 @@
 {
-	"name": "todo",
+	"name": "driza",
 	"version": "0.0.0",
-	"description": "TODO: Add description",
-	"main": "dist/build.cjs.js",
-	"module": "dist/build.esm.js",
-	"typings": "typings/index.d.ts",
+	"description": "Rasising the bar for cross-platform applications",
+	"main": "dist/index.js",
+	"module": "dist/index.mjs",
+	"typings": "typings/runtime/index.d.ts",
 	"scripts": {
-		"build": "npm run typings && npm run prebuild && cross-env NODE_ENV=production rollup -c",
-		"build:all": "npm run prebuild && rollup -c",
-		"build:runtime": "cross-env BUILD_OBJECT=runtime rollup -c",
-		"build:cli": "cross-env BUILD_OBJECT=cli rollup -c",
-		"prebuild": "npm run build:runtime && npm run build:cli",
-		"typings": "tsc",
-		"test": "npm run prebuild && cross-env BUILD_OBJECT=test rollup -c",
+		"build": "tsc && rollup -c --environment NODE_ENV:production",
+		"test": "rollup -c --environment NODE_ENV:development --silent",
+		"test:runtime": "cross-env VERSATILE_FILTER='src/runtime' npm run test --",
+		"test:workflow": "cross-env VERSATILE_FILTER='src/workflow-manager' npm run test --",
+		"test:compiler": "cross-env VERSATILE_FILTER='src/compiler' npm run test --",
 		"lint": "prettier --write \"./**\"",
 		"lint:test": "prettier --check \"./**\"",
 		"preversion": "npm run test && npm run lint:test && npm run build",
@@ -82,6 +80,6 @@
 		"write": "^2.0.0"
 	},
 	"bin": {
-		"sova": "bin/sova.js"
+		"driza": "bin/driza.js"
 	}
 }

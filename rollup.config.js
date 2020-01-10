@@ -1,86 +1,130 @@
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
-import pkg from './package.json';
 import command from 'rollup-plugin-command';
 import typescript from 'rollup-plugin-typescript';
 import globFiles from 'rollup-plugin-glob-files';
+import nodePath from 'path';
+import { readdirSync } from 'fs';
 import { string } from 'rollup-plugin-string';
 import image from '@rollup/plugin-image';
-import nodePath from 'path';
 import json from '@rollup/plugin-json';
 
-const name = 'todo';
-const sourcemap = true;
+const sourcemap = false;
 const prod = process.env.NODE_ENV === 'production';
 const watching = process.env.ROLLUP_WATCH;
-const runtime = process.env.BUILD_OBJECT === 'runtime';
-const cli = process.env.BUILD_OBJECT === 'cli';
-const test = process.env.BUILD_OBJECT === 'test';
+const testDir = process.env.VERSATILE_FILTER || ``;
+const testPattern = nodePath.resolve(testDir, `**/*.test.ts`);
 
-const sharedOutputOptions = {
-	name,
-	sourcemap,
+const sharedOutputOptions = (dir = null) => {
+	const paths = id => id.startsWith(`driza`) && id.replace('driza', '..');
+
+	if (dir === `compiler`) paths = undefined;
+
+	return {
+		paths,
+		sourcemap,
+	};
 };
 
-const output = [{ file: pkg.main, format: 'cjs', ...sharedOutputOptions }];
+const external = (runtime = false) => id => (runtime ? false : id[0] !== '.' && !nodePath.isAbsolute(id));
 
-output.push({ file: pkg.module, format: 'es', ...sharedOutputOptions });
-
-const plugins = [
-	!prod &&
-		globFiles({
-			file: `globbed-tests.ts`,
-			include: `./tests/**/*.ts`,
-			justImport: true,
-		}),
-	image(),
-	json(),
-	string({ include: [`./src/defaults/**/*txt`, `./src/defaults/**/*.xml`, `./src/defaults/**/*.html`, `./dist/runtime.jstxt`] }),
+const globalPlugins = (dir, oldDir, disable) => [
 	resolve({
 		preferBuiltins: true,
+		browser: dir !== `compiler`,
 	}),
 	commonjs(),
 	typescript({
 		typescript: require('typescript'),
 	}),
+	image(),
+	json(),
+	string({ include: [`**/*txt`, `**/*.xml`, `**/*.html`] }),
+	prod &&
+		!disable &&
+		command([`node scripts/add-package-json.js "${dir}"`, `node scripts/add-ts-definition.js "${dir}" "${oldDir || dir}"`], {
+			exitOnFail: !watching,
+		}),
 ];
 
-const external = id => id[0] !== '.' && !nodePath.isAbsolute(id);
+const generateOutputOptions = options => [
+	{
+		...options,
+		file: options.file + `.js`,
+		format: `cjs`,
+	},
+	{
+		...options,
+		file: options.file + `.mjs`,
+		format: `esm`,
+	},
+];
 
-const runtimeConfig = {
-	input: 'runtime/index.ts',
-	output: { file: 'dist/runtime.jstxt', format: 'esm' },
-	external,
-	plugins,
+const testRound = {
+	input: `globbed-tests.ts`,
+	output: { file: `dist/build.js`, format: 'cjs' },
+	plugins: [
+		globFiles({
+			file: `globbed-tests.ts`,
+			include: testPattern,
+			justImport: true,
+		}),
+		...globalPlugins(),
+		command(`zip-tap-reporter node dist/build.js`, { exitOnFail: !watching }),
+	],
+	external: external(),
 };
 
-const cliConfig = {
-	input: 'cli/index.ts',
-	output: { file: 'dist/cli.js', format: 'cjs' },
-	external,
-	plugins,
+const compiler = {
+	input: `src/compiler/index.ts`,
+	output: generateOutputOptions({
+		file: `compiler/index`,
+		...sharedOutputOptions(),
+	}),
+	plugins: globalPlugins(`compiler`),
+	external: external(),
 };
 
-const libConfig = {
-	input: 'src/index.ts',
-	output,
-	external,
-	plugins,
+const platforms = {
+	input: `src/platforms/index.ts`,
+	output: generateOutputOptions({
+		file: `platforms/index`,
+		...sharedOutputOptions(),
+	}),
+	plugins: globalPlugins(`platforms`),
+	external: external(),
 };
 
-const testConfig = {
-	input: 'globbed-tests.ts',
-	output: { file: 'dist/tests.js', format: 'cjs' },
-	external,
-	plugins: [...plugins, command(`zip-tap-reporter node dist/tests.js`, { exitOnFail: !watching })],
+const cli = {
+	input: `cli/index.ts`,
+	output: generateOutputOptions({
+		file: `dist/cli`,
+		...sharedOutputOptions(),
+	}),
+	plugins: globalPlugins(null, null, true),
+	external: external(),
 };
 
-const configs = [];
+const index = {
+	input: `src/runtime/index.ts`,
+	output: generateOutputOptions({
+		file: `dist/index`,
+		...sharedOutputOptions(`index`),
+	}),
+	plugins: globalPlugins(null, null, true),
+	external: external(true),
+};
 
-if (runtime) configs.push(runtimeConfig);
-else if (cli) configs.push(cliConfig);
-else configs.push(runtimeConfig, cliConfig, libConfig);
+const runtimes = readdirSync(`src/runtime`, 'utf-8')
+	.filter(dir => dir.indexOf(`.`) === -1 && dir !== `index`)
+	.map(dir => ({
+		input: `src/runtime/${dir}/index.ts`,
+		output: generateOutputOptions({
+			file: `${dir}/index`,
+			...sharedOutputOptions(dir),
+		}),
+		plugins: globalPlugins(dir, `runtime/${dir}`),
+		external: external(true),
+	}));
 
-if (test) configs.push(testConfig);
-
-export default configs;
+export default prod ? [index, compiler, cli, platforms, ...runtimes] : [cli, platforms, testRound];

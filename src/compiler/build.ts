@@ -1,6 +1,6 @@
 import { BuildOptions } from './interfaces';
 import { watch, rollup, RollupOptions } from 'rollup';
-import debug from '../debug';
+import debug from '../../debug';
 import nodePath from 'path';
 import { writeSveltronovaRuntime } from './utils/plugin-common';
 import { getPlatformResult } from './utils/platform-keeper';
@@ -35,7 +35,6 @@ export const build = async (options: BuildOptions, rollupOptions: RollupOptions[
 			for (let i in params) {
 				log.notice('Starting a new section in the bundle...');
 
-				console.log(params[i]);
 				const bundle = await rollup(params[i]);
 
 				let output = params[i].output;

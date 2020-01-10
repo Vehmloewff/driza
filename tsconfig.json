@@ -10,13 +10,14 @@
 		"declarationDir": "typings",
 		"emitDeclarationOnly": true,
 		"lib": ["es5", "es6", "dom"],
-		"baseUrl": ".",
+		"baseUrl": "src",
 		"paths": {
-			"sveltronova/runtime": ["runtime"]
+			"driza": ["runtime"],
+			"driza/platforms": ["runtime/platforms"]
 		}
 	},
 	"target": "ESNext",
 	"module": "ES6",
-	"include": ["src", "runtime", "cli"],
+	"include": ["src", "untyped.d.ts"],
 	"exclude": ["node_modules"]
 }

@@ -1,7 +1,7 @@
 import spawn from 'cross-spawn';
 import debug from '../../../debug';
-import { logChild } from '../../utils/log-child';
-import { BuildOptions, CordovaOptions } from 'src/interfaces';
+import { logChild } from '../../compiler/utils/log-child';
+import { BuildOptions, CordovaOptions } from '../../compiler/interfaces';
 import nodePath from 'path';
 import { Plugin } from 'rollup';
 import command from 'rollup-plugin-command';

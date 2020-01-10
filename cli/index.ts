@@ -2,8 +2,8 @@ import program from 'commander';
 import { access, constants } from 'fs';
 import debug, { setLevel } from '../debug';
 import runFile from './call-config';
-import { BuildOptions } from '../src/interfaces';
-import { buildApp } from '../src';
+import { BuildOptions } from '../src/compiler/interfaces';
+import { buildApp } from '../src/compiler';
 import nodePath from 'path';
 
 const log = debug('cli');

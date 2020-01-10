@@ -1,6 +1,6 @@
 import { BrowserWindowConstructorOptions } from 'electron';
 import { readFileSync } from 'fs';
-import { BuildOptions } from '../src/interfaces';
+import { BuildOptions } from '../compiler/interfaces';
 
 export const platform: string = `%PLATFORM%`;
 

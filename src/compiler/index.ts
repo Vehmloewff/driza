@@ -1,4 +1,4 @@
-import debug from '../debug';
+import debug from '../../debug';
 import { PromiseEmitter } from './utils/promise-emitter';
 import { BuildOptions } from './interfaces';
 import { defaultBuildOptions } from './default-options';
@@ -28,16 +28,13 @@ export function buildApp(options: BuildOptions): PromiseEmitter<RunResult> {
 }
 
 // Additional exports
-export { default as platforms } from './platforms';
-export * from './interfaces';
-
 import * as pluginHelpers from './utils/plugin-common';
 export { pluginHelpers };
 
 import * as cordovaHelpers from './cordova';
 export { cordovaHelpers };
 
-import { setLevel, setLogger } from '../debug';
+import { setLevel, setLogger } from '../../debug';
 const logger = {
 	setLevel,
 	setLogger,

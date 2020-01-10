@@ -1,5 +1,5 @@
 import { readJSON } from './utils/read';
-import debug from '../debug';
+import debug from '../../debug';
 import { BuildOptions } from './interfaces';
 import write from 'write';
 import nodePath from 'path';

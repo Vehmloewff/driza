@@ -1,7 +1,7 @@
-import { BuildOptions, ElectronOptions } from '../../interfaces';
+import { BuildOptions, ElectronOptions } from '../../compiler/interfaces';
 import { Plugin } from 'rollup';
 import nodePath from 'path';
-import { writeTemplate, writeJSONBuildOptions } from '../../utils/plugin-common';
+import { writeTemplate, writeJSONBuildOptions } from '../../compiler/utils/plugin-common';
 import write from 'write';
 
 export default (buildOptions: BuildOptions, options: ElectronOptions): Plugin => {

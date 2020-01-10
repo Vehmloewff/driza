@@ -1,7 +1,7 @@
-import { Platform, CordovaOptions, PlatformResult } from 'src/interfaces';
-import { plugin } from '../../cordova';
+import { Platform, CordovaOptions, PlatformResult } from '../../compiler/interfaces';
+import { plugin } from '../../compiler/cordova';
 import runAndroid from './run-android';
-import fileExists from '../../utils/file-exists';
+import fileExists from '../../compiler/utils/file-exists';
 import findUp from 'find-up';
 import nodePath from 'path';
 

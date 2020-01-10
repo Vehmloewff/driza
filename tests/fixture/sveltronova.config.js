@@ -1,8 +1,8 @@
-import { platforms, logger } from '../../dist/build.esm';
+import { electron, android } from '../../platforms/index';
 
 const parse = args => {
 	let watch = true;
-	let platform = platforms.electron();
+	let platform = electron();
 	let object = `run`;
 	let file = null;
 
@@ -17,7 +17,7 @@ const parse = args => {
 	const has = val => !!args.find(arg => arg.trim() === val);
 
 	if (has('no-watch') || has('nowatch')) watch = false;
-	if (has('android') || has('A')) platform = platforms.android();
+	if (has('android') || has('A')) platform = android();
 	// TODO: Add support of ios and windows
 	// if (has('ios') || has('I')) platform = 'ios';
 	// if (has('windows') || has('window') || has('win') || has('W')) platform = 'windows';
@@ -32,9 +32,7 @@ const parse = args => {
 	};
 };
 
-export default (logLevel, ...args) => {
-	logger.setLevel(logLevel);
-
+export default (...args) => {
 	const result = parse(args);
 
 	return {
