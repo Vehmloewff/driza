@@ -1,4 +1,4 @@
-import { electron, android } from 'driza/platforms';
+import { electron, android } from '../../platforms/index';
 
 const parse = args => {
 	let watch = true;
