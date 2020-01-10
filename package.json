@@ -53,10 +53,10 @@
 		"zip-tap": "^1.0.5",
 		"zip-tap-reporter": "^2.0.0"
 	},
-	"homepage": "https://github.com/Vehmloewff/todo",
+	"homepage": "https://github.com/Vehmloewff/driza",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Vehmloewff/todo"
+		"url": "https://github.com/Vehmloewff/driza"
 	},
 	"bugs": {
 		"url": "https://github.com/Vehmloewff/driza/issues/new"
