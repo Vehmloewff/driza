@@ -1,6 +1,6 @@
 {
 	"name": "driza",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"description": "Rasising the bar for cross-platform applications",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",
