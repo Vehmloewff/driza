@@ -8,6 +8,7 @@ import { readdirSync } from 'fs';
 import { string } from 'rollup-plugin-string';
 import image from '@rollup/plugin-image';
 import json from '@rollup/plugin-json';
+import { terser } from 'rollup-plugin-terser';
 
 const sourcemap = false;
 const prod = process.env.NODE_ENV === 'production';
@@ -44,6 +45,10 @@ const globalPlugins = (dir, oldDir, disable) => [
 		!disable &&
 		command([`node scripts/add-package-json.js "${dir}"`, `node scripts/add-ts-definition.js "${dir}" "${oldDir || dir}"`], {
 			exitOnFail: !watching,
+		}),
+	prod &&
+		terser({
+			sourcemap: false,
 		}),
 ];
 
