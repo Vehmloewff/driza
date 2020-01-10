@@ -13,6 +13,10 @@ export default async (filePath: string, rawCode?: string) => {
 	if (rawCode) {
 		plugins.push({
 			name: `tricker`,
+			resolveId: source => {
+				if (source === filePath) return filePath;
+				return null;
+			},
 			load: id => {
 				if (id === filePath) return rawCode;
 			},

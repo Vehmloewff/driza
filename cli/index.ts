@@ -6,6 +6,9 @@ import { BuildOptions } from '../src/compiler/interfaces';
 import { buildApp } from '../src/compiler';
 import nodePath from 'path';
 
+// @ts-ignore
+import defaultConfig from './default-config.jstxt';
+
 const log = debug('cli');
 
 // @ts-ignore
@@ -39,12 +42,15 @@ else logLevel = 'notice';
 setLevel(logLevel);
 
 (async function() {
+	let didFindConfig = true;
+
 	await new Promise(resolve => {
 		access(configFile, constants.R_OK, err => {
 			if (!err) return resolve();
 
+			didFindConfig = false;
 			// if (configFile !== jsTry) {
-			log.fatal(`Could not find config "${configFile}".`);
+			if (configFile !== jsTry) log.fatal(`Could not find config "${configFile}".`);
 			return resolve();
 			// }
 
@@ -60,9 +66,10 @@ setLevel(logLevel);
 		});
 	});
 
-	log.info(`Found the config file (${configFile})`);
+	if (didFindConfig) log.info(`Found the config file (${configFile})`);
+	else log.info(`Could not find config file (${configFile}).  Resorting to default.`);
 
-	const result = await runFile(nodePath.resolve(configFile));
+	const result = await runFile(nodePath.resolve(configFile), didFindConfig ? null : defaultConfig);
 
 	const invalidTypeMessage = `${configFile} must export at default either an object, or a function which returns an object.`;
 
