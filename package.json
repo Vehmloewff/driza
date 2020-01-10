@@ -31,7 +31,9 @@
 	},
 	"files": [
 		"dist",
-		"typings"
+		"typings",
+		"compiler",
+		"platforms"
 	],
 	"license": "MIT",
 	"devDependencies": {
