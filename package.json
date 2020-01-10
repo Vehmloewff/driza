@@ -18,9 +18,12 @@
 		"postversion": "git push && git push --tags && rm -rf build/temp && npm publish"
 	},
 	"keywords": [
-		"todo",
-		"todo",
-		"todo"
+		"electron",
+		"cordova",
+		"browser",
+		"www",
+		"cross-platform",
+		"webview"
 	],
 	"author": {
 		"name": "Vehmloewff",
@@ -60,11 +63,9 @@
 	"dependencies": {
 		"@rollup/plugin-commonjs": "^11.0.0",
 		"@rollup/plugin-node-resolve": "^6.0.0",
-		"base64-img": "^1.0.4",
 		"commander": "^4.0.1",
 		"cordova": "^9.0.0",
 		"cross-spawn": "^7.0.1",
-		"debug": "^4.1.1",
 		"electron": "^7.1.7",
 		"electron-reloader": "^0.3.0",
 		"electron-util": "^0.13.1",
@@ -73,10 +74,6 @@
 		"make-module": "^3.0.0",
 		"pupa": "^2.0.1",
 		"rollup": "^1.27.14",
-		"rollup-plugin-node-builtins": "^2.1.2",
-		"rollup-plugin-node-globals": "^1.4.0",
-		"rollup-plugin-svelte": "^5.1.1",
-		"svelte": "^3.16.7",
 		"write": "^2.0.0"
 	},
 	"bin": {
