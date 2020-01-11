@@ -159,6 +159,7 @@ export const defaultBuildOptions = async (options: BuildOptions): Promise<BuildO
 			globals: platform.isSandboxed() ? globals : {},
 		},
 		plugins: [
+			...toReturn.additionalPlugins,
 			resolve({
 				browser: platform.isSandboxed(),
 				preferBuiltins: true,
@@ -166,7 +167,6 @@ export const defaultBuildOptions = async (options: BuildOptions): Promise<BuildO
 			commonjs(),
 			json(),
 			isRun && platform.run(),
-			...toReturn.additionalPlugins,
 		],
 		external,
 		onwarn: warning => {
