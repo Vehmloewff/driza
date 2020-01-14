@@ -1,4 +1,5 @@
 import { RollupOptions, Plugin } from 'rollup';
+import { CommandOptions } from 'rollup-plugin-command/typings/command';
 
 export interface SvelteOptions {
 	extensions?: string[];
@@ -97,6 +98,16 @@ export interface CordovaOptions {
 	pathToCordova?: string;
 	bundlePath?: string;
 	tag?: string;
+}
+
+export interface StaticOptions {
+	bundlePath?: string;
+	tag?: string;
+	isSandboxed?: boolean;
+	run?: {
+		action?: (() => Promise<void> | void) | string;
+		options?: CommandOptions;
+	};
 }
 
 export type LogFunc = (...message: any[]) => void;

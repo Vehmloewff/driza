@@ -45,4 +45,25 @@ describe(`cli`, async it => {
 			});
 		});
 	});
+	await it(`should build the www folder`, async expect => {
+		await new Promise(resolve => {
+			const child = exec(`${nodePath.resolve('bin/driza.js')} nowatch www compile --verbose`, {
+				cwd: nodePath.resolve('tests/fixture'),
+			});
+
+			child.stdout.on('data', data => {
+				process.stdout.write(data);
+			});
+
+			child.stderr.on('data', data => {
+				process.stdout.write(data);
+			});
+
+			child.on('close', code => {
+				if (code) expect(1).toBe(2);
+
+				resolve();
+			});
+		});
+	});
 });

@@ -1,4 +1,4 @@
-import { electron, android } from '../../platforms/index';
+import { electron, android, www } from '../../platforms/index';
 
 const parse = args => {
 	let watch = true;
@@ -18,6 +18,7 @@ const parse = args => {
 
 	if (has('no-watch') || has('nowatch')) watch = false;
 	if (has('android') || has('A')) platform = android();
+	if (has('www') || has('W')) platform = www();
 	// TODO: Add support of ios and windows
 	// if (has('ios') || has('I')) platform = 'ios';
 	// if (has('windows') || has('window') || has('win') || has('W')) platform = 'windows';

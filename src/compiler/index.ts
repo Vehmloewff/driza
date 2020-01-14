@@ -40,3 +40,4 @@ const logger = {
 	setLogger,
 };
 export { logger, debug };
+export * from './interfaces';
