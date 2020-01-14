@@ -9,10 +9,12 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import nativeNodeModules from './utils/native-node-modules';
 import json from '@rollup/plugin-json';
+import copyDir from '@zhangfuxing/copydir';
 
 // @ts-ignore
 import defaultIcon from './defaults/default-icon.png';
 import { setPlatformResult } from './utils/platform-keeper';
+import fileExists from './utils/file-exists';
 
 const log = debug('default-options');
 
@@ -66,6 +68,7 @@ export const defaultBuildOptions = async (options: BuildOptions): Promise<BuildO
 		},
 		appEntry: nodePath.join(dir, options.appEntry || pkg.main || 'src/index.js'),
 		outDir,
+		assetsDir: options.assetsDir || `assets`,
 		// rollupOptions will be set later
 		additionalPlugins: options.additionalPlugins || [],
 		// electronRollupOptions will be set later
@@ -184,6 +187,19 @@ export const defaultBuildOptions = async (options: BuildOptions): Promise<BuildO
 			debug('bundle').warn(`[Rollup bundle client]`, warning.message);
 		},
 	};
+
+	// Copy the assets over
+	if (await fileExists(toReturn.assetsDir)) {
+		try {
+			const path = nodePath.join(toReturn.outDir, platform.tag, platform.assetsPath());
+			await copyDir(toReturn.assetsDir, path);
+			log.info(`Copied the assets to "${path}".`);
+		} catch (e) {
+			log.error(`Failed to copy the assets over.`, e);
+		}
+	} else {
+		log.info(`Not copying the assets over.  Path "${toReturn.assetsDir}" was not found.`);
+	}
 
 	return toReturn;
 };

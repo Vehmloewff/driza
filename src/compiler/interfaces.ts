@@ -59,7 +59,7 @@ export interface BuildOptions {
 	};
 	appEntry?: string;
 	outDir?: string;
-	// assetsDir?: string; TODO: Add in features for assets
+	assetsDir?: string;
 	rollupOptions?: RollupOptions;
 	additionalPlugins?: Plugin[];
 	watch?: {
@@ -81,6 +81,7 @@ export interface PlatformResult {
 	external?(): string[];
 	plugin(): Plugin;
 	run(): Plugin;
+	assetsPath(): string;
 	extraBuilds?(): RollupOptions[];
 }
 
