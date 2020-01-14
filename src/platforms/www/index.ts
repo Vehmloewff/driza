@@ -27,7 +27,7 @@ const www = (options: StaticOptions = {}): Platform => (buildOptions, logger) =>
 		bundlePath: () => options.bundlePath,
 		runtimePath: () => `.runtime.js`,
 		plugin: () => dummyPlugin,
-		assetsDir: () => `/`,
+		assetsPath: () => `/`,
 		run: () => (options.run.action ? command(options.run.action, options.run.options) : dummyPlugin),
 	};
 
