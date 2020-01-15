@@ -109,6 +109,7 @@ export interface StaticOptions {
 		action?: (() => Promise<void> | void) | string;
 		options?: CommandOptions;
 	};
+	writeIndexHtml?: boolean;
 }
 
 export type LogFunc = (...message: any[]) => void;
