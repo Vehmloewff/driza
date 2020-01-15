@@ -39,6 +39,7 @@ This library does not just limit the platform options to `electron`, `cordova`, 
 
 -   [Electron](src/platforms/electron/index.ts)
 -   [Android](src/platforms/android/index.ts)
+-   [Static (www)](src/platforms/www/index.ts)
 
 ## Installation
 
