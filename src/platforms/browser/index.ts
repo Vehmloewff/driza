@@ -6,6 +6,7 @@ import defaultServerCode from './server.jstxt';
 import nativeNodeModules from '../../compiler/utils/native-node-modules';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import { writeTemplate } from '../../compiler/utils/plugin-common';
 
 const browserPlatform = (options: BrowserOptions = {}): Platform => async (buildOptions, logger) => {
 	const log = logger('browser');
@@ -48,7 +49,12 @@ const browserPlatform = (options: BrowserOptions = {}): Platform => async (build
 		isSandboxed: () => true,
 		bundlePath: () => options.bundlePath,
 		runtimePath: () => `.runtime.js`,
-		plugin: () => ({ name: `nothing` }),
+		plugin: () => ({
+			name: `nothing`,
+			buildStart: async () => {
+				await writeTemplate(nodePath.join(buildOptions.outDir, options.tag), { appEntry: options.bundlePath });
+			},
+		}),
 		run: () => ({ name: `nothing` }),
 		assetsPath: () => `/`,
 		extraBuilds: () => [serverBuild],
