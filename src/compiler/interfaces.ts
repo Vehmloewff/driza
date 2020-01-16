@@ -115,6 +115,7 @@ export interface StaticOptions {
 export interface BrowserOptions {
 	bundlePath?: string;
 	tag?: string;
+	entryFile?: string;
 }
 
 export type LogFunc = (...message: any[]) => void;
