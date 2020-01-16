@@ -21,6 +21,7 @@ const parse = args => {
 	if (has('www') || has('W')) platform = www();
 	if (has('browser') || has('B')) platform = browser();
 	// TODO: Add support of ios and windows
+	// BODY: We just need the hardware to do it
 	// if (has('ios') || has('I')) platform = 'ios';
 	// if (has('windows') || has('window') || has('win') || has('W')) platform = 'windows';
 	if (has('build')) object = 'build';

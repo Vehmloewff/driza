@@ -71,18 +71,18 @@ setLevel(logLevel);
 
 	const result = await runFile(nodePath.resolve(configFile), didFindConfig ? null : defaultConfig);
 
-	const invalidTypeMessage = `${configFile} must export at default either an object, or a function which returns an object.`;
+	const invalidTypeMessage = `${configFile} must export at default either an object, or a function which returns an object.  Recieved type`;
 
 	let options: BuildOptions;
 
-	if (!result) return log.fatal(invalidTypeMessage);
+	if (!result) return log.fatal(invalidTypeMessage, result);
 	if (typeof result === 'object') options = result as BuildOptions;
 	else if (typeof result === 'function') {
 		const funcResult = result(...args);
 
 		if (typeof funcResult === 'object') options = funcResult as BuildOptions;
-		else return log.fatal(invalidTypeMessage);
-	} else return log.fatal(invalidTypeMessage);
+		else return log.fatal(invalidTypeMessage, `() =>`, typeof funcResult);
+	} else return log.fatal(invalidTypeMessage, typeof result);
 
 	log.info(`Loaded the config file (${configFile})`);
 

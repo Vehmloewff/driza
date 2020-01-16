@@ -21,7 +21,7 @@ export default (options: BuildOptions): Plugin => {
 			return uniqueId;
 		},
 		load: async id => {
-			if (id !== uniqueId) return;
+			if (id !== uniqueId) return null;
 
 			let code = runtime;
 			if (getPlatformResult().data === `electron`) {

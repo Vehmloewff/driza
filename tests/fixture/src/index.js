@@ -7,7 +7,7 @@ input.setAttribute('type', 'text');
 
 const setContent = () => {
 	div.textContent = `Hello ${input.value ||
-		'there'}!  How are you doing today?  My name is Elijah.  What's yours?  Platform is ${platform}`;
+		'there'}!  How are you doing today?  My name is Elijah.  What's yours?  Platform is "${platform}".`;
 };
 
 document.body.appendChild(div);

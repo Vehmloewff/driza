@@ -7,8 +7,8 @@ import nativeNodeModules from '../../compiler/utils/native-node-modules';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { writeTemplate } from '../../compiler/utils/plugin-common';
-import command from 'rollup-plugin-command';
-import run from './run';
+import { runServer, runClient } from './run';
+import liveReloader from './live-reload.jstxt';
 
 const browserPlatform = (options: BrowserOptions = {}): Platform => async (buildOptions, logger) => {
 	const log = logger('browser');
@@ -38,13 +38,15 @@ const browserPlatform = (options: BrowserOptions = {}): Platform => async (build
 		plugins: [
 			nodeResolve({
 				preferBuiltins: true,
-				browser: false,
 			}),
 			commonjs(),
+			runServer(options, buildOptions),
 		],
 	};
 
 	// Assemble the platform
+	const clientRunner = runClient();
+
 	const toReturn: PlatformResult = {
 		tag: options.tag,
 		data: `browser`,
@@ -56,8 +58,9 @@ const browserPlatform = (options: BrowserOptions = {}): Platform => async (build
 			buildStart: async () => {
 				await writeTemplate(nodePath.join(buildOptions.outDir, options.tag), { appEntry: options.bundlePath });
 			},
+			banner: () => liveReloader,
 		}),
-		run: () => run(options, buildOptions)(),
+		run: () => clientRunner,
 		assetsPath: () => ``,
 		extraBuilds: () => [serverBuild],
 	};
