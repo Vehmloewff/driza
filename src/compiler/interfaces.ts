@@ -112,6 +112,11 @@ export interface StaticOptions {
 	writeIndexHtml?: boolean;
 }
 
+export interface BrowserOptions {
+	bundlePath?: string;
+	tag?: string;
+}
+
 export type LogFunc = (...message: any[]) => void;
 
 export type CreateLogger = (job: string) => Logger;

@@ -1,4 +1,4 @@
-import { electron, android, www } from 'driza/platforms';
+import { electron, android, www, browser } from 'driza/platforms';
 
 const parse = args => {
 	let watch = true;
@@ -19,6 +19,7 @@ const parse = args => {
 	if (has('no-watch') || has('nowatch')) watch = false;
 	if (has('android') || has('A')) platform = android();
 	if (has('www') || has('W')) platform = www();
+	if (has('browser') || has('B')) platform = browser();
 	// TODO: Add support of ios and windows
 	// if (has('ios') || has('I')) platform = 'ios';
 	// if (has('windows') || has('window') || has('win') || has('W')) platform = 'windows';
