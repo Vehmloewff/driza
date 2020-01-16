@@ -7,6 +7,8 @@ import nativeNodeModules from '../../compiler/utils/native-node-modules';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import { writeTemplate } from '../../compiler/utils/plugin-common';
+import command from 'rollup-plugin-command';
+import run from './run';
 
 const browserPlatform = (options: BrowserOptions = {}): Platform => async (buildOptions, logger) => {
 	const log = logger('browser');
@@ -55,7 +57,7 @@ const browserPlatform = (options: BrowserOptions = {}): Platform => async (build
 				await writeTemplate(nodePath.join(buildOptions.outDir, options.tag), { appEntry: options.bundlePath });
 			},
 		}),
-		run: () => ({ name: `nothing` }),
+		run: () => run(options, buildOptions)(),
 		assetsPath: () => ``,
 		extraBuilds: () => [serverBuild],
 	};

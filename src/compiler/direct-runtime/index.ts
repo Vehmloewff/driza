@@ -30,9 +30,11 @@ export default (options: BuildOptions): Plugin => {
 				code = importStatement + code;
 			}
 
-			const assets: string[] = (await simplyGetFiles(options.assetsDir)).map(
-				asset => `'${nodePath.join(getPlatformResult().assetsPath(), asset)}'`
-			);
+			let assets: string[] = await simplyGetFiles(options.assetsDir);
+
+			assets.push(getPlatformResult().bundlePath());
+
+			assets = assets.map(asset => `'${nodePath.join(getPlatformResult().assetsPath(), asset)}'`);
 
 			code = code
 				.replace(`%PLATFORM%`, getPlatformResult().tag)

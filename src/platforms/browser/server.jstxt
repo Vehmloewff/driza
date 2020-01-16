@@ -1,3 +1,27 @@
 import { assets } from 'driza';
+import { createServer } from 'http';
+import { readFile } from 'fs';
 
-console.log(assets);
+const server = createServer((req, res) => {
+	if (req.url === `/`) {
+		readFile(`index.html`, (err, data) => {
+			res.write(err && `<pre><code>${err}</pre><code>` || data);
+			res.end();
+		});
+	} else {
+		const asset = assets.find(asset => req.url === `/${asset}`);
+		if (asset) {
+			readFile(asset, (err, data) => {
+				res.write(err && `<pre><code>${err}</pre><code>` || data);
+				res.end();
+			})
+		} else {
+			res.statusCode = 404;
+			res.write(`<h1>404</h1><p>File not found</p>`);
+			res.end();
+		}
+	}
+});
+
+const port = process.env.PORT || 3000;
+server.listen(port, () => console.log(`Listening on port ${port}...`));
