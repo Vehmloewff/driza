@@ -57,7 +57,23 @@ export const runServer = (options: BrowserOptions, buildOptions: BuildOptions): 
 	});
 };
 
-const reloadClient = createServer();
+export const runClient = (): Plugin => {
+	const reloadClient = createServer();
+
+	if (!hasBeenStarted) {
+		onStart(() => {
+			if (!hasBeenStarted) openPage();
+		});
+	} else {
+		openPage();
+	}
+
+	function openPage() {
+		log.notice(`App is ready!  http://localhost:${port}`);
+	}
+
+	return command(reloadClient);
+};
 
 function createServer() {
 	const server = new ws.Server({ port: 3695 });
@@ -85,19 +101,3 @@ function createServer() {
 
 	return sendReloadMessage;
 }
-
-export const runClient = (): Plugin => {
-	if (!hasBeenStarted) {
-		onStart(() => {
-			if (!hasBeenStarted) openPage();
-		});
-	} else {
-		openPage();
-	}
-
-	function openPage() {
-		log.notice(`App is ready!  http://localhost:${port}`);
-	}
-
-	return command(reloadClient);
-};

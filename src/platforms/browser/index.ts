@@ -40,12 +40,12 @@ const browserPlatform = (options: BrowserOptions = {}): Platform => async (build
 				preferBuiltins: true,
 			}),
 			commonjs(),
-			runServer(options, buildOptions),
+			buildOptions.object === `run` && runServer(options, buildOptions),
 		],
 	};
 
 	// Assemble the platform
-	const clientRunner = runClient();
+	const clientRunner = buildOptions.object === `run` ? runClient() : { name: `nothing` };
 
 	const toReturn: PlatformResult = {
 		tag: options.tag,
