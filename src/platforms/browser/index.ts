@@ -56,7 +56,7 @@ const browserPlatform = (options: BrowserOptions = {}): Platform => async (build
 			},
 		}),
 		run: () => ({ name: `nothing` }),
-		assetsPath: () => `/`,
+		assetsPath: () => ``,
 		extraBuilds: () => [serverBuild],
 	};
 

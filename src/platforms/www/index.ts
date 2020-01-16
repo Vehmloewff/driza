@@ -37,7 +37,7 @@ const www = (options: StaticOptions = {}): Platform => buildOptions => {
 		bundlePath: () => options.bundlePath,
 		runtimePath: () => `.runtime.js`,
 		plugin: () => (options.writeIndexHtml ? plugin : dummyPlugin),
-		assetsPath: () => `/`,
+		assetsPath: () => ``,
 		run: () => (options.run.action ? command(options.run.action, options.run.options) : dummyPlugin),
 	};
 

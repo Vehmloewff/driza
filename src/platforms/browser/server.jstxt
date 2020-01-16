@@ -1,0 +1,3 @@
+import { assets } from 'driza';
+
+console.log(assets);

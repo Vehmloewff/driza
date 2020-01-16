@@ -2,6 +2,8 @@ import { Plugin } from 'rollup';
 import { BuildOptions } from '../interfaces';
 import { getPlatformResult } from '../utils/platform-keeper';
 import debug from '../../../debug';
+import simplyGetFiles from 'simply-get-files';
+import nodePath from 'path';
 
 // @ts-ignore
 import runtime from '../../../dist/index.js';
@@ -18,7 +20,7 @@ export default (options: BuildOptions): Plugin => {
 
 			return uniqueId;
 		},
-		load: id => {
+		load: async id => {
 			if (id !== uniqueId) return;
 
 			let code = runtime;
@@ -28,7 +30,14 @@ export default (options: BuildOptions): Plugin => {
 				code = importStatement + code;
 			}
 
-			code = code.replace(`%PLATFORM%`, getPlatformResult().tag).replace(`%BUILD_OPTIONS%`, JSON.stringify(options));
+			const assets: string[] = (await simplyGetFiles(options.assetsDir)).map(
+				asset => `'${nodePath.join(getPlatformResult().assetsPath(), asset)}'`
+			);
+
+			code = code
+				.replace(`%PLATFORM%`, getPlatformResult().tag)
+				.replace(`%BUILD_OPTIONS%`, JSON.stringify(options))
+				.replace(`/*ASSETS_HERE*/`, assets.join(', '));
 
 			log.info(`Customized runtime.`);
 

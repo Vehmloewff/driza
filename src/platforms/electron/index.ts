@@ -70,7 +70,7 @@ const platform = (options: ElectronOptions = {}): Platform => async (buildOption
 		isSandboxed: () => false,
 		bundlePath: () => options.bundlePath,
 		runtimePath: () => `runtime.js`,
-		assetsPath: () => `/`,
+		assetsPath: () => ``,
 		run: runElectron(options, buildOptions, options.mainBundlePath),
 	};
 };

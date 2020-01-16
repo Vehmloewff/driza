@@ -47,6 +47,7 @@
 		"rollup-plugin-glob-files": "^1.0.3",
 		"rollup-plugin-string": "^3.0.0",
 		"rollup-plugin-typescript": "^1.0.1",
+		"simply-get-files": "^1.0.2",
 		"typescript": "^3.7.4",
 		"zip-tap": "^1.0.5",
 		"zip-tap-reporter": "^2.0.0"
