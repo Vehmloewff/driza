@@ -34,7 +34,7 @@ const platform = (options: CordovaOptions = {}): Platform => async (buildOptions
 		isSandboxed: () => true,
 		bundlePath: () => nodePath.join(`www`, options.bundlePath),
 		runtimePath: () => `www/runtime.js`,
-		assetsPath: () => `/`,
+		assetsPath: () => ``,
 		plugin: () =>
 			plugin(buildOptions, options.pathToCordova, `android`, options.bundlePath, nodePath.join(buildOptions.outDir, options.tag)),
 		run: runAndroid(options, buildOptions, `android`),

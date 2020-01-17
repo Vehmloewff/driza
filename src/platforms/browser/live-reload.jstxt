@@ -1,0 +1,22 @@
+const socket = new WebSocket(`ws://localhost:3695`);
+
+socket.addEventListener('open', () => {
+	console.log(`[driza] hot reload enabled.`);
+});
+
+socket.addEventListener('message', message => {
+	if (message.data === 'reload') {
+		console.log(`[driza] app updated - reloading...`);
+		location.reload();
+	} else {
+		console.log(`[driza] an unexpected message was recieved from the server.`)
+	}
+});
+
+socket.addEventListener('close', () => {
+	console.log(`[driza] hot reload disabled.`);
+});
+
+socket.addEventListener('error', err => {
+	console.error(`[driza] an error occured with hot reload.`, err);
+});

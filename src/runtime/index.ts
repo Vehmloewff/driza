@@ -17,3 +17,7 @@ export function createBrowserWindow(options: BrowserWindowConstructorOptions = {
 
 	return win;
 }
+
+export const assets: string[] = [
+	/*ASSETS_HERE*/
+];

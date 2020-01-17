@@ -5,7 +5,7 @@
 		"i": "^0.3.6"
 	},
 	"scripts": {
-		"test": "sova --verbose"
+		"test": "driza --verbose"
 	},
 	"devDependencies": {
 		"electron-reloader": "^0.3.0"

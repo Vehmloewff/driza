@@ -7,6 +7,8 @@ import debug from '../../debug';
 const log = debug('prepare-rollup');
 
 function addPlugins(rollupOptions: RollupOptions, plugins: Plugin[], before?: Plugin[]) {
+	if (!rollupOptions.plugins) rollupOptions.plugins = [];
+
 	rollupOptions.plugins.push(...plugins);
 
 	if (before) {
