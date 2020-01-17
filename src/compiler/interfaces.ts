@@ -116,6 +116,7 @@ export interface BrowserOptions {
 	bundlePath?: string;
 	tag?: string;
 	entryFile?: string;
+	workerFile?: string;
 }
 
 export type LogFunc = (...message: any[]) => void;

@@ -12,6 +12,7 @@ const server = createServer((req, res) => {
 		const asset = assets.find(asset => req.url === `/${asset}`);
 		if (asset) {
 			readFile(asset, (err, data) => {
+				console.log(asset);
 				res.write(err && `<pre><code>${err}</pre><code>` || data);
 				res.end();
 			})
@@ -23,5 +24,5 @@ const server = createServer((req, res) => {
 	}
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 server.listen(port, () => console.log(`Listening on port ${port}...`));

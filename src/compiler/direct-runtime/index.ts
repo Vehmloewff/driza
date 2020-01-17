@@ -24,7 +24,9 @@ export default (options: BuildOptions): Plugin => {
 			if (id !== uniqueId) return null;
 
 			let code = runtime;
-			if (getPlatformResult().data === `electron`) {
+			const platformData = getPlatformResult().data;
+
+			if (platformData === `electron`) {
 				const importStatement = `import { BrowserWindow } from 'electron';\n`;
 
 				code = importStatement + code;
@@ -33,6 +35,8 @@ export default (options: BuildOptions): Plugin => {
 			let assets: string[] = await simplyGetFiles(options.assetsDir);
 
 			assets.push(getPlatformResult().bundlePath());
+
+			if (platformData === `browser`) assets.push(`service-worker.js`);
 
 			assets = assets.map(asset => `'${nodePath.join(getPlatformResult().assetsPath(), asset)}'`);
 

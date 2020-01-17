@@ -7,7 +7,7 @@ const levels = [`info`, `notice`, `warn`, `error`, `fatal`];
 const timestamp = Date.now();
 
 let currentLogger = console.log;
-let currentLevel = 1;
+let currentLevel = 0;
 
 export const setLogger = (customLogger: (...messages: any[]) => void) => {
 	currentLogger = customLogger;
