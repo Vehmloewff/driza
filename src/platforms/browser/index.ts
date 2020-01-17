@@ -10,7 +10,6 @@ import { writeTemplate } from '../../compiler/utils/plugin-common';
 import { runServer, runClient } from './run';
 import liveReloader from './live-reload.jstxt';
 import serviceWorkerRegistar from './service-worker-registar.jstxt';
-import fileExists from 'compiler/utils/file-exists';
 import { read } from '../../compiler/utils/read';
 
 const browserPlatform = (options: BrowserOptions = {}): Platform => async (buildOptions, logger) => {
