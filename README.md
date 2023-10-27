@@ -1,4 +1,4 @@
-> Still in development.
+> Abandonded because I longer need this project and don't have time to maintain it.
 
 # Driza
 
